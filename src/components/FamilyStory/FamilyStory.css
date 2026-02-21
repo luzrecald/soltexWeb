@@ -1,212 +1,154 @@
 /* =========================
-   FAMILY STORY — Integrated / Soft edges
+   FAMILY STORY — Integrated
 ========================= */
 
 .story-section {
   background: #ffffff;
-  padding: 15px 0;
+  padding: 88px 0;
 }
 
 .story-container {
-  max-width: 1180px;
+  max-width: 1120px;
   margin: 0 auto;
-  padding: 0 28px;
+  padding: 0 24px;
 }
 
-/* Surface fluido */
-.story-surface {
+/* Layout */
+.story-layout {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: stretch;
+  gap: 0;
+
+  border-radius: 26px;
+  overflow: hidden;
+
+  background: #ffffff;
+}
+
+/* =========================
+   MEDIA (FOTO)
+   ✅ clave: que SIEMPRE tenga altura
+========================= */
+
+.story-media {
   position: relative;
   overflow: hidden;
-  background: transparent;
+
+  /* ✅ evita que desaparezca al achicar */
   min-height: 520px;
 }
 
-/* Imagen */
-.story-bg {
-  position: absolute;
-  inset: 0;
+.story-media img {
+  width: 100%;
+  height: 100%;
+  display: block;
 
-  background-size: cover;
-  background-position: center 43%;
-  background-repeat: no-repeat;
+  object-fit: cover;
 
-  opacity: 0.98;
-  filter: saturate(1.05) contrast(1.03);
-
-  transition: opacity 420ms ease;
+  /* ✅ para que se vea más el logo de la pared */
+  object-position: left 18%;
 }
 
-.story-surface:hover .story-bg {
-  opacity: 1;
-}
-
-/* Fade hacia el texto (derecha) */
-.story-bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-
-  background: linear-gradient(
-    270deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 0.88) 24%,
-    rgba(255, 255, 255, 0.58) 40%,
-    rgba(255, 255, 255, 0.26) 54%,
-    rgba(255, 255, 255, 0.10) 64%,
-    rgba(255, 255, 255, 0.00) 78%
-  );
-}
-
-/* ✅ DIFUMINADO DE BORDES (MAGIA PREMIUM 🔥) */
-.story-surface::after {
+/* ✅ degradado para integrar foto con texto */
+.story-media::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
 
-  background:
-    /* Top fade */
-    linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0)) top,
-    /* Bottom fade */
-    linear-gradient(to top, rgba(255,255,255,1), rgba(255,255,255,0)) bottom,
-    /* Left fade */
-    linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0)) left,
-    /* Right fade */
-    linear-gradient(to left, rgba(255,255,255,1), rgba(255,255,255,0)) right;
-
-  background-size:
-    100% 70px,   /* top */
-    100% 90px,   /* bottom */
-    90px 100%,   /* left */
-    90px 100%;   /* right */
-
-  background-repeat: no-repeat;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.00) 0%,
+    rgba(255, 255, 255, 0.22) 45%,
+    rgba(255, 255, 255, 0.88) 74%,
+    rgba(255, 255, 255, 1.00) 100%
+  );
 }
 
-/* Texto */
+/* =========================
+   CONTENT
+========================= */
+
 .story-content {
   position: relative;
-  z-index: 2;
-
-  width: min(680px, 92%);
-  padding: 56px 0;
-
-  margin-left: auto;
-  padding-right: 18px;
+  padding: 56px 56px 56px 22px;
 }
 
-/* Tipografía */
 .story-kicker {
-  margin: 0 0 14px;
+  margin: 0 0 12px;
   font-size: 12px;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  font-weight: 800;
-  color: rgba(11, 31, 69, 0.78);
+  font-weight: 700;
+  color: #0b1f45;
 }
 
 .story-title {
-  margin: 0 0 22px;
-  font-size: clamp(2.2rem, 3vw, 2.7rem);
-  line-height: 1.04;
+  margin: 0 0 18px;
+  font-size: clamp(2.1rem, 3.2vw, 3.1rem);
+  line-height: 1.06;
   letter-spacing: -0.03em;
   color: #0b1f45;
-  font-weight: 650;
+  font-weight: 700;
 }
 
 .story-text {
-  margin: 0 0 18px;
-  font-size: 16px;
-  line-height: 1.95;
-  color: rgba(15, 23, 42, 0.76);
-}
-
-.story-text-last {
-  margin-bottom: 0;
+  margin: 0 0 14px;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: rgba(15, 23, 42, 0.74);
+  max-width: 62ch;
 }
 
 /* =========================
-   Responsive
+   RESPONSIVE
+   ✅ acá estaba el problema: la imagen se quedaba sin altura
 ========================= */
 
 @media (max-width: 980px) {
-  .story-section {
-    padding: 86px 0;
-  }
-
-  .story-content {
-    width: 100%;
-    padding: 34px 0;
-  }
-
-  .story-bg::after {
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.92) 0%,
-      rgba(255, 255, 255, 1) 42%,
-      rgba(255, 255, 255, 1) 100%
-    );
-  }
-
-  .story-bg {
-    background-position: center 58%;
-  }
-}
-
-@media (max-width: 520px) {
-  .story-container {
-    padding: 0 18px;
-  }
-
-  .story-title {
-    font-size: 1.9rem;
-  }
-
-  .story-text {
-    font-size: 15px;
-    line-height: 1.85;
-  }
-}
-
-/* =========================
-   MOBILE FIX (CRÍTICO)
-========================= */
-
-@media (max-width: 768px) {
-
   .story-layout {
-    grid-template-columns: 1fr;   /* 🔥 apila */
-    gap: 28px;
+    grid-template-columns: 1fr;
   }
 
+  /* ✅ MUY IMPORTANTE: mantener altura */
   .story-media {
-    height: 260px;                /* altura controlada */
-    border-radius: 18px;
+    min-height: 360px;         /* no colapsa */
+    aspect-ratio: 16 / 9;      /* mantiene forma premium */
   }
 
   .story-media img {
     height: 100%;
-    object-fit: cover;
-    
-    /* 🔥 MOSTRAR MÁS CONTENIDO */
-    object-position: center top;
+    object-position: left 16%;
   }
 
-  /* 🔥 SUAVIZAR DEGRADADO EN MOBILE */
+  /* degradado hacia abajo para mobile */
   .story-media::after {
     background: linear-gradient(
-      to bottom,
-      rgba(255,255,255,0.05),
-      rgba(255,255,255,0.35)
+      180deg,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0.25) 45%,
+      rgba(255, 255, 255, 0.92) 100%
     );
   }
 
   .story-content {
-    padding-right: 0;   /* importantísimo */
+    padding: 28px 18px 12px;
+  }
+}
+
+@media (max-width: 520px) {
+  .story-section {
+    padding: 64px 0;
+  }
+
+  .story-media {
+    min-height: 260px;
+    aspect-ratio: 4 / 3;
   }
 
   .story-title {
-    font-size: 26px;
+    font-size: 28px;
   }
 
   .story-text {
