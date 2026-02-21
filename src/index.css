@@ -1,0 +1,49 @@
+/* RESET GLOBAL */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* BASE GLOBAL */
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  background: #ffffff;   /* ✅ fondo blanco */
+  color: #111111;        /* ✅ texto oscuro */
+}
+
+body {
+  font-family: Inter, sans-serif;
+  overflow-x: hidden;
+}
+
+/* TIPOGRAFÍA BASE */
+
+h1, h2, h3, h4 {
+  letter-spacing: -0.3px;
+}
+
+p {
+  line-height: 1.6;
+}
+
+/* PAGE WRAPPER */
+
+.page {
+  min-height: 100vh;
+  padding: 120px 40px 60px;
+  background: #0B0F1A;
+}
+
+.page h1 {
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+

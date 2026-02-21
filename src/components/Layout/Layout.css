@@ -1,0 +1,21 @@
+
+.layout {
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.container h1 {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.container p {
+  font-size: 18px;
+  color: #B0B8C5;
+}

@@ -1,0 +1,277 @@
+/* Footer.css */
+
+.site-footer {
+  background: #ffffff;
+  border-top: 1px solid rgba(11, 31, 69, 0.10);
+  color: #0b1f45;
+}
+
+/* Layout */
+.site-footer-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 56px 28px 34px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 42px;
+}
+
+.footer-col {
+  min-width: 0;
+}
+
+/* Logo */
+.footer-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(11, 31, 69, 0.14);
+  transition: background 160ms ease, transform 160ms ease, border-color 160ms ease;
+  text-decoration: none;
+}
+
+.footer-logo:hover {
+  background: rgba(11, 31, 69, 0.04);
+  border-color: rgba(11, 31, 69, 0.20);
+  transform: translateY(-1px);
+}
+
+.footer-logo img {
+  height: 24px;
+  width: auto;
+  display: block;
+  opacity: 0.92;
+  transform: translateY(0.5px);
+  transition: opacity 160ms ease;
+}
+
+.footer-logo:hover img {
+  opacity: 1;
+}
+
+/* Tagline */
+.footer-tagline {
+  margin: 14px 0 16px;
+  max-width: 520px;
+  color: rgba(11, 31, 69, 0.78);
+  font-size: 14px;
+  line-height: 1.8;
+  font-weight: 400;
+}
+
+/* Titles */
+.footer-title {
+  margin: 6px 0 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(11, 31, 69, 0.78);
+}
+
+/* Nav */
+.footer-nav {
+  display: grid;
+  gap: 10px;
+}
+
+.footer-nav a {
+  text-decoration: none;
+  color: rgba(11, 31, 69, 0.85);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 0;
+  transition: transform 160ms ease, opacity 160ms ease;
+}
+
+.footer-nav a:hover {
+  transform: translateX(2px);
+  opacity: 1;
+}
+
+/* Contact */
+.footer-contact p {
+  margin: 0 0 12px;
+  display: grid;
+  gap: 4px;
+}
+
+.footer-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(11, 31, 69, 0.55);
+}
+
+.footer-value {
+  font-size: 14px;
+  color: rgba(11, 31, 69, 0.86);
+  text-decoration: none;
+}
+
+.footer-value:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* CTA */
+.footer-cta {
+  margin-top: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #0b1f45;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.footer-cta:hover {
+  transform: translateY(-1px);
+  opacity: 0.96;
+}
+
+.footer-cta:active {
+  transform: translateY(0);
+  opacity: 0.90;
+}
+
+/* =========================
+   Redes sociales (nuevo)
+========================= */
+
+.footer-social {
+  margin-top: 6px;
+}
+
+.footer-social-title {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(11, 31, 69, 0.68);
+}
+
+.footer-social-icons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.footer-social-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(11, 31, 69, 0.14);
+  text-decoration: none;
+
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  color: rgba(11, 31, 69, 0.88);
+  background: rgba(255, 255, 255, 0.0);
+
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+
+.footer-social-icon:hover {
+  transform: translateY(-1px);
+  border-color: rgba(11, 31, 69, 0.22);
+  background: rgba(11, 31, 69, 0.04);
+}
+
+.footer-social-icon svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+  fill: currentColor;
+  opacity: 0.95;
+}
+
+.footer-social-icon span {
+  line-height: 1;
+}
+
+/* Colores por marca (sutil + premium) */
+.footer-social-icon.ig svg {
+  /* Instagram vibe sutil (sin degradados exagerados) */
+  color: #c13584;
+}
+
+.footer-social-icon.fb svg {
+  color: #1877f2;
+}
+
+/* Para que el texto no cambie a esos colores */
+.footer-social-icon.ig,
+.footer-social-icon.fb {
+  color: rgba(11, 31, 69, 0.88);
+}
+
+/* Bottom */
+.footer-bottom {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 18px 28px 28px;
+  border-top: 1px solid rgba(11, 31, 69, 0.10);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.footer-bottom p {
+  margin: 0;
+  font-size: 12px;
+  color: rgba(11, 31, 69, 0.72);
+  letter-spacing: 0.04em;
+}
+
+.footer-note {
+  color: rgba(11, 31, 69, 0.68);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .site-footer-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 42px 18px 24px;
+  }
+
+  .footer-tagline {
+    max-width: 560px;
+  }
+
+  .footer-bottom {
+    padding: 16px 18px 24px;
+  }
+}
+
+@media (max-width: 420px) {
+  .footer-logo img {
+    height: 22px;
+  }
+
+  .footer-cta {
+    width: 100%;
+  }
+}
