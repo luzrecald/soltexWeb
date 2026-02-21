@@ -167,3 +167,50 @@
     line-height: 1.85;
   }
 }
+
+/* =========================
+   MOBILE FIX (CRÍTICO)
+========================= */
+
+@media (max-width: 768px) {
+
+  .story-layout {
+    grid-template-columns: 1fr;   /* 🔥 apila */
+    gap: 28px;
+  }
+
+  .story-media {
+    height: 260px;                /* altura controlada */
+    border-radius: 18px;
+  }
+
+  .story-media img {
+    height: 100%;
+    object-fit: cover;
+    
+    /* 🔥 MOSTRAR MÁS CONTENIDO */
+    object-position: center top;
+  }
+
+  /* 🔥 SUAVIZAR DEGRADADO EN MOBILE */
+  .story-media::after {
+    background: linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.05),
+      rgba(255,255,255,0.35)
+    );
+  }
+
+  .story-content {
+    padding-right: 0;   /* importantísimo */
+  }
+
+  .story-title {
+    font-size: 26px;
+  }
+
+  .story-text {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+}
