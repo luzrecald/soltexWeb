@@ -1,7 +1,7 @@
 import "./Gallery.css"
 
 const ITEMS = [
-  { src: "/img1.png", label: "Vos los imaginas, Soltex los crea" },
+  { src: "/img1.png", label: "Vos los imaginas, Soltex los fabrica" },
   { src: "/img2.png", label: "Tejidos de primera calidad" },
   { src: "/img3.jpeg", label: "Acabado fino" },
   { src: "/img4.png", label: "El toque especial que necesitan tus prendas" },

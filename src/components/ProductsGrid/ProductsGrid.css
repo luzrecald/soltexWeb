@@ -1,0 +1,338 @@
+/* =========================
+   Products Grid — Editorial Minimal (Refinado Premium)
+========================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&display=swap');
+
+:root{
+  --soltex-navy: #0b1f45;
+  --soltex-ink: #0c1633;
+
+  --text-strong: rgba(12,22,51,0.94);
+  --text: rgba(12,22,51,0.78);
+  --muted: rgba(11,31,69,0.58);
+
+  --line: rgba(11,31,69,0.08);
+
+  --section-bg: rgba(255,255,255,0.72);
+
+  --card: rgba(255,255,255,0.55);
+  --card-border: rgba(11,31,69,0.12);
+
+  --shadow-soft: 0 10px 26px rgba(11,31,69,0.06);
+  --shadow-hover: 0 26px 70px rgba(11,31,69,0.12);
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.pg-section{
+  position: relative;
+  background: var(--section-bg);
+  backdrop-filter: blur(10px);
+  padding: clamp(32px, 4vw, 56px) 0;
+}
+
+.pg-section::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.82) 0%,
+    rgba(255,255,255,0.58) 100%
+  );
+}
+
+.pg-inner{
+  position: relative;
+  z-index: 1;
+  width: min(1040px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.pg-header{
+  margin-bottom: clamp(26px, 3.2vw, 46px);
+}
+
+.pg-h1{
+  font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+  font-size: clamp(34px, 3.4vw, 46px);
+  line-height: 1.05;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+
+  margin: 0 0 14px;
+  color: var(--text-strong);
+}
+
+.pg-lead{
+  margin: 0;
+  max-width: 78ch;
+  font-size: 16px;
+  line-height: 1.75;
+  color: rgba(12,22,51,0.72);
+}
+
+/* =========================
+   GRID
+========================= */
+
+.pg-grid{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(18px, 2.2vw, 28px);
+  align-items: start;
+}
+
+.pg-card{
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* =========================
+   MEDIA
+========================= */
+
+.pg-media{
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+
+  background: rgba(255,255,255,0.42);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(11,31,69,0.10);
+  box-shadow: 0 12px 34px rgba(11,31,69,0.07);
+
+  transform: translateY(0);
+  transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
+}
+
+.pg-image-glow{
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(
+    circle at 30% 20%,
+    rgba(255,255,255,0.35),
+    rgba(255,255,255,0.00) 55%
+  );
+  opacity: 0;
+  transition: opacity 320ms ease;
+  pointer-events: none;
+}
+
+.pg-image{
+  display: block;
+  width: 100%;
+  height: 240px;
+
+  object-fit: cover;
+  object-position: center;
+
+  filter: contrast(1.05) saturate(0.96) brightness(1.02);
+  transform: scale(1.00);
+
+  transition: transform 420ms ease, filter 420ms ease;
+}
+
+.pg-card:hover .pg-media{
+  transform: translateY(-4px);
+  box-shadow: 0 26px 70px rgba(11,31,69,0.10);
+}
+
+.pg-card:hover .pg-image{
+  transform: scale(1.04);
+  filter: contrast(1.10) saturate(1.02) brightness(1.03);
+}
+
+.pg-card:hover .pg-image-glow{
+  opacity: 1;
+}
+
+.pg-card.is-active .pg-media{
+  border-color: rgba(11,31,69,0.22);
+  box-shadow: 0 26px 70px rgba(11,31,69,0.12);
+}
+
+/* =========================
+   LABEL
+========================= */
+
+.pg-label{
+  margin-top: 14px;
+  font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(12,22,51,0.86);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pg-label::after{
+  content: "";
+  width: 7px;
+  height: 7px;
+
+  border-right: 1.6px solid rgba(11,31,69,0.55);
+  border-bottom: 1.6px solid rgba(11,31,69,0.55);
+
+  transform: rotate(45deg) translateY(-1px);
+  opacity: 0.28;
+
+  transition: opacity 220ms ease, transform 260ms ease;
+}
+
+.pg-card:hover .pg-label::after{
+  opacity: 0.75;
+  transform: rotate(45deg) translateY(1px);
+}
+
+.pg-card.is-active .pg-label::after{
+  opacity: 0.85;
+  transform: rotate(-135deg);
+}
+
+/* =========================
+   PANEL
+========================= */
+
+.pg-panel{
+  margin-top: 18px;
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+}
+
+.pg-panelInner{
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: clamp(18px, 2.2vw, 26px);
+  align-items: start;
+
+  border-radius: 18px;
+  overflow: hidden;
+
+  background: rgba(255,255,255,0.38);
+  backdrop-filter: blur(14px);
+
+  border: 1px solid rgba(11,31,69,0.10);
+  box-shadow: 0 18px 48px rgba(11,31,69,0.08);
+
+  padding: clamp(18px, 2vw, 24px);
+}
+
+.pg-title{
+  font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+  font-size: clamp(18px, 1.9vw, 26px);
+  line-height: 1.1;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  margin: 0 0 14px;
+  color: var(--text-strong);
+}
+
+/* =========================
+   PANEL CONTENT
+========================= */
+
+.pg-cols{
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.pg-col + .pg-col{
+  padding-top: 10px;
+  border-top: 1px solid rgba(11,31,69,0.06);
+}
+
+.pg-col h4{
+  margin: 0 0 10px;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--soltex-navy);
+  font-weight: 700;
+}
+
+.pg-col ul{
+  margin: 0;
+  padding-left: 18px;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+/* =========================
+   SPECS
+========================= */
+
+.pg-spec{
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 18px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(11,31,69,0.07);
+}
+
+/* =========================
+   PANEL MEDIA (REFINADO ✅)
+========================= */
+
+.pg-panelMedia{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  align-content: start;
+}
+
+.pg-panelMedia img{
+  width: 100%;
+  max-height: 300px;
+
+  object-fit: cover;
+  object-position: center 35%;
+
+  border-radius: 18px;
+  border: 1px solid rgba(11,31,69,0.08);
+  display: block;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px){
+  .pg-grid{
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pg-panelInner{
+    grid-template-columns: 1fr;
+  }
+
+  .pg-image{
+    height: 210px;
+  }
+
+  .pg-panelMedia img{
+    max-height: 260px;
+  }
+}
+
+@media (max-width: 560px){
+  .pg-grid{
+    grid-template-columns: 1fr;
+  }
+}

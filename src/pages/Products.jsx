@@ -1,7 +1,9 @@
+import ProductsGrid from "../components/ProductsGrid/ProductsGrid";
+
 export default function Products() {
   return (
     <main className="page">
-      <h1>Productos</h1>
+      <ProductsGrid />
     </main>
   );
 }

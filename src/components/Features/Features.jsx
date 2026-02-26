@@ -5,7 +5,7 @@ const ITEMS = [
   {
     title: "Armonía/Contraste de color",
     text:
-      "Antes de la producción del pedido, definimos junto al cliente el hilo a utilizar en la fabricación de los cuellos y pretinas, logrando coincidencias exactas o contrastes según el resultado deseado.",
+      "Antes de la producción del pedido, definimos con el cliente los colores a utilizar en la fabricación de los cuellos y pretinas, logrando coincidencias exactas o contrastes según el resultado deseado.",
     img: "/features/color.jpg",
     alt: "Selección de hilo y ajuste de color para cuellos y pretinas tejidos",
   },

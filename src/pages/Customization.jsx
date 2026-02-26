@@ -1,7 +1,11 @@
+import CustomizationIntro from "../components/CustomizationIntro/CustomizationIntro";
+import CustomizationSteps from "../components/CustomizationSteps/CustomizationSteps";
+
 export default function Customization() {
   return (
     <main className="page">
-      <h1>Personalización</h1>
+      <CustomizationIntro />
+      <CustomizationSteps />
     </main>
   );
 }

@@ -29,10 +29,14 @@ export default function FamilyStory() {
             <p className="story-text">
               Desde sus inicios, la empresa ha construido un camino de crecimiento
               sostenido, basado en la experiencia, el trabajo constante y la visión
-              de desarrollar componentes tejidos de alta calidad. La incorporación
+              de desarrollar componentes tejidos de alta calidad. 
+            </p>
+
+            <p className="story-text">
+            La incorporación
               de tecnología, la optimización de procesos y la ampliación de la
               capacidad productiva han sido pilares fundamentales de esta evolución.
-            </p>
+            </p> 
 
             <p className="story-text">
               Hoy, Soltex se posiciona como una de las pocas empresas especializadas

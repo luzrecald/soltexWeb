@@ -6,7 +6,7 @@ export default function Navbar() {
       <div className="top-header-content">
         <div className="top-header-badge">
           <img src="/paraguay-flag.png" alt="Paraguay" />
-          <span>100% mano de obra paraguaya</span>
+          <span>Mano de obra 100% paraguaya</span>
         </div>
 
         <div className="top-header-right">

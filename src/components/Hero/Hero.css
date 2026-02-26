@@ -17,6 +17,9 @@
   object-position: center 55%;
   z-index: 0;
   filter: saturate(0.95) contrast(1.05);
+
+  /* ✅ CLAVE: evita que el video capture clicks */
+  pointer-events: none;
 }
 
 /* OVERLAY */
@@ -30,6 +33,9 @@
     rgba(0, 0, 0, 0.35) 45%,
     rgba(0, 0, 0, 0.18) 100%
   );
+
+  /* ✅ CLAVE: deja clickear el navbar */
+  pointer-events: none;
 }
 
 /* =========================
@@ -37,8 +43,13 @@
 ========================= */
 
 .hero-header {
-  position: relative;
-  z-index: 2;
+  /* ✅ arriba de todo y fuera del flujo */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  z-index: 20;
   padding-top: 22px;
 }
 
@@ -54,7 +65,6 @@
 
 /* =========================
    BRAND (SOLTEX arriba izquierda)
-   ✅ Hover: fondo blanco + azul
 ========================= */
 
 .hero-brand {
@@ -65,7 +75,6 @@
   text-transform: uppercase;
   text-decoration: none;
 
-  /* ✅ para que el hover se vea como "pill" */
   display: inline-flex;
   align-items: center;
   padding: 8px 12px;
@@ -78,13 +87,12 @@
 
 .hero-brand:hover {
   background: #ffffff;
-  color: #0b1f45; /* azul oscuro topbar */
+  color: #0b1f45;
   border-color: rgba(255, 255, 255, 0.55);
 }
 
 /* =========================
    NAV (arriba derecha)
-   ✅ Hover: fondo blanco + azul
 ========================= */
 
 .hero-nav {
@@ -98,11 +106,10 @@
   color: rgba(255, 255, 255, 0.86);
   text-decoration: none;
   font-size: 13px;
-  font-weight: 500; /* fino */
+  font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 
-  /* ✅ base para que no salte el layout */
   display: inline-flex;
   align-items: center;
   padding: 8px 12px;
@@ -120,7 +127,6 @@
   opacity: 1;
 }
 
-/* ✅ Activo estilo Fritz (igual que hover) */
 .hero-nav-link.active {
   background: #ffffff;
   color: #0b1f45;
@@ -135,7 +141,9 @@
 .hero-content {
   position: absolute;
   inset: 0;
-  z-index: 2;
+
+  /* ✅ por debajo del header */
+  z-index: 10;
 }
 
 .hero-content-inner {

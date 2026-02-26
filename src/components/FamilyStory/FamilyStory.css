@@ -1,158 +1,146 @@
 /* =========================
-   FAMILY STORY — Integrated
+   FAMILY STORY — Atmospheric blend (ultra tight)
 ========================= */
 
-.story-section {
+.story-section{
   background: #ffffff;
-  padding: 88px 0;
+  padding: 14px 0;              /* ✅ casi pegado */
 }
 
-.story-container {
+.story-container{
   max-width: 1120px;
   margin: 0 auto;
   padding: 0 24px;
 }
 
-/* Layout */
-.story-layout {
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  align-items: stretch;
-  gap: 0;
-
-  border-radius: 26px;
-  overflow: hidden;
-
-  background: #ffffff;
-}
-
-/* =========================
-   MEDIA (FOTO)
-   ✅ clave: que SIEMPRE tenga altura
-========================= */
-
-.story-media {
+/* ✅ sin card; integramos con el fondo */
+.story-surface{
   position: relative;
+  min-height: 560px;
   overflow: hidden;
 
-  /* ✅ evita que desaparezca al achicar */
-  min-height: 520px;
+  /* “borde” suave sin línea sólida */
+  border-radius: 26px;
 }
 
-.story-media img {
-  width: 100%;
-  height: 100%;
-  display: block;
-
-  object-fit: cover;
-
-  /* ✅ para que se vea más el logo de la pared */
-  object-position: left 18%;
+/* Imagen integrada */
+.story-bg{
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: left 24%;
+  filter: saturate(0.98) contrast(1.02);
+  transform: scale(1.02);
 }
 
-/* ✅ degradado para integrar foto con texto */
-.story-media::after {
+/* 🔥 Difuminado: mezcla con blanco + suaviza “bordes” */
+.story-surface::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+
+  /* halo suave alrededor para que no “corte” */
+  background:
+    radial-gradient(120% 90% at 50% 30%,
+      rgba(255,255,255,0.00) 55%,
+      rgba(255,255,255,0.25) 75%,
+      rgba(255,255,255,0.70) 100%
+    );
+}
+
+/* Fade para integrar foto con el texto */
+.story-bg::after{
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
 
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.00) 0%,
-    rgba(255, 255, 255, 0.22) 45%,
-    rgba(255, 255, 255, 0.88) 74%,
-    rgba(255, 255, 255, 1.00) 100%
-  );
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.00) 0%,
+      rgba(255,255,255,0.10) 44%,
+      rgba(255,255,255,0.78) 68%,
+      rgba(255,255,255,1.00) 100%
+    );
 }
 
-/* =========================
-   CONTENT
-========================= */
-
-.story-content {
+/* Contenido */
+.story-content{
   position: relative;
-  padding: 56px 56px 56px 22px;
+  z-index: 3;
+  margin-left: auto;
+
+  width: min(560px, 52%);
+  padding: 34px 34px 34px 26px; /* ✅ menos aire interno, pero cómodo */
 }
 
-.story-kicker {
+/* Kicker */
+.story-kicker{
   margin: 0 0 12px;
   font-size: 12px;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  font-weight: 700;
-  color: #0b1f45;
+  font-weight: 600;
+  color: rgba(11,31,69,0.86);
 }
 
-.story-title {
-  margin: 0 0 18px;
-  font-size: clamp(2.1rem, 3.2vw, 3.1rem);
-  line-height: 1.06;
-  letter-spacing: -0.03em;
-  color: #0b1f45;
-  font-weight: 700;
+/* Title */
+.story-title{
+  margin: 0 0 16px;
+  font-family: "Inter Tight","Inter",system-ui,sans-serif;
+  font-size: clamp(2.0rem, 3.0vw, 3.0rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  color: rgba(12,22,51,0.94);
 }
 
-.story-text {
+/* Text */
+.story-text{
   margin: 0 0 14px;
-  font-size: 1rem;
-  line-height: 1.75;
-  color: rgba(15, 23, 42, 0.74);
+  font-size: 15.5px;
+  line-height: 1.85;
+  color: rgba(12,22,51,0.70);
   max-width: 62ch;
 }
 
-/* =========================
-   RESPONSIVE
-   ✅ acá estaba el problema: la imagen se quedaba sin altura
-========================= */
+.story-text-last{ margin-bottom: 0; }
 
-@media (max-width: 980px) {
-  .story-layout {
-    grid-template-columns: 1fr;
+/* Responsive */
+@media (max-width: 980px){
+  .story-surface{
+    min-height: unset;
+    border-radius: 22px;
   }
 
-  /* ✅ MUY IMPORTANTE: mantener altura */
-  .story-media {
-    min-height: 360px;         /* no colapsa */
-    aspect-ratio: 16 / 9;      /* mantiene forma premium */
+  .story-bg{
+    position: relative;
+    height: 300px;
+    background-position: left 18%;
   }
 
-  .story-media img {
-    height: 100%;
-    object-position: left 16%;
-  }
-
-  /* degradado hacia abajo para mobile */
-  .story-media::after {
+  .story-bg::after{
     background: linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0.05) 0%,
-      rgba(255, 255, 255, 0.25) 45%,
-      rgba(255, 255, 255, 0.92) 100%
+      rgba(255,255,255,0.06) 0%,
+      rgba(255,255,255,0.22) 48%,
+      rgba(255,255,255,0.94) 100%
     );
   }
 
-  .story-content {
-    padding: 28px 18px 12px;
+  .story-content{
+    width: 100%;
+    margin-left: 0;
+    padding: 18px 20px 18px;
   }
 }
 
-@media (max-width: 520px) {
-  .story-section {
-    padding: 64px 0;
-  }
-
-  .story-media {
-    min-height: 260px;
-    aspect-ratio: 4 / 3;
-  }
-
-  .story-title {
-    font-size: 28px;
-  }
-
-  .story-text {
-    font-size: 0.95rem;
-    line-height: 1.7;
-  }
+@media (max-width: 520px){
+  .story-container{ padding: 0 18px; }
+  .story-bg{ height: 250px; }
+  .story-title{ font-size: 28px; }
+  .story-text{ font-size: 15px; line-height: 1.75; }
 }

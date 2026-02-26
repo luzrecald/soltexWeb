@@ -1,0 +1,305 @@
+/* =========================
+   Customization Intro — Editorial Minimal (Inter Tight)
+========================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&display=swap');
+
+:root{
+  --soltex-navy: #0b1f45;
+  --soltex-ink: #0c1633;
+
+  --text-strong: rgba(12,22,51,0.94);
+  --text: rgba(12,22,51,0.78);
+  --muted: rgba(11,31,69,0.58);
+
+  --line: rgba(11,31,69,0.08);
+
+  /* Fondo glass */
+  --section-bg: rgba(255,255,255,0.72);
+
+  /* Cards */
+  --card: rgba(255,255,255,0.55);
+  --card-border: rgba(11,31,69,0.12);
+
+  /* Shadows */
+  --shadow-soft: 0 10px 26px rgba(11,31,69,0.06);
+  --shadow-hover: 0 26px 70px rgba(11,31,69,0.12);
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.ci-section{
+  position: relative;
+  background: var(--section-bg);
+  backdrop-filter: blur(10px);
+  padding: clamp(32px, 4vw, 56px) 0;
+}
+
+.ci-section::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.82) 0%,
+    rgba(255,255,255,0.58) 100%
+  );
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.ci-header{
+  position: relative;
+  z-index: 1;
+  margin-bottom: clamp(18px, 2.4vw, 34px);
+}
+
+.ci-inner{
+  width: min(1040px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+/* Eyebrow */
+.ci-eyebrow{
+  display: inline-flex;
+  align-items: center;
+
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+
+  color: var(--soltex-navy);
+  font-weight: 700;
+
+  padding: 8px 12px;
+  border-radius: 999px;
+
+  background: rgba(11,31,69,0.05);
+  border: 1px solid rgba(11,31,69,0.10);
+
+  margin-bottom: 14px;
+}
+
+/* ✅ Título principal (Inter Tight) */
+.ci-h1{
+  font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+  font-size: clamp(30px, 3.1vw, 44px);
+  line-height: 1.05;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+
+  margin: 0 0 10px;
+  color: var(--text-strong);
+}
+
+/* Lead */
+.ci-lead{
+  margin: 0;
+  max-width: 70ch;
+
+  font-size: 16px;
+  line-height: 1.65;
+  color: rgba(12,22,51,0.70);
+}
+
+/* =========================
+   WRAP
+========================= */
+
+.ci-wrap{
+  position: relative;
+  z-index: 1;
+  width: min(1040px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+/* =========================
+   BLOCKS
+========================= */
+
+.ci-block{
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(22px, 2.8vw, 40px);
+  align-items: center;
+
+  padding: clamp(18px, 2.4vw, 30px) 0;
+  border-top: 1px solid var(--line);
+}
+
+.ci-block:first-child{
+  border-top: 0;
+  padding-top: 0;
+}
+
+.ci-block-flip{
+  grid-template-columns: 0.95fr 1.05fr;
+}
+
+.ci-block-flip .ci-media{
+  order: 2;
+}
+
+/* =========================
+   MEDIA (Luxury Editorial)
+========================= */
+
+.ci-media{
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(10px);
+
+  box-shadow: var(--shadow-soft);
+
+  transform: translateY(0);
+  transition: transform 260ms ease, box-shadow 260ms ease;
+}
+
+/* Glow sutil */
+.ci-image-glow{
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(
+    circle at 30% 20%,
+    rgba(255,255,255,0.35),
+    rgba(255,255,255,0.00) 55%
+  );
+  opacity: 0;
+  transition: opacity 320ms ease;
+  pointer-events: none;
+}
+
+.ci-image{
+  display: block;
+  width: 100%;
+  height: 255px;
+
+  object-fit: cover;
+  object-position: center;
+
+  filter: contrast(1.05) saturate(0.96) brightness(1.02);
+  transform: scale(1.00);
+
+  transition: transform 420ms ease, filter 420ms ease;
+}
+
+/* ✅ Hover premium */
+.ci-block:hover .ci-media{
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.ci-block:hover .ci-image{
+  transform: scale(1.04);
+  filter: contrast(1.10) saturate(1.02) brightness(1.03);
+}
+
+.ci-block:hover .ci-image-glow{
+  opacity: 1;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.ci-content{
+  padding: 4px 0;
+}
+
+/* ✅ Títulos internos (Inter Tight) */
+.ci-title{
+  font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+  font-size: clamp(18px, 1.75vw, 24px);
+  line-height: 1.15;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+
+  margin: 0 0 16px;
+  color: var(--text-strong);
+}
+
+/* Prose editorial */
+.ci-prose{
+  max-width: 52ch;
+}
+
+.ci-p{
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.ci-p + .ci-p{
+  margin-top: 12px;
+}
+
+/* =========================
+   SCROLL REVEAL
+========================= */
+
+.ci-reveal{
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 600ms ease, transform 600ms ease;
+  will-change: opacity, transform;
+}
+
+.ci-reveal.ci-reveal-in{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce){
+  .ci-reveal{
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .ci-media,
+  .ci-image{
+    transition: none !important;
+  }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px){
+
+  .ci-inner,
+  .ci-wrap{
+    width: calc(100% - 28px);
+  }
+
+  .ci-block,
+  .ci-block-flip{
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .ci-block-flip .ci-media{
+    order: 0;
+  }
+
+  .ci-image{
+    height: 210px;
+  }
+
+  .ci-prose{
+    max-width: 65ch;
+  }
+}

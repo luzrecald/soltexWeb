@@ -2,10 +2,9 @@ import { NavLink } from "react-router-dom";
 import "./Hero.css";
 
 const navItems = [
+  { to: "/empresa", label: "Empresa" },
   { to: "/productos", label: "Productos" },
   { to: "/personalizacion", label: "Personalización" },
-  { to: "/galeria", label: "Galería" },
-  { to: "/empresa", label: "Empresa" },
   { to: "/contacto", label: "Contacto" },
 ];
 
@@ -23,12 +22,10 @@ export default function Hero() {
 
       <div className="hero-overlay" />
 
-      {/* HEADER dentro del hero */}
       <div className="hero-header">
         <div className="hero-header-inner">
-          {/* ✅ SOLTEX como link para tener hover igual */}
-          <NavLink to="/" end className="hero-brand">
-           
+          <NavLink to="/" end className="hero-brand" aria-label="Ir al inicio">
+            SOLTEX
           </NavLink>
 
           <nav className="hero-nav" aria-label="Navegación principal">
@@ -36,6 +33,7 @@ export default function Hero() {
               <NavLink
                 key={item.to}
                 to={item.to}
+                end
                 className={({ isActive }) =>
                   isActive ? "hero-nav-link active" : "hero-nav-link"
                 }
@@ -47,23 +45,22 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Contenido (esto ya lo tenías) */}
       <div className="hero-content">
         <div className="hero-content-inner">
           <h1 className="hero-title">SOLTEX</h1>
 
           <p className="hero-subtitle">
-            Fabricación de cuellos y pretinas tejidos personalizados para clientes
-            que exigen calidad e identidad.
+            Fabricación de cuellos y pretinas tejidos personalizados para clientes que exigen
+            calidad e identidad.
           </p>
 
           <div className="hero-buttons">
-            <a className="hero-btn hero-btn-primary" href="/contacto">
+            <NavLink className="hero-btn hero-btn-primary" to="/contacto">
               Solicitar cotización
-            </a>
-            <a className="hero-btn hero-btn-secondary" href="/productos">
+            </NavLink>
+            <NavLink className="hero-btn hero-btn-secondary" to="/productos">
               Ver productos
-            </a>
+            </NavLink>
           </div>
         </div>
       </div>

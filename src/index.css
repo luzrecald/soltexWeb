@@ -1,4 +1,6 @@
-/* RESET GLOBAL */
+/* =========================
+   GLOBAL RESET (neutral)
+========================= */
 
 *,
 *::before,
@@ -8,42 +10,57 @@
   box-sizing: border-box;
 }
 
-/* BASE GLOBAL */
-
 html,
 body,
 #root {
   width: 100%;
   min-height: 100%;
-  background: #ffffff;   /* ✅ fondo blanco */
-  color: #111111;        /* ✅ texto oscuro */
 }
+
+/* Carga de fuentes global (solo para que existan) */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&display=swap");
+
+/* =========================
+   BASE (sin imponer estilos)
+========================= */
 
 body {
-  font-family: Inter, sans-serif;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  background: #ffffff;
+  color: #111111;
 }
 
-/* TIPOGRAFÍA BASE */
-
-h1, h2, h3, h4 {
-  letter-spacing: -0.3px;
+/* Links neutral */
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-p {
-  line-height: 1.6;
+/* Imágenes y video responsive */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
-/* PAGE WRAPPER */
+/* Inputs heredan la fuente (importante) */
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
 
+/* Page wrapper SOLO layout (sin tipografía) */
 .page {
   min-height: 100vh;
   padding: 120px 40px 60px;
   background: #0B0F1A;
 }
-
-.page h1 {
-  font-size: 2.5rem;
-  font-weight: 500;
-}
-

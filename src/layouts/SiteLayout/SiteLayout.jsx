@@ -1,18 +1,23 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
+import MainNav from "../../components/MainNav/MainNav";
 import Footer from "../../components/Footer/Footer";
-import ScrollToTop from "../../components/ScrollToTop/ScrollToTop";
-import styles from "./SiteLayout.module.css";
 
 export default function SiteLayout() {
+  const location = useLocation();
+
+  // ✅ Home: NO mostrar MainNav porque ya está en el Hero
+  const isHome = location.pathname === "/";
+
   return (
-    <div className={styles.shell}>
-      <ScrollToTop />
+    <>
       <Navbar />
-      <main className={styles.main}>
-        <Outlet />
-      </main>
+
+      {!isHome && <MainNav />}
+
+      <Outlet />
+
       <Footer />
-    </div>
+    </>
   );
 }
