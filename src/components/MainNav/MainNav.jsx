@@ -11,16 +11,34 @@ const navItems = [
 
 function scrollToId(id) {
   const el = document.getElementById(id);
-  if (!el) return;
-
-  // Si usás scroll-margin-top en CSS, con esto basta:
+  if (!el) return false;
   el.scrollIntoView({ behavior: "smooth", block: "start" });
+  return true;
+}
+
+// Espera a que el elemento exista (porque al navegar a "/" React aún está montando)
+function scrollToIdWithRetry(id, tries = 40, intervalMs = 50) {
+  let count = 0;
+
+  const tick = () => {
+    const ok = scrollToId(id);
+    if (ok) return;
+
+    count += 1;
+    if (count >= tries) return;
+
+    window.setTimeout(tick, intervalMs);
+  };
+
+  tick();
 }
 
 export default function MainNav() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+
+  const closeMenu = () => setOpen(false);
 
   // Cerrar con ESC
   useEffect(() => {
@@ -31,7 +49,7 @@ export default function MainNav() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  // Cerrar al cambiar a desktop (evita que quede abierto)
+  // Cerrar al pasar a desktop
   useEffect(() => {
     const onResize = () => {
       if (window.innerWidth > 900) setOpen(false);
@@ -40,34 +58,41 @@ export default function MainNav() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  const closeMenu = () => setOpen(false);
-
-  const onGoToSection = async (id) => {
+  const onGoToSection = (id) => {
     closeMenu();
 
-    // Si NO estás en home, primero navega al home y luego scrollea
+    // Si no estás en home, navega a home y luego scrollea con retry
     if (location.pathname !== "/") {
-      navigate("/", { replace: false });
+      // opcional: dejar hash para que también funcione al refrescar
+      navigate(`/#${id}`, { replace: false });
 
-      // Espera a que React renderice la home (micro delay)
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => scrollToId(id));
-      });
+      // cuando cambia la ruta, el DOM tarda en montar => retry
+      scrollToIdWithRetry(id);
       return;
     }
 
-    scrollToId(id);
+    // ya estás en home
+    // opcional: setear hash sin recargar
+    window.history.replaceState(null, "", `#${id}`);
+    scrollToIdWithRetry(id);
   };
+
+  // Si entrás a "/" con hash (ej: /#productos), scrollea al montar
+  useEffect(() => {
+    if (location.pathname !== "/") return;
+    const hash = (window.location.hash || "").replace("#", "").trim();
+    if (!hash) return;
+    scrollToIdWithRetry(hash);
+  }, [location.pathname]);
 
   return (
     <nav className="mainnav" aria-label="Navegación principal">
       <div className="mainnav-inner">
-        {/* Brand: siempre vuelve a Home */}
         <NavLink to="/" end className="mainnav-brand" onClick={closeMenu}>
           SOLTEX
         </NavLink>
 
-        {/* Desktop links (scroll a secciones) */}
+        {/* Desktop */}
         <div className="mainnav-links">
           {navItems.map((item) => (
             <button
