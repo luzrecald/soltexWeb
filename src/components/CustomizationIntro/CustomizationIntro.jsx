@@ -25,24 +25,23 @@ const BLOCKS = [
 
 function Block({ title, paragraphs, image, alt, flip }) {
   return (
-    <section className={`ci-block ${flip ? "ci-block-flip" : ""}`} data-reveal>
-      <div className="ci-media">
-        <img className="ci-image" src={image} alt={alt} loading="lazy" />
-        <div className="ci-image-glow" aria-hidden="true" />
+    <article className={`pci-block ${flip ? "pci-block--flip" : ""}`} data-reveal>
+      <div className="pci-media">
+        <img className="pci-image" src={image} alt={alt} loading="lazy" />
       </div>
 
-      <div className="ci-content">
-        <h2 className="ci-title">{title}</h2>
+      <div className="pci-content">
+        <h3 className="pci-title">{title}</h3>
 
-        <div className="ci-prose">
+        <div className="pci-prose">
           {paragraphs.map((p, i) => (
-            <p key={i} className="ci-p">
+            <p key={i} className="pci-p">
               {p}
             </p>
           ))}
         </div>
       </div>
-    </section>
+    </article>
   );
 }
 
@@ -56,16 +55,23 @@ export default function CustomizationIntro() {
     const nodes = Array.from(root.querySelectorAll("[data-reveal]"));
     if (nodes.length === 0) return;
 
-    // Estado inicial (por si el CSS se carga después)
-    nodes.forEach((el) => el.classList.add("ci-reveal"));
+    const prefersReduced =
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    nodes.forEach((el) => el.classList.add("pci-reveal"));
+
+    if (prefersReduced) {
+      nodes.forEach((el) => el.classList.add("pci-reveal-in"));
+      return;
+    }
 
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add("ci-reveal-in");
-            io.unobserve(e.target);
-          }
+          if (!e.isIntersecting) return;
+          e.target.classList.add("pci-reveal-in");
+          io.unobserve(e.target);
         });
       },
       { threshold: 0.18, rootMargin: "0px 0px -10% 0px" }
@@ -76,25 +82,30 @@ export default function CustomizationIntro() {
   }, []);
 
   return (
-    <section className="ci-section" ref={rootRef}>
-      <header className="ci-header" data-reveal>
-        <div className="ci-inner">
-          <div className="ci-eyebrow">Personalización</div>
+    <section className="pci-section" ref={rootRef}>
+      {/* ✅ Header estilo PRODUCTS (sin pill) */}
+      <header className="pci-header" data-reveal>
+        <div className="pci-inner">
+          <h1 className="pci-mainTitle">PERSONALIZACIÓN</h1>
+          <h2 className="pci-subTitle">Del concepto al tejido</h2>
 
-          {/* ✅ Título más humano/premium */}
-          <h1 className="ci-h1">Del concepto al tejido</h1>
-
-          <p className="ci-lead">
-            Desarrollamos componentes tejidos pensados para adaptarse a la identidad visual y
-            garantizar un resultado consistente, preciso y alineado con tu prenda.
-          </p>
+          <div className="pci-leads">
+            <p className="pci-lead">
+              Desarrollamos componentes tejidos pensados para adaptarse a la identidad visual y
+              garantizar un resultado consistente, preciso y alineado con tu prenda.
+            </p>
+          </div>
         </div>
       </header>
 
-      <div className="ci-wrap">
-        {BLOCKS.map((b, idx) => (
-          <Block key={b.title} {...b} flip={idx % 2 === 1} />
-        ))}
+      <div className="pci-wrap">
+        <div className="pci-inner">
+          <div className="pci-list" role="list">
+            {BLOCKS.map((b, idx) => (
+              <Block key={b.title} {...b} flip={idx % 2 === 1} />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -1,4 +1,5 @@
 // Footer.jsx
+import { Link } from "react-router-dom";
 import "./Footer.css";
 
 export default function Footer() {
@@ -7,7 +8,6 @@ export default function Footer() {
   const navItems = [
     { to: "/productos", label: "Productos" },
     { to: "/personalizacion", label: "Personalización" },
-    { to: "/galeria", label: "Galería" },
     { to: "/empresa", label: "Empresa" },
     { to: "/contacto", label: "Contacto" },
   ];
@@ -15,18 +15,18 @@ export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="site-footer-inner">
+
         {/* Marca */}
         <div className="footer-col footer-brand">
-          <a href="/" className="footer-logo" aria-label="Ir al inicio">
-            {/* Imagen desde /public */}
+          <Link to="/" className="footer-logo" aria-label="Ir al inicio">
             <img src="/footer-logo.png" alt="Soltex" />
-          </a>
+          </Link>
 
           <p className="footer-tagline">
             Componentes tejidos a medida. Precisión, consistencia y producción confiable desde 2011.
           </p>
 
-          {/* Redes sociales (nuevo) */}
+          {/* Redes */}
           <div className="footer-social">
             <p className="footer-social-title">Seguinos en nuestras redes</p>
 
@@ -36,11 +36,8 @@ export default function Footer() {
                 href="https://www.instagram.com/soltexpy/?hl=en"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Instagram de Soltex"
-                title="Instagram"
               >
-                {/* Instagram icon (inline SVG) */}
-                <svg viewBox="0 0 24 24" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
                   <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9A3.5 3.5 0 0 0 20 16.5v-9A3.5 3.5 0 0 0 16.5 4h-9ZM12 7a5 5 0 1 1 0 10a5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6a3 3 0 0 0 0-6Zm5.75-.9a1.15 1.15 0 1 1 0 2.3a1.15 1.15 0 0 1 0-2.3Z" />
                 </svg>
                 <span>Instagram</span>
@@ -51,11 +48,8 @@ export default function Footer() {
                 href="https://www.facebook.com/soltexpy/?locale=es_LA"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Facebook de Soltex"
-                title="Facebook"
               >
-                {/* Facebook icon (inline SVG) */}
-                <svg viewBox="0 0 24 24" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
                   <path d="M13.5 22v-8h2.7l.4-3H13.5V9.1c0-.9.3-1.6 1.6-1.6h1.7V4.8c-.3 0-1.5-.1-2.9-.1c-2.9 0-4.9 1.8-4.9 5.1V11H6.5v3H9v8h4.5Z" />
                 </svg>
                 <span>Facebook</span>
@@ -70,9 +64,9 @@ export default function Footer() {
 
           <nav className="footer-nav">
             {navItems.map((item) => (
-              <a key={item.to} href={item.to}>
+              <Link key={item.to} to={item.to}>
                 {item.label}
-              </a>
+              </Link>
             ))}
           </nav>
         </div>
@@ -84,15 +78,15 @@ export default function Footer() {
           <div className="footer-contact">
             <p>
               <span className="footer-label">Ubicación</span>
-             <a
-  className="footer-value"
-  href="https://www.google.com/maps/search/?api=1&query=General+Genes+entre+Julia+M.+Cueto+y+Mcal+Estigarribia,+San+Lorenzo,+Paraguay"
-  target="_blank"
-  rel="noopener noreferrer"
->
-  General Genes entre Julia M. Cueto y Mcal Estigarribia,
-  San Lorenzo, Paraguay
-</a>
+              <a
+                className="footer-value"
+                href="https://www.google.com/maps/search/?api=1&query=General+Genes+entre+Julia+M.+Cueto+y+Mcal+Estigarribia,+San+Lorenzo,+Paraguay"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                General Genes entre Julia M. Cueto y Mcal Estigarribia,
+                San Lorenzo, Paraguay
+              </a>
             </p>
 
             <p>
@@ -109,9 +103,9 @@ export default function Footer() {
               </a>
             </p>
 
-            <a className="footer-cta" href="/contacto">
+            <Link className="footer-cta" to="/contacto">
               Solicitar cotización
-            </a>
+            </Link>
           </div>
         </div>
       </div>

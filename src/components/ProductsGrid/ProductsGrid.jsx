@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./ProductsGrid.css";
 
 const MEASURE_PRETINAS_DOBLES = (
@@ -136,11 +136,32 @@ function chunkRows(items, columns) {
   return rows;
 }
 
+// ✅ columnas responsivas también en JS para que el panel se inserte debajo de la fila correcta
+function useResponsiveColumns() {
+  const getCols = () => {
+    if (typeof window === "undefined") return 4;
+    const w = window.innerWidth;
+    if (w <= 980) return 2; // tablet + phone => 2 columnas (como pediste)
+    return 4; // desktop
+  };
+
+  const [cols, setCols] = useState(getCols);
+
+  useEffect(() => {
+    const onResize = () => setCols(getCols());
+    window.addEventListener("resize", onResize, { passive: true });
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  return cols;
+}
+
 export default function ProductsGrid() {
   const [activeId, setActiveId] = useState(null);
 
-  const columns = 4;
-  const rows = useMemo(() => chunkRows(PRODUCTS, columns), []);
+  const columns = useResponsiveColumns();
+
+  const rows = useMemo(() => chunkRows(PRODUCTS, columns), [columns]);
 
   const activeProduct = useMemo(
     () => PRODUCTS.find((p) => p.id === activeId) || null,
@@ -149,34 +170,41 @@ export default function ProductsGrid() {
 
   const rowIndexWithActive = useMemo(() => {
     if (!activeId) return -1;
-    return Math.floor(PRODUCTS.findIndex((p) => p.id === activeId) / columns);
-  }, [activeId]);
+    const idx = PRODUCTS.findIndex((p) => p.id === activeId);
+    return idx < 0 ? -1 : Math.floor(idx / columns);
+  }, [activeId, columns]);
 
   return (
     <section className="pg-section">
       <div className="pg-inner">
         <header className="pg-header">
-          <h1 className="pg-h1">Productos</h1>
-          <p className="pg-lead">
-            Nuestros componentes tejidos pueden desarrollarse en conjunto o 
-            de manera independiente, adaptándose al diseño de cada prenda. 
-              </p>
+          <h1 className="pg-h1">PRODUCTOS</h1>
+
+          <div className="pg-leads">
             <p className="pg-lead">
-            En las prendas polo, por ejemplo, el cuello y la pretina pueden compartir el
-             mismo diseño para lograr una estética uniforme, o trabajarse por separado, combinando
-              colores, rayas o patrones distintos.
-              </p>
-               <p className="pg-lead">
-               Esta misma flexibilidad se aplica a las pretinas 
-              dobles deportivas y a las pretinas de buzo,
-             permitiendo mantener coherencia visual o generar contrastes según el resultado buscado.
-          </p>
+              Nuestros componentes tejidos pueden desarrollarse en conjunto o de manera independiente,
+              adaptándose al diseño de cada prenda.
+            </p>
+            <p className="pg-lead">
+              En las prendas polo, por ejemplo, el cuello y la pretina pueden compartir el mismo diseño
+              para lograr una estética uniforme, o trabajarse por separado, combinando colores, rayas o
+              patrones distintos.
+            </p>
+            <p className="pg-lead">
+              Esta misma flexibilidad se aplica a las pretinas dobles deportivas y a las pretinas de buzo,
+              permitiendo mantener coherencia visual o generar contrastes según el resultado buscado.
+            </p>
+          </div>
+
+          {/* ✅ Dos rayas separadoras (como la referencia) */}
+          <div className="pg-sep" />
+          <div className="pg-sep" />
         </header>
 
         <div className="pg-rows">
           {rows.map((row, rIdx) => (
             <div className="pg-row" key={`row-${rIdx}`}>
-              <div className="pg-grid">
+              <div className="pg-grid" style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}>
                 {row.map((p) => {
                   const isActive = p.id === activeId;
 
@@ -189,12 +217,13 @@ export default function ProductsGrid() {
                       aria-expanded={isActive}
                     >
                       <div className="pg-media">
-                        <span className="pg-image-glow" />
                         <img className="pg-image" src={p.image} alt={p.title} loading="lazy" />
+                        <span className={`pg-chevron ${isActive ? "is-open" : ""}`} aria-hidden="true" />
                       </div>
 
                       <div className="pg-label">
-                        <span>{p.title}</span>
+                        <span className="pg-labelText">{p.title}</span>
+                        <span className={`pg-labelArrow ${isActive ? "is-open" : ""}`} aria-hidden="true" />
                       </div>
                     </button>
                   );

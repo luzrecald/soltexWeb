@@ -36,12 +36,11 @@ export default function Features() {
       window.matchMedia &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const cards = Array.from(root.querySelectorAll(".feature-row"));
-    if (cards.length === 0) return;
+    const rows = Array.from(root.querySelectorAll(".fh-featureRow"));
+    if (rows.length === 0) return;
 
-    // Si reduced motion: mostrar todo sin animación
     if (prefersReduced) {
-      cards.forEach((el) => el.classList.add("is-visible"));
+      rows.forEach((el) => el.classList.add("is-visible"));
       return;
     }
 
@@ -53,34 +52,35 @@ export default function Features() {
           obs.unobserve(entry.target);
         });
       },
-      { threshold: 0.22, rootMargin: "0px 0px -10% 0px" }
+      { threshold: 0.18, rootMargin: "0px 0px -8% 0px" }
     );
 
-    cards.forEach((el) => obs.observe(el));
+    rows.forEach((el) => obs.observe(el));
     return () => obs.disconnect();
   }, []);
 
   return (
-    <section className="features" aria-label="Ofrecemos" ref={sectionRef}>
-      <div className="features-inner">
-        <header className="features-header">
-          <h2 className="features-title reveal-title">Ofrecemos</h2>
+    <section className="fh-features" aria-label="Ofrecemos" ref={sectionRef}>
+      <div className="fh-featuresInner">
+        <header className="fh-featuresHeader">
+          <h2 className="fh-featuresTitle">OFRECEMOS</h2>
         </header>
 
-        <div className="features-list">
+        <div className="fh-featuresList" role="list">
           {ITEMS.map((item, idx) => (
             <article
               key={item.title}
-              className={`feature-row ${idx % 2 === 1 ? "is-reversed" : ""}`}
-              style={{ "--d": `${idx * 120}ms` }}  // 👈 stagger suave
+              className={`fh-featureRow ${idx % 2 === 1 ? "is-reversed" : ""}`}
+              style={{ "--d": `${idx * 120}ms` }}
+              role="listitem"
             >
-              <div className="feature-media">
+              <div className="fh-featureMedia">
                 <img src={item.img} alt={item.alt} loading="lazy" />
               </div>
 
-              <div className="feature-content">
-                <h3 className="feature-heading">{item.title}</h3>
-                <p className="feature-text">{item.text}</p>
+              <div className="fh-featureContent">
+                <h3 className="fh-featureHeading">{item.title}</h3>
+                <p className="fh-featureText">{item.text}</p>
               </div>
             </article>
           ))}
