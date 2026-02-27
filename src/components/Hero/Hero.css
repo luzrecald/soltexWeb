@@ -2,7 +2,7 @@
 .hero {
   position: relative;
   width: 100%;
-  min-height: calc(100vh - 42px);
+  min-height: calc(100svh - 42px); /* ✅ mejor que 100vh en móvil */
   overflow: hidden;
   background: #0b0f1a;
 }
@@ -18,7 +18,7 @@
   z-index: 0;
   filter: saturate(0.95) contrast(1.05);
 
-  /* ✅ CLAVE: evita que el video capture clicks */
+  /* ✅ evita que el video capture clicks */
   pointer-events: none;
 }
 
@@ -34,7 +34,7 @@
     rgba(0, 0, 0, 0.18) 100%
   );
 
-  /* ✅ CLAVE: deja clickear el navbar */
+  /* ✅ deja clickear el navbar */
   pointer-events: none;
 }
 
@@ -43,7 +43,6 @@
 ========================= */
 
 .hero-header {
-  /* ✅ arriba de todo y fuera del flujo */
   position: absolute;
   top: 0;
   left: 0;
@@ -141,9 +140,7 @@
 .hero-content {
   position: absolute;
   inset: 0;
-
-  /* ✅ por debajo del header */
-  z-index: 10;
+  z-index: 10; /* debajo del header y encima del overlay/video */
 }
 
 .hero-content-inner {
@@ -211,7 +208,7 @@
 }
 
 /* =========================
-   RESPONSIVE
+   RESPONSIVE (tablet)
 ========================= */
 
 @media (max-width: 900px) {
@@ -233,5 +230,140 @@
     right: 18px;
     bottom: 22px;
     max-width: 520px;
+  }
+}
+
+/* =========================
+   RESPONSIVE (mobile real)
+   ✅ cambia layout: video arriba + card abajo
+========================= */
+
+@media (max-width: 640px) {
+  .hero {
+    min-height: auto;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    background: #0b0f1a;
+  }
+
+  /* VIDEO pasa a ser bloque superior */
+  .hero-video {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: center 55%;
+  }
+
+  /* Overlay solo sobre el área del video */
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    aspect-ratio: 16 / 10;
+
+    z-index: 1;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.25) 0%,
+      rgba(0, 0, 0, 0.35) 60%,
+      rgba(0, 0, 0, 0.55) 100%
+    );
+  }
+
+  /* Header compacto */
+  .hero-header {
+    padding-top: 12px;
+  }
+
+  .hero-header-inner {
+    padding: 0 14px;
+  }
+
+  .hero-brand {
+    font-size: 18px;
+    letter-spacing: 0.18em;
+    padding: 6px 10px;
+  }
+
+  /* Nav oculto para que no rompa en mobile
+     (si querés hamburguesa, hay que tocar React) */
+  .hero-nav {
+    display: none;
+  }
+
+  /* Contenido pasa a card abajo */
+  .hero-content {
+    position: relative;
+    inset: auto;
+    z-index: 10;
+    background: #ffffff;
+  }
+
+  .hero-content-inner {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+
+    max-width: 100%;
+    padding: 18px 16px 20px;
+  }
+
+  .hero-title {
+    color: #0b1f45;
+    font-size: 34px;
+    line-height: 1.05;
+    margin: 0 0 10px;
+  }
+
+  .hero-subtitle {
+    color: rgba(15, 23, 42, 0.74);
+    font-size: 15px;
+    line-height: 1.65;
+    margin: 0 0 14px;
+    max-width: 100%;
+  }
+
+  .hero-buttons {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .hero-btn {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+  }
+
+  .hero-btn-primary {
+    background: #0b1f45;
+    color: #ffffff;
+  }
+
+  .hero-btn-secondary {
+    background: #ffffff;
+    color: #0b1f45;
+    border: 1px solid rgba(11, 31, 69, 0.18);
+  }
+}
+
+/* =========================
+   MOBILE chico
+========================= */
+
+@media (max-width: 420px) {
+  .hero-title {
+    font-size: 30px;
+  }
+
+  .hero-content-inner {
+    padding: 16px 14px 18px;
   }
 }

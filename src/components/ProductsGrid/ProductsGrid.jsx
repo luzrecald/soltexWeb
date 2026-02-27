@@ -158,8 +158,18 @@ export default function ProductsGrid() {
         <header className="pg-header">
           <h1 className="pg-h1">Productos</h1>
           <p className="pg-lead">
-            Nuestros componentes tejidos pueden desarrollarse en conjunto o de manera independiente,
-            adaptándose al diseño de cada prenda.
+            Nuestros componentes tejidos pueden desarrollarse en conjunto o 
+            de manera independiente, adaptándose al diseño de cada prenda. 
+              </p>
+            <p className="pg-lead">
+            En las prendas polo, por ejemplo, el cuello y la pretina pueden compartir el
+             mismo diseño para lograr una estética uniforme, o trabajarse por separado, combinando
+              colores, rayas o patrones distintos.
+              </p>
+               <p className="pg-lead">
+               Esta misma flexibilidad se aplica a las pretinas 
+              dobles deportivas y a las pretinas de buzo,
+             permitiendo mantener coherencia visual o generar contrastes según el resultado buscado.
           </p>
         </header>
 
