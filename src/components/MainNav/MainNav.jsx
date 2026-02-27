@@ -12,12 +12,13 @@ const navItems = [
 function scrollToId(id) {
   const el = document.getElementById(id);
   if (!el) return false;
+
   el.scrollIntoView({ behavior: "smooth", block: "start" });
   return true;
 }
 
-// Espera a que el elemento exista (porque al navegar a "/" React aún está montando)
-function scrollToIdWithRetry(id, tries = 40, intervalMs = 50) {
+// Espera a que exista el elemento (por si estás navegando a "/")
+function scrollToIdWithRetry(id, tries = 60, intervalMs = 50) {
   let count = 0;
 
   const tick = () => {
@@ -58,42 +59,38 @@ export default function MainNav() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
+  // CLICK: solo setea el hash y cierra el menú
   const onGoToSection = (id) => {
     closeMenu();
-
-    // Si no estás en home, navega a home y luego scrollea con retry
-    if (location.pathname !== "/") {
-      // opcional: dejar hash para que también funcione al refrescar
-      navigate(`/#${id}`, { replace: false });
-
-      // cuando cambia la ruta, el DOM tarda en montar => retry
-      scrollToIdWithRetry(id);
-      return;
-    }
-
-    // ya estás en home
-    // opcional: setear hash sin recargar
-    window.history.replaceState(null, "", `#${id}`);
-    scrollToIdWithRetry(id);
+    navigate(`/#${id}`, { replace: false });
   };
 
-  // Si entrás a "/" con hash (ej: /#productos), scrollea al montar
+  // El scroll SIEMPRE ocurre desde acá cuando cambia el hash
   useEffect(() => {
     if (location.pathname !== "/") return;
-    const hash = (window.location.hash || "").replace("#", "").trim();
+
+    const hash = (location.hash || "").replace("#", "").trim();
     if (!hash) return;
-    scrollToIdWithRetry(hash);
-  }, [location.pathname]);
+
+    // 1 frame para que se cierre el drawer y se estabilice el layout (clave en iOS)
+    requestAnimationFrame(() => scrollToIdWithRetry(hash));
+  }, [location.pathname, location.hash]);
 
   return (
     <nav className="mainnav" aria-label="Navegación principal">
       <div className="mainnav-inner">
-        <NavLink to="/" end className="mainnav-brand" onClick={closeMenu}>
+        <NavLink
+          to="/"
+          end
+          className="mainnav-brand"
+          onClick={closeMenu}
+          aria-label="Ir al inicio"
+        >
           SOLTEX
         </NavLink>
 
         {/* Desktop */}
-        <div className="mainnav-links">
+        <div className="mainnav-links" aria-label="Secciones">
           {navItems.map((item) => (
             <button
               key={item.id}
@@ -106,7 +103,7 @@ export default function MainNav() {
           ))}
         </div>
 
-        {/* Mobile hamburger */}
+        {/* Mobile burger */}
         <button
           className={`mainnav-burger ${open ? "is-open" : ""}`}
           type="button"

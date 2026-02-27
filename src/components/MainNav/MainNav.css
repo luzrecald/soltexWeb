@@ -1,6 +1,12 @@
+/* Para que el scroll por hash no quede tapado por tu topbar + nav sticky */
+html{
+  scroll-behavior: smooth;
+  scroll-padding-top: 120px; /* ajustá si tu header total es más o menos */
+}
+
 .mainnav{
   position: sticky;
-  top: 42px;            /* tu top-header ocupa ~42px */
+  top: 42px; /* tu top-header ocupa ~42px */
   z-index: 70;
   background: rgba(255,255,255,0.92);
   backdrop-filter: blur(10px);
@@ -44,7 +50,6 @@
   cursor: pointer;
 
   color: rgba(11,31,69,0.72);
-  text-decoration: none;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.14em;
@@ -96,7 +101,7 @@
 }
 
 /* =========================
-   Mobile drawer (FH clean)
+   Mobile drawer
 ========================= */
 
 .mainnav-mobile{
@@ -123,7 +128,6 @@
   justify-content: space-between;
 
   padding: 14px 4px;
-  text-decoration: none;
 
   color: rgba(11,31,69,0.82);
   font-size: 12px;
@@ -198,6 +202,10 @@
 }
 
 @media (prefers-reduced-motion: reduce){
+  html{
+    scroll-behavior: auto;
+  }
+
   .mainnav-burger span,
   .mainnav-mobile{
     transition: none !important;
