@@ -331,8 +331,39 @@
   }
 }
 
+/* ✅ MOBILE: horizontal scroll (swipe) en vez de 1 columna */
 @media (max-width: 560px){
   .pg-grid{
-    grid-template-columns: 1fr;
+    /* deja de apilar a 1 columna */
+    grid-template-columns: unset;
+    grid-auto-flow: column;
+    grid-auto-columns: 78%;   /* tamaño de cada card (probá 82% si querés más grande) */
+    gap: 14px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+
+    padding-bottom: 10px;
+
+    /* aire lateral para que no queden pegadas */
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  .pg-card{
+    scroll-snap-align: start;
+  }
+
+  /* para que no se sienta gigante en mobile */
+  .pg-image{
+    height: 220px;
+  }
+
+  /* hover no aplica en móvil */
+  .pg-card:hover .pg-media,
+  .pg-card:hover .pg-image{
+    transform: none;
   }
 }

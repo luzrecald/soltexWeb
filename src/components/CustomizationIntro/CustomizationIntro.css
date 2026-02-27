@@ -14,14 +14,11 @@
 
   --line: rgba(11,31,69,0.08);
 
-  /* Fondo glass */
   --section-bg: rgba(255,255,255,0.72);
 
-  /* Cards */
   --card: rgba(255,255,255,0.55);
   --card-border: rgba(11,31,69,0.12);
 
-  /* Shadows */
   --shadow-soft: 0 10px 26px rgba(11,31,69,0.06);
   --shadow-hover: 0 26px 70px rgba(11,31,69,0.12);
 }
@@ -42,7 +39,6 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-
   background: linear-gradient(
     180deg,
     rgba(255,255,255,0.82) 0%,
@@ -65,7 +61,6 @@
   margin: 0 auto;
 }
 
-/* Eyebrow */
 .ci-eyebrow{
   display: inline-flex;
   align-items: center;
@@ -86,7 +81,6 @@
   margin-bottom: 14px;
 }
 
-/* ✅ Título principal (Inter Tight) */
 .ci-h1{
   font-family: "Inter Tight", "Inter", system-ui, sans-serif;
   font-size: clamp(30px, 3.1vw, 44px);
@@ -98,7 +92,6 @@
   color: var(--text-strong);
 }
 
-/* Lead */
 .ci-lead{
   margin: 0;
   max-width: 70ch;
@@ -120,7 +113,7 @@
 }
 
 /* =========================
-   BLOCKS
+   BLOCKS (desktop)
 ========================= */
 
 .ci-block{
@@ -147,7 +140,7 @@
 }
 
 /* =========================
-   MEDIA (Luxury Editorial)
+   MEDIA
 ========================= */
 
 .ci-media{
@@ -165,7 +158,6 @@
   transition: transform 260ms ease, box-shadow 260ms ease;
 }
 
-/* Glow sutil */
 .ci-image-glow{
   position: absolute;
   inset: -20%;
@@ -193,7 +185,6 @@
   transition: transform 420ms ease, filter 420ms ease;
 }
 
-/* ✅ Hover premium */
 .ci-block:hover .ci-media{
   transform: translateY(-4px);
   box-shadow: var(--shadow-hover);
@@ -216,7 +207,6 @@
   padding: 4px 0;
 }
 
-/* ✅ Títulos internos (Inter Tight) */
 .ci-title{
   font-family: "Inter Tight", "Inter", system-ui, sans-serif;
   font-size: clamp(18px, 1.75vw, 24px);
@@ -228,7 +218,6 @@
   color: var(--text-strong);
 }
 
-/* Prose editorial */
 .ci-prose{
   max-width: 52ch;
 }
@@ -260,7 +249,6 @@
   transform: translateY(0);
 }
 
-/* Reduce motion */
 @media (prefers-reduced-motion: reduce){
   .ci-reveal{
     opacity: 1 !important;
@@ -275,11 +263,10 @@
 }
 
 /* =========================
-   RESPONSIVE
+   RESPONSIVE (tablet)
 ========================= */
 
 @media (max-width: 900px){
-
   .ci-inner,
   .ci-wrap{
     width: calc(100% - 28px);
@@ -301,5 +288,81 @@
 
   .ci-prose{
     max-width: 65ch;
+  }
+}
+
+/* =========================
+   RESPONSIVE (mobile)
+   ✅ carrusel horizontal con swipe + snap
+========================= */
+
+@media (max-width: 640px){
+  /* el wrap se convierte en carrusel */
+  .ci-wrap{
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 92%;
+    gap: 14px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+
+    padding: 2px 6px 12px;
+  }
+
+  /* cada bloque se vuelve una card */
+  .ci-block{
+    scroll-snap-align: start;
+
+    border-top: 0;
+    padding: 0;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+
+    background: rgba(255,255,255,0.70);
+    border: 1px solid rgba(11,31,69,0.10);
+    border-radius: 18px;
+    box-shadow: var(--shadow-soft);
+
+    overflow: hidden;
+  }
+
+  /* no necesitamos flip en carrusel */
+  .ci-block-flip{
+    grid-template-columns: 1fr;
+  }
+  .ci-block-flip .ci-media{
+    order: 0;
+  }
+
+  .ci-media{
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .ci-image{
+    height: 220px;
+  }
+
+  .ci-content{
+    padding: 14px 14px 16px;
+  }
+
+  .ci-prose{
+    max-width: 100%;
+  }
+
+  /* hover no aplica en móvil */
+  .ci-block:hover .ci-media{
+    transform: none;
+    box-shadow: none;
+  }
+  .ci-block:hover .ci-image{
+    transform: none;
   }
 }
