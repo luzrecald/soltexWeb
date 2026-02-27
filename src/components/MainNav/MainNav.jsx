@@ -12,25 +12,18 @@ const navItems = [
 function scrollToId(id) {
   const el = document.getElementById(id);
   if (!el) return false;
-
   el.scrollIntoView({ behavior: "smooth", block: "start" });
   return true;
 }
 
-// Espera a que exista el elemento (por si estás navegando a "/")
 function scrollToIdWithRetry(id, tries = 60, intervalMs = 50) {
   let count = 0;
-
   const tick = () => {
-    const ok = scrollToId(id);
-    if (ok) return;
-
+    if (scrollToId(id)) return;
     count += 1;
     if (count >= tries) return;
-
     window.setTimeout(tick, intervalMs);
   };
-
   tick();
 }
 
@@ -41,7 +34,6 @@ export default function MainNav() {
 
   const closeMenu = () => setOpen(false);
 
-  // Cerrar con ESC
   useEffect(() => {
     const onKeyDown = (e) => {
       if (e.key === "Escape") setOpen(false);
@@ -50,7 +42,6 @@ export default function MainNav() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  // Cerrar al pasar a desktop
   useEffect(() => {
     const onResize = () => {
       if (window.innerWidth > 900) setOpen(false);
@@ -59,38 +50,48 @@ export default function MainNav() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  // CLICK: solo setea el hash y cierra el menú
-  const onGoToSection = (id) => {
-    closeMenu();
-    navigate(`/#${id}`, { replace: false });
+  const setSectionHashOnly = (id) => {
+    // ✅ en HashRouter NO navegues a "/#id"
+    // solo cambiá el hash "de sección"
+    window.location.hash = `#${id}`;
   };
 
-  // El scroll SIEMPRE ocurre desde acá cuando cambia el hash
+  const onGoToSection = (id) => {
+    closeMenu();
+
+    // Si no estás en home, navegá a "/" primero
+    if (location.pathname !== "/") {
+      navigate("/", { replace: false });
+      // cuando home monte, ponemos el hash de sección y scrolleamos con retry
+      requestAnimationFrame(() => {
+        setSectionHashOnly(id);
+        scrollToIdWithRetry(id);
+      });
+      return;
+    }
+
+    setSectionHashOnly(id);
+    requestAnimationFrame(() => scrollToIdWithRetry(id));
+  };
+
+  // Si entrás con hash (#productos) scrollea
   useEffect(() => {
     if (location.pathname !== "/") return;
 
-    const hash = (location.hash || "").replace("#", "").trim();
+    const hash = (window.location.hash || "").replace("#", "").trim();
     if (!hash) return;
 
-    // 1 frame para que se cierre el drawer y se estabilice el layout (clave en iOS)
     requestAnimationFrame(() => scrollToIdWithRetry(hash));
-  }, [location.pathname, location.hash]);
+  }, [location.pathname]);
 
   return (
     <nav className="mainnav" aria-label="Navegación principal">
       <div className="mainnav-inner">
-        <NavLink
-          to="/"
-          end
-          className="mainnav-brand"
-          onClick={closeMenu}
-          aria-label="Ir al inicio"
-        >
+        <NavLink to="/" end className="mainnav-brand" onClick={closeMenu}>
           SOLTEX
         </NavLink>
 
-        {/* Desktop */}
-        <div className="mainnav-links" aria-label="Secciones">
+        <div className="mainnav-links">
           {navItems.map((item) => (
             <button
               key={item.id}
@@ -103,7 +104,6 @@ export default function MainNav() {
           ))}
         </div>
 
-        {/* Mobile burger */}
         <button
           className={`mainnav-burger ${open ? "is-open" : ""}`}
           type="button"
@@ -117,7 +117,6 @@ export default function MainNav() {
         </button>
       </div>
 
-      {/* Mobile drawer */}
       <div
         id="mainnav-mobile"
         className={`mainnav-mobile ${open ? "is-open" : ""}`}
@@ -140,7 +139,6 @@ export default function MainNav() {
         </div>
       </div>
 
-      {/* Backdrop */}
       <button
         type="button"
         className={`mainnav-backdrop ${open ? "is-open" : ""}`}

@@ -7,9 +7,21 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <FamilyStory />   {/* ✅ Historia empresa familiar */}
-      <Features />      {/* ✅ Qué ofrecemos */}
-      <Gallery />
+
+      <section id="empresa">
+        <FamilyStory />
+      </section>
+
+      <section id="productos">
+        <Gallery />
+      </section>
+
+      <section id="personalizacion">
+        <Features />
+      </section>
+
+      {/* Anchor invisible SOLO para navegación */}
+      <section id="contacto" />
     </>
   );
 }
