@@ -1,6 +1,6 @@
 /* =========================
    FAMILY STORY — Atmospheric blend (ultra tight)
-   ✅ Versión final corregida
+   ✅ Fade perimetral real (360°)
 ========================= */
 
 .story-section{
@@ -19,7 +19,8 @@
   position: relative;
   min-height: 560px;
   overflow: hidden;
-  border-radius: 26px;
+  border-radius: 26px; /* puede quedar, pero ya no es lo que “recorta” */
+  background: #ffffff;
 }
 
 /* Imagen de fondo */
@@ -31,37 +32,43 @@
   filter: saturate(0.98) contrast(1.02);
   transform: scale(1.02);
   z-index: 0;
+
+  /* ✅ FADE PERIMETRAL: se desvanece en TODOS los bordes */
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  mask-composite: intersect;
+
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+
+  -webkit-mask-position: center;
+  mask-position: center;
 }
 
-/* Halo suave para que no corte */
-.story-surface::before{
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 2;
-  background:
-    radial-gradient(120% 90% at 50% 30%,
-      rgba(255,255,255,0.00) 55%,
-      rgba(255,255,255,0.25) 75%,
-      rgba(255,255,255,0.70) 100%
-    );
-}
+/* ✅ (Opcional) Si querés MÁS fade, subí 12% a 16-18% */
 
-/* Fade lateral (desktop) */
+/* Fade hacia la derecha para lectura (se mantiene, pero leve) */
 .story-bg::after{
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(255,255,255,0.00) 0%,
-      rgba(255,255,255,0.10) 44%,
-      rgba(255,255,255,0.78) 68%,
-      rgba(255,255,255,1.00) 100%
-    );
+
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.00) 0%,
+    rgba(255,255,255,0.08) 44%,
+    rgba(255,255,255,0.68) 70%,
+    rgba(255,255,255,0.95) 100%
+  );
 }
 
 /* Contenido */
@@ -115,23 +122,29 @@
 
   .story-surface{
     border-radius: 22px;
-    min-height: 620px; /* 🔥 más altura para que respire */
+    min-height: 620px;
   }
 
   .story-bg{
-    position: absolute;
-    inset: 0;
     background-position: left 18%;
     transform: scale(1.05);
+
+    /* ✅ En mobile: un poco más de fade perimetral */
+    -webkit-mask-image:
+      linear-gradient(to right, transparent 0%, #000 16%, #000 84%, transparent 100%),
+      linear-gradient(to bottom, transparent 0%, #000 16%, #000 84%, transparent 100%);
+    mask-image:
+      linear-gradient(to right, transparent 0%, #000 16%, #000 84%, transparent 100%),
+      linear-gradient(to bottom, transparent 0%, #000 16%, #000 84%, transparent 100%);
   }
 
-  /* 🔥 Fade vertical más limpio arriba (más foto visible) */
+  /* Fade vertical para lectura */
   .story-bg::after{
     background: linear-gradient(
       180deg,
       rgba(255,255,255,0.00) 0%,
       rgba(255,255,255,0.12) 35%,
-      rgba(255,255,255,0.88) 100%
+      rgba(255,255,255,0.90) 100%
     );
   }
 
@@ -147,8 +160,6 @@
     -webkit-backdrop-filter: blur(8px);
 
     border-radius: 18px;
-
-    /* 🔥 MÁS ABAJO para mostrar más imagen */
     margin: 260px 18px 20px;
   }
 }
