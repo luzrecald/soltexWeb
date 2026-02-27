@@ -174,7 +174,7 @@ export default function ProductsGrid() {
   }, [activeId, columns]);
 
   return (
-    <section className="pg-section">
+    <section id="productos" className="pg-section">
       <div className="pg-inner">
         <header className="pg-header">
           <h1 className="pg-h1">PRODUCTOS</h1>

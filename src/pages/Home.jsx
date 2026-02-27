@@ -7,20 +7,9 @@ export default function Home() {
   return (
     <>
       <Hero />
-
-      <section id="empresa">
-        <FamilyStory />
-      </section>
-
-      <section id="productos">
-        <Gallery />
-      </section>
-
-      <section id="personalizacion">
-        <Features />
-      </section>
-
-      {/* Anchor invisible SOLO para navegación */}
+      <FamilyStory />
+      <Gallery />
+      <Features />
       <section id="contacto" />
     </>
   );

@@ -82,7 +82,7 @@ export default function CustomizationIntro() {
   }, []);
 
   return (
-    <section className="pci-section" ref={rootRef}>
+    <section id="personalizacion" className="pci-section" ref={rootRef}>
       {/* ✅ Header estilo PRODUCTS (sin pill) */}
       <header className="pci-header" data-reveal>
         <div className="pci-inner">

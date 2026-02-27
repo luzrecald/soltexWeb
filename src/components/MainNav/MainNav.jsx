@@ -2,28 +2,29 @@ import { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import "./MainNav.css";
 
+// ✅ En tu app son páginas separadas (Routes en App.jsx)
 const navItems = [
-  { id: "empresa", label: "Empresa" },
-  { id: "productos", label: "Productos" },
-  { id: "personalizacion", label: "Personalización" },
-  { id: "contacto", label: "Contacto" },
+  { label: "Empresa", to: "/", scrollId: "empresa" }, // Home + scroll opcional
+  { label: "Productos", to: "/productos" },
+  { label: "Personalización", to: "/personalizacion" },
+  { label: "Contacto", to: "/contacto" },
 ];
-
-function scrollToId(id) {
-  const el = document.getElementById(id);
-  if (!el) return false;
-  el.scrollIntoView({ behavior: "smooth", block: "start" });
-  return true;
-}
 
 function scrollToIdWithRetry(id, tries = 60, intervalMs = 50) {
   let count = 0;
+
   const tick = () => {
-    if (scrollToId(id)) return;
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+
     count += 1;
     if (count >= tries) return;
     window.setTimeout(tick, intervalMs);
   };
+
   tick();
 }
 
@@ -34,6 +35,7 @@ export default function MainNav() {
 
   const closeMenu = () => setOpen(false);
 
+  // Cerrar con ESC
   useEffect(() => {
     const onKeyDown = (e) => {
       if (e.key === "Escape") setOpen(false);
@@ -42,6 +44,7 @@ export default function MainNav() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
+  // Cerrar al pasar a desktop
   useEffect(() => {
     const onResize = () => {
       if (window.innerWidth > 900) setOpen(false);
@@ -50,39 +53,29 @@ export default function MainNav() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  const setSectionHashOnly = (id) => {
-    // ✅ en HashRouter NO navegues a "/#id"
-    // solo cambiá el hash "de sección"
-    window.location.hash = `#${id}`;
-  };
-
-  const onGoToSection = (id) => {
+  // Click handler único
+  const onNav = (item) => {
     closeMenu();
 
-    // Si no estás en home, navegá a "/" primero
-    if (location.pathname !== "/") {
+    // ✅ Caso especial: "Empresa" = Home, y si existe #empresa, scrollea
+    if (item.scrollId) {
+      // si ya estás en Home, scrollea directo
+      if (location.pathname === "/") {
+        requestAnimationFrame(() => scrollToIdWithRetry(item.scrollId));
+        return;
+      }
+
+      // si no estás en Home, navegá a Home y luego scrollea
       navigate("/", { replace: false });
-      // cuando home monte, ponemos el hash de sección y scrolleamos con retry
-      requestAnimationFrame(() => {
-        setSectionHashOnly(id);
-        scrollToIdWithRetry(id);
-      });
+      requestAnimationFrame(() => scrollToIdWithRetry(item.scrollId));
       return;
     }
 
-    setSectionHashOnly(id);
-    requestAnimationFrame(() => scrollToIdWithRetry(id));
+    // ✅ El resto son páginas: navegar
+    if (location.pathname !== item.to) {
+      navigate(item.to, { replace: false });
+    }
   };
-
-  // Si entrás con hash (#productos) scrollea
-  useEffect(() => {
-    if (location.pathname !== "/") return;
-
-    const hash = (window.location.hash || "").replace("#", "").trim();
-    if (!hash) return;
-
-    requestAnimationFrame(() => scrollToIdWithRetry(hash));
-  }, [location.pathname]);
 
   return (
     <nav className="mainnav" aria-label="Navegación principal">
@@ -91,19 +84,21 @@ export default function MainNav() {
           SOLTEX
         </NavLink>
 
+        {/* Desktop */}
         <div className="mainnav-links">
           {navItems.map((item) => (
             <button
-              key={item.id}
+              key={item.label}
               type="button"
               className="mainnav-link"
-              onClick={() => onGoToSection(item.id)}
+              onClick={() => onNav(item)}
             >
               {item.label}
             </button>
           ))}
         </div>
 
+        {/* Mobile hamburger */}
         <button
           className={`mainnav-burger ${open ? "is-open" : ""}`}
           type="button"
@@ -117,6 +112,7 @@ export default function MainNav() {
         </button>
       </div>
 
+      {/* Mobile drawer */}
       <div
         id="mainnav-mobile"
         className={`mainnav-mobile ${open ? "is-open" : ""}`}
@@ -127,10 +123,10 @@ export default function MainNav() {
         <div className="mainnav-mobileInner">
           {navItems.map((item) => (
             <button
-              key={item.id}
+              key={item.label}
               type="button"
               className="mainnav-mobileLink"
-              onClick={() => onGoToSection(item.id)}
+              onClick={() => onNav(item)}
             >
               {item.label}
               <span className="mainnav-mobileChevron" aria-hidden="true" />
@@ -139,6 +135,7 @@ export default function MainNav() {
         </div>
       </div>
 
+      {/* Backdrop */}
       <button
         type="button"
         className={`mainnav-backdrop ${open ? "is-open" : ""}`}

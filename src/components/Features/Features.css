@@ -13,7 +13,7 @@
 .fh-features{
   width: 100%;
   background: #fff;
-  padding: 10px 0 34px; /* limpio y cercano */
+  padding: 10px 0 34px;
 }
 
 .fh-featuresInner{
@@ -37,7 +37,7 @@
   color: var(--fh-text-strong);
 }
 
-/* List = separadores */
+/* List */
 .fh-featuresList{
   border-top: 1px solid var(--fh-line);
 }
@@ -48,8 +48,8 @@
   gap: clamp(16px, 3vw, 34px);
   align-items: center;
 
-  padding: 26px 0;                 /* ✅ sin “card”, sólo padding vertical */
-  border-bottom: 1px solid var(--fh-line); /* ✅ raya entre items */
+  padding: 26px 0;
+  border-bottom: 1px solid var(--fh-line);
 }
 
 /* Alternado */
@@ -59,22 +59,34 @@
 .fh-featureRow.is-reversed .fh-featureMedia{ order: 2; }
 .fh-featureRow.is-reversed .fh-featureContent{ order: 1; }
 
-/* Media: sin borde ni sombra, FH clean */
+/* =========================
+   MEDIA — MÁS ANCHA Y SIN RECORTE
+========================= */
+
 .fh-featureMedia{
   overflow: hidden;
   border-radius: 0;
-  background: transparent;
+  background: #fff;
 }
 
 .fh-featureMedia img{
   width: 100%;
-  height: 320px;
-  object-fit: cover;
-  object-position: center 30%;
+  height: auto;
+
+  /* ✅ Mantiene proporción ancha tipo banner */
+  aspect-ratio: 16 / 7;
+
+  /* ✅ NO corta el producto */
+  object-fit: contain;
+
+  object-position: center;
   display: block;
 }
 
-/* Content */
+/* =========================
+   Content
+========================= */
+
 .fh-featureContent{
   padding: 0;
 }
@@ -98,7 +110,10 @@
   max-width: 62ch;
 }
 
-/* Reveal */
+/* =========================
+   Reveal Animation
+========================= */
+
 .fh-featureRow{
   opacity: 0;
   transform: translateY(10px);
@@ -127,7 +142,7 @@
 }
 
 /* =========================
-   Responsive — mantiene estilo FH (sin cards)
+   Responsive
 ========================= */
 
 @media (max-width: 980px){
@@ -148,8 +163,7 @@
   }
 
   .fh-featureMedia img{
-    height: 260px;
-    object-position: center 26%;
+    aspect-ratio: 16 / 9; /* un poco más alto en tablet */
   }
 }
 
@@ -159,11 +173,14 @@
   }
 
   .fh-featureMedia img{
-    height: 220px;
-    object-position: center 24%;
+    aspect-ratio: 4 / 3; /* más natural en móvil */
   }
 
   .fh-featureHeading{
-    letter-spacing: 0.02em; /* un toque más legible en móvil */
+    letter-spacing: 0.02em;
   }
+}
+
+.fh-featureRow:last-child{
+  border-bottom: none;
 }

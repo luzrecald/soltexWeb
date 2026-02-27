@@ -108,6 +108,14 @@ html{
   display: none;
 }
 
+/* ✅ CLAVE: el drawer debe quedar por encima del backdrop */
+@media (max-width: 900px){
+  .mainnav-mobile{
+    position: relative;
+    z-index: 71; /* arriba del backdrop y del contenido */
+  }
+}
+
 .mainnav-mobileInner{
   width: min(520px, calc(100% - 48px));
   margin: 0 auto;
@@ -136,6 +144,10 @@ html{
   text-transform: uppercase;
 
   border-bottom: 1px solid rgba(11,31,69,0.10);
+
+  /* ✅ iOS: taps más confiables */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .mainnav-mobileChevron{
@@ -154,7 +166,9 @@ html{
   background: rgba(0,0,0,0.18);
   position: fixed;
   inset: 0;
-  z-index: 60;
+
+  /* ✅ CLAVE: debe quedar debajo del drawer, pero arriba del contenido */
+  z-index: 69;
 }
 
 /* =========================
