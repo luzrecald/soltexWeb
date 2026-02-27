@@ -1,10 +1,12 @@
 /* =========================
    FAMILY STORY — Atmospheric blend (ultra tight)
+   ✅ Corregido para que en móvil la imagen siga siendo FONDO
+   (no queda arriba como bloque)
 ========================= */
 
 .story-section{
   background: #ffffff;
-  padding: 14px 0;              /* ✅ casi pegado */
+  padding: 14px 0; /* ✅ casi pegado */
 }
 
 .story-container{
@@ -13,17 +15,15 @@
   padding: 0 24px;
 }
 
-/* ✅ sin card; integramos con el fondo */
+/* ✅ Superficie “integrada” */
 .story-surface{
   position: relative;
   min-height: 560px;
   overflow: hidden;
-
-  /* “borde” suave sin línea sólida */
   border-radius: 26px;
 }
 
-/* Imagen integrada */
+/* Imagen de fondo (se usa con background-image inline o en CSS) */
 .story-bg{
   position: absolute;
   inset: 0;
@@ -31,17 +31,16 @@
   background-position: left 24%;
   filter: saturate(0.98) contrast(1.02);
   transform: scale(1.02);
+  z-index: 0;
 }
 
-/* 🔥 Difuminado: mezcla con blanco + suaviza “bordes” */
+/* Halo suave para que no “corte” */
 .story-surface::before{
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 2;
-
-  /* halo suave alrededor para que no “corte” */
   background:
     radial-gradient(120% 90% at 50% 30%,
       rgba(255,255,255,0.00) 55%,
@@ -56,7 +55,6 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-
   background:
     linear-gradient(
       90deg,
@@ -72,9 +70,8 @@
   position: relative;
   z-index: 3;
   margin-left: auto;
-
   width: min(560px, 52%);
-  padding: 34px 34px 34px 26px; /* ✅ menos aire interno, pero cómodo */
+  padding: 34px 34px 34px 26px;
 }
 
 /* Kicker */
@@ -109,38 +106,69 @@
 
 .story-text-last{ margin-bottom: 0; }
 
-/* Responsive */
+/* =========================
+   RESPONSIVE
+   ✅ CORRECCIÓN CLAVE:
+   En móvil NO ponemos .story-bg como bloque con height.
+   Se mantiene ABSOLUTO de fondo, y el contenido va encima.
+========================= */
+
 @media (max-width: 980px){
   .story-surface{
-    min-height: unset;
     border-radius: 22px;
+    min-height: 520px; /* ✅ mantiene espacio para el fondo */
   }
 
   .story-bg{
-    position: relative;
-    height: 300px;
+    position: absolute;
+    inset: 0;
+    height: auto;          /* ✅ no forzar height */
     background-position: left 18%;
+    transform: scale(1.03);
   }
 
+  /* Fade vertical para mobile (más legible) */
   .story-bg::after{
     background: linear-gradient(
       180deg,
-      rgba(255,255,255,0.06) 0%,
-      rgba(255,255,255,0.22) 48%,
+      rgba(255,255,255,0.10) 0%,
+      rgba(255,255,255,0.30) 45%,
       rgba(255,255,255,0.94) 100%
     );
   }
 
+  /* Contenido como “card” suave arriba del fondo */
   .story-content{
     width: 100%;
     margin-left: 0;
-    padding: 18px 20px 18px;
+
+    /* ✅ lo empujamos hacia abajo un poco para que respire */
+    padding: 18px 20px 20px;
+
+    /* opcional pero recomendado para legibilidad */
+    background: rgba(255,255,255,0.78);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    /* para que se vea premium */
+    border-radius: 16px;
+    margin: 220px 14px 14px; /* ✅ simula: imagen arriba + texto abajo SIN separar el fondo */
   }
 }
 
 @media (max-width: 520px){
   .story-container{ padding: 0 18px; }
-  .story-bg{ height: 250px; }
+
+  .story-surface{
+    min-height: 500px;
+  }
+
+  .story-content{
+    margin: 190px 12px 12px;
+    padding: 16px 16px 18px;
+    border-radius: 14px;
+  }
+
   .story-title{ font-size: 28px; }
   .story-text{ font-size: 15px; line-height: 1.75; }
 }
