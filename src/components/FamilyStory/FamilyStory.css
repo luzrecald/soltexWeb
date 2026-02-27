@@ -1,6 +1,5 @@
 /* =========================
-   FAMILY STORY — Atmospheric blend (ultra tight)
-   ✅ Fade perimetral real (360°)
+   FAMILY STORY — Same layout on mobile (like desktop)
 ========================= */
 
 .story-section{
@@ -19,11 +18,11 @@
   position: relative;
   min-height: 560px;
   overflow: hidden;
-  border-radius: 26px; /* puede quedar, pero ya no es lo que “recorta” */
+  border-radius: 26px;
   background: #ffffff;
 }
 
-/* Imagen de fondo */
+/* Fondo con fade perimetral */
 .story-bg{
   position: absolute;
   inset: 0;
@@ -33,11 +32,12 @@
   transform: scale(1.02);
   z-index: 0;
 
-  /* ✅ FADE PERIMETRAL: se desvanece en TODOS los bordes */
+  /* ✅ Fade perimetral (todos los bordes) */
   -webkit-mask-image:
     linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%),
     linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
   -webkit-mask-composite: source-in;
+
   mask-image:
     linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%),
     linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
@@ -53,25 +53,22 @@
   mask-position: center;
 }
 
-/* ✅ (Opcional) Si querés MÁS fade, subí 12% a 16-18% */
-
-/* Fade hacia la derecha para lectura (se mantiene, pero leve) */
+/* Fade lateral hacia la derecha (para lectura) */
 .story-bg::after{
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-
   background: linear-gradient(
     90deg,
     rgba(255,255,255,0.00) 0%,
-    rgba(255,255,255,0.08) 44%,
-    rgba(255,255,255,0.68) 70%,
-    rgba(255,255,255,0.95) 100%
+    rgba(255,255,255,0.10) 44%,
+    rgba(255,255,255,0.78) 68%,
+    rgba(255,255,255,1.00) 100%
   );
 }
 
-/* Contenido */
+/* Contenido (SIEMPRE a la derecha, como desktop) */
 .story-content{
   position: relative;
   z-index: 3;
@@ -110,82 +107,77 @@
   max-width: 62ch;
 }
 
-.story-text-last{
-  margin-bottom: 0;
-}
+.story-text-last{ margin-bottom: 0; }
 
 /* =========================
-   RESPONSIVE
+   RESPONSIVE (mantiene layout)
 ========================= */
 
+/* Tablets y phones: NO apilar, solo ajustar medidas */
 @media (max-width: 980px){
-
-  .story-surface{
-    border-radius: 22px;
-    min-height: 620px;
-  }
-
-  .story-bg{
-    background-position: left 18%;
-    transform: scale(1.05);
-
-    /* ✅ En mobile: un poco más de fade perimetral */
-    -webkit-mask-image:
-      linear-gradient(to right, transparent 0%, #000 16%, #000 84%, transparent 100%),
-      linear-gradient(to bottom, transparent 0%, #000 16%, #000 84%, transparent 100%);
-    mask-image:
-      linear-gradient(to right, transparent 0%, #000 16%, #000 84%, transparent 100%),
-      linear-gradient(to bottom, transparent 0%, #000 16%, #000 84%, transparent 100%);
-  }
-
-  /* Fade vertical para lectura */
-  .story-bg::after{
-    background: linear-gradient(
-      180deg,
-      rgba(255,255,255,0.00) 0%,
-      rgba(255,255,255,0.12) 35%,
-      rgba(255,255,255,0.90) 100%
-    );
-  }
-
-  /* Card flotante */
-  .story-content{
-    width: 100%;
-    margin-left: 0;
-
-    padding: 22px 22px 24px;
-
-    background: rgba(255,255,255,0.82);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-
-    border-radius: 18px;
-    margin: 260px 18px 20px;
-  }
-}
-
-@media (max-width: 520px){
-
   .story-container{
     padding: 0 18px;
   }
 
   .story-surface{
-    min-height: 600px;
+    border-radius: 22px;
+    min-height: 520px; /* más compacto */
+  }
+
+  .story-bg{
+    background-position: left 22%;
+    transform: scale(1.04);
+  }
+
+  /* ✅ mismo fade lateral, un poco más fuerte para lectura en pantallas chicas */
+  .story-bg::after{
+    background: linear-gradient(
+      90deg,
+      rgba(255,255,255,0.00) 0%,
+      rgba(255,255,255,0.14) 40%,
+      rgba(255,255,255,0.88) 70%,
+      rgba(255,255,255,1.00) 100%
+    );
   }
 
   .story-content{
-    margin: 220px 14px 16px;
-    padding: 18px 18px 20px;
-    border-radius: 16px;
+    width: min(520px, 60%); /* más ancho relativo */
+    padding: 26px 22px 26px 18px;
   }
 
   .story-title{
-    font-size: 28px;
+    font-size: clamp(1.7rem, 4.8vw, 2.4rem);
   }
 
   .story-text{
     font-size: 15px;
     line-height: 1.75;
+  }
+}
+
+/* Phones chicos: sigue igual (derecha), más ancho todavía */
+@media (max-width: 520px){
+  .story-surface{
+    min-height: 520px;
+    border-radius: 18px;
+  }
+
+  .story-bg{
+    background-position: left 18%;
+  }
+
+  .story-content{
+    width: min(520px, 72%); /* para que no quede demasiado angosto */
+    padding: 20px 18px 20px 16px;
+  }
+
+  .story-kicker{
+    font-size: 11px;
+    letter-spacing: 0.20em;
+  }
+
+  .story-title{
+    font-size: 26px;
+    line-height: 1.06;
   }
 }
