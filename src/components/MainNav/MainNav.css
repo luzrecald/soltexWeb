@@ -1,6 +1,6 @@
 .mainnav{
   position: sticky;
-  top: 42px;            /* 👈 porque tu top-header ocupa ~42px */
+  top: 42px;            /* tu top-header ocupa ~42px */
   z-index: 70;
   background: rgba(255,255,255,0.92);
   backdrop-filter: blur(10px);
@@ -17,6 +17,7 @@
   gap: 18px;
 }
 
+/* Brand */
 .mainnav-brand{
   color: #0b1f45;
   font-size: 18px;
@@ -28,6 +29,7 @@
   border-radius: 999px;
 }
 
+/* Desktop links */
 .mainnav-links{
   display: flex;
   align-items: center;
@@ -61,7 +63,142 @@
   border-color: rgba(11,31,69,0.25);
 }
 
+/* =========================
+   Mobile hamburger (hidden on desktop)
+========================= */
+
+.mainnav-burger{
+  display: none;
+  border: 0;
+  background: transparent;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.mainnav-burger span{
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: rgba(11,31,69,0.78);
+  transition: transform 200ms ease, opacity 200ms ease;
+}
+
+.mainnav-burger span + span{
+  margin-top: 6px;
+}
+
+.mainnav-burger.is-open span:first-child{
+  transform: translateY(4px) rotate(45deg);
+}
+
+.mainnav-burger.is-open span:last-child{
+  transform: translateY(-4px) rotate(-45deg);
+}
+
+/* =========================
+   Mobile drawer (FH clean)
+========================= */
+
+.mainnav-mobile{
+  display: none;
+}
+
+.mainnav-mobileInner{
+  width: min(520px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 14px 0 18px;
+  border-top: 1px solid rgba(11,31,69,0.12);
+  background: transparent;
+}
+
+.mainnav-mobileLink{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 14px 4px;
+  text-decoration: none;
+
+  color: rgba(11,31,69,0.82);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+
+  border-bottom: 1px solid rgba(11,31,69,0.10);
+}
+
+.mainnav-mobileLink.active{
+  color: #0b1f45;
+}
+
+.mainnav-mobileChevron{
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid rgba(11,31,69,0.45);
+  border-bottom: 2px solid rgba(11,31,69,0.45);
+  transform: rotate(-45deg);
+  margin-left: 14px;
+}
+
+/* Backdrop */
+.mainnav-backdrop{
+  display: none;
+  border: 0;
+  background: rgba(0,0,0,0.18);
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+}
+
+/* =========================
+   Responsive
+========================= */
+
 @media (max-width: 900px){
-  .mainnav-inner{ padding: 12px 18px; }
-  .mainnav-links{ gap: 12px; }
+  .mainnav-inner{
+    padding: 12px 18px;
+  }
+
+  /* hide desktop links */
+  .mainnav-links{
+    display: none;
+  }
+
+  /* show burger */
+  .mainnav-burger{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* show drawer area */
+  .mainnav-mobile{
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 240ms ease;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(10px);
+  }
+
+  .mainnav-mobile.is-open{
+    max-height: 340px; /* suficiente para 4 links */
+  }
+
+  .mainnav-backdrop{
+    display: none;
+  }
+
+  .mainnav-backdrop.is-open{
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .mainnav-burger span,
+  .mainnav-mobile{
+    transition: none !important;
+  }
 }

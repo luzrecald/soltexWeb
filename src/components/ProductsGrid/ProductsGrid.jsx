@@ -141,8 +141,8 @@ function useResponsiveColumns() {
   const getCols = () => {
     if (typeof window === "undefined") return 4;
     const w = window.innerWidth;
-    if (w <= 980) return 2; // tablet + phone => 2 columnas (como pediste)
-    return 4; // desktop
+    if (w <= 980) return 2;
+    return 4;
   };
 
   const [cols, setCols] = useState(getCols);
@@ -160,7 +160,6 @@ export default function ProductsGrid() {
   const [activeId, setActiveId] = useState(null);
 
   const columns = useResponsiveColumns();
-
   const rows = useMemo(() => chunkRows(PRODUCTS, columns), [columns]);
 
   const activeProduct = useMemo(
@@ -196,8 +195,7 @@ export default function ProductsGrid() {
             </p>
           </div>
 
-          {/* ✅ Dos rayas separadoras (como la referencia) */}
-          <div className="pg-sep" />
+          {/* ✅ SOLO UNA raya */}
           <div className="pg-sep" />
         </header>
 
