@@ -103,9 +103,14 @@ export default function Footer() {
               </a>
             </p>
 
-            <Link className="footer-cta" to="/contacto">
-              Solicitar cotización
-            </Link>
+        <a
+  className="footer-cta"
+  href="https://wa.me/595981948566?text=Hola%20Soltex,%20quiero%20solicitar%20una%20cotizaci%C3%B3n."
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  Solicitar cotización
+</a>
           </div>
         </div>
       </div>

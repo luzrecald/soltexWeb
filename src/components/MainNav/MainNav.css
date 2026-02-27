@@ -38,6 +38,11 @@
 }
 
 .mainnav-link{
+  appearance: none;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+
   color: rgba(11,31,69,0.72);
   text-decoration: none;
   font-size: 12px;
@@ -57,14 +62,8 @@
   border-color: rgba(11,31,69,0.25);
 }
 
-.mainnav-link.active{
-  background: #0b1f45;
-  color: #fff;
-  border-color: rgba(11,31,69,0.25);
-}
-
 /* =========================
-   Mobile hamburger (hidden on desktop)
+   Mobile hamburger
 ========================= */
 
 .mainnav-burger{
@@ -113,6 +112,12 @@
 }
 
 .mainnav-mobileLink{
+  appearance: none;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -127,10 +132,6 @@
   text-transform: uppercase;
 
   border-bottom: 1px solid rgba(11,31,69,0.10);
-}
-
-.mainnav-mobileLink.active{
-  color: #0b1f45;
 }
 
 .mainnav-mobileChevron{
@@ -184,7 +185,7 @@
   }
 
   .mainnav-mobile.is-open{
-    max-height: 340px; /* suficiente para 4 links */
+    max-height: 340px;
   }
 
   .mainnav-backdrop{

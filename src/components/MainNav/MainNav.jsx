@@ -1,16 +1,26 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import "./MainNav.css";
 
 const navItems = [
-  { to: "/empresa", label: "Empresa" },
-  { to: "/productos", label: "Productos" },
-  { to: "/personalizacion", label: "Personalización" },
-  { to: "/contacto", label: "Contacto" },
+  { id: "empresa", label: "Empresa" },
+  { id: "productos", label: "Productos" },
+  { id: "personalizacion", label: "Personalización" },
+  { id: "contacto", label: "Contacto" },
 ];
+
+function scrollToId(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  // Si usás scroll-margin-top en CSS, con esto basta:
+  el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
 
 export default function MainNav() {
   const [open, setOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   // Cerrar con ESC
   useEffect(() => {
@@ -32,25 +42,42 @@ export default function MainNav() {
 
   const closeMenu = () => setOpen(false);
 
+  const onGoToSection = async (id) => {
+    closeMenu();
+
+    // Si NO estás en home, primero navega al home y luego scrollea
+    if (location.pathname !== "/") {
+      navigate("/", { replace: false });
+
+      // Espera a que React renderice la home (micro delay)
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => scrollToId(id));
+      });
+      return;
+    }
+
+    scrollToId(id);
+  };
+
   return (
     <nav className="mainnav" aria-label="Navegación principal">
       <div className="mainnav-inner">
+        {/* Brand: siempre vuelve a Home */}
         <NavLink to="/" end className="mainnav-brand" onClick={closeMenu}>
           SOLTEX
         </NavLink>
 
-        {/* Desktop links */}
+        {/* Desktop links (scroll a secciones) */}
         <div className="mainnav-links">
           {navItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className={({ isActive }) =>
-                isActive ? "mainnav-link active" : "mainnav-link"
-              }
+            <button
+              key={item.id}
+              type="button"
+              className="mainnav-link"
+              onClick={() => onGoToSection(item.id)}
             >
               {item.label}
-            </NavLink>
+            </button>
           ))}
         </div>
 
@@ -68,7 +95,7 @@ export default function MainNav() {
         </button>
       </div>
 
-      {/* Mobile drawer (FH clean) */}
+      {/* Mobile drawer */}
       <div
         id="mainnav-mobile"
         className={`mainnav-mobile ${open ? "is-open" : ""}`}
@@ -78,17 +105,15 @@ export default function MainNav() {
       >
         <div className="mainnav-mobileInner">
           {navItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              onClick={closeMenu}
-              className={({ isActive }) =>
-                isActive ? "mainnav-mobileLink active" : "mainnav-mobileLink"
-              }
+            <button
+              key={item.id}
+              type="button"
+              className="mainnav-mobileLink"
+              onClick={() => onGoToSection(item.id)}
             >
               {item.label}
               <span className="mainnav-mobileChevron" aria-hidden="true" />
-            </NavLink>
+            </button>
           ))}
         </div>
       </div>

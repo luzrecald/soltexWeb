@@ -2,7 +2,7 @@
 .hero {
   position: relative;
   width: 100%;
-  min-height: calc(100svh - 42px); /* ✅ mejor que 100vh en móvil */
+  min-height: calc(100svh - 42px); /* mejor que 100vh en móvil */
   overflow: hidden;
   background: #0b0f1a;
 }
@@ -18,7 +18,7 @@
   z-index: 0;
   filter: saturate(0.95) contrast(1.05);
 
-  /* ✅ evita que el video capture clicks */
+  /* evita que el video capture clicks */
   pointer-events: none;
 }
 
@@ -34,7 +34,7 @@
     rgba(0, 0, 0, 0.18) 100%
   );
 
-  /* ✅ deja clickear el navbar */
+  /* deja clickear el navbar */
   pointer-events: none;
 }
 
@@ -48,8 +48,11 @@
   left: 0;
   right: 0;
 
-  z-index: 20;
+  z-index: 30;
   padding-top: 22px;
+
+  /* importantísimo para que nada "se mezcle" visualmente */
+  pointer-events: none;
 }
 
 .hero-header-inner {
@@ -60,10 +63,12 @@
   align-items: center;
   justify-content: space-between;
   gap: 18px;
+
+  pointer-events: auto; /* vuelve clickeable el contenido del header */
 }
 
 /* =========================
-   BRAND (SOLTEX arriba izquierda)
+   BRAND
 ========================= */
 
 .hero-brand {
@@ -91,7 +96,7 @@
 }
 
 /* =========================
-   NAV (arriba derecha)
+   NAV (desktop)
 ========================= */
 
 .hero-nav {
@@ -134,13 +139,53 @@
 }
 
 /* =========================
-   CONTENIDO (bloque de texto)
+   HAMBURGER (solo mobile)
+========================= */
+
+.hero-burger {
+  display: none;
+  border: 0;
+  background: transparent;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.hero-burger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.92);
+  transition: transform 200ms ease, opacity 200ms ease;
+}
+
+.hero-burger span + span {
+  margin-top: 6px;
+}
+
+.hero-burger.is-open span:first-child {
+  transform: translateY(4px) rotate(45deg);
+}
+
+.hero-burger.is-open span:last-child {
+  transform: translateY(-4px) rotate(-45deg);
+}
+
+/* Drawer */
+.hero-mobile {
+  display: none;
+  pointer-events: auto;
+}
+
+/* =========================
+   CONTENIDO
 ========================= */
 
 .hero-content {
   position: absolute;
   inset: 0;
-  z-index: 10; /* debajo del header y encima del overlay/video */
+  z-index: 10;
+  pointer-events: none; /* evita clicks raros sobre el video */
 }
 
 .hero-content-inner {
@@ -148,6 +193,7 @@
   left: 72px;
   bottom: 32px;
   max-width: 620px;
+  pointer-events: auto;
 }
 
 /* Título grande */
@@ -234,8 +280,9 @@
 }
 
 /* =========================
-   RESPONSIVE (mobile real)
-   ✅ cambia layout: video arriba + card abajo
+   RESPONSIVE (mobile)
+   video arriba + card abajo
+   ✅ con hamburger y drawer
 ========================= */
 
 @media (max-width: 640px) {
@@ -252,7 +299,6 @@
     inset: auto;
     width: 100%;
     height: auto;
-
     aspect-ratio: 16 / 10;
     object-fit: cover;
     object-position: center 55%;
@@ -266,8 +312,8 @@
     right: 0;
 
     aspect-ratio: 16 / 10;
-
     z-index: 1;
+
     background: linear-gradient(
       180deg,
       rgba(0, 0, 0, 0.25) 0%,
@@ -276,7 +322,7 @@
     );
   }
 
-  /* Header compacto */
+  /* Header compacto (siempre arriba del video) */
   .hero-header {
     padding-top: 12px;
   }
@@ -291,10 +337,55 @@
     padding: 6px 10px;
   }
 
-  /* Nav oculto para que no rompa en mobile
-     (si querés hamburguesa, hay que tocar React) */
+  /* ✅ escondemos links desktop para que NO aparezca el texto duplicado */
   .hero-nav {
     display: none;
+  }
+
+  /* ✅ mostramos burger */
+  .hero-burger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Drawer */
+  .hero-mobile {
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 240ms ease;
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(10px);
+
+    /* queda debajo del header-inner */
+    margin-top: 10px;
+    pointer-events: auto;
+  }
+
+  .hero-mobile.is-open {
+    max-height: 340px;
+  }
+
+  .hero-mobile-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 14px 14px;
+    text-decoration: none;
+
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+  }
+
+  .hero-mobile-link:first-child {
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
   }
 
   /* Contenido pasa a card abajo */
@@ -303,6 +394,7 @@
     inset: auto;
     z-index: 10;
     background: #ffffff;
+    pointer-events: auto;
   }
 
   .hero-content-inner {

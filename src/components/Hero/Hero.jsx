@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "./Hero.css";
 
@@ -9,6 +10,18 @@ const navItems = [
 ];
 
 export default function Hero() {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth > 900) setOpen(false);
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  const closeMenu = () => setOpen(false);
+
   return (
     <section className="hero">
       <video
@@ -24,16 +37,16 @@ export default function Hero() {
 
       <div className="hero-header">
         <div className="hero-header-inner">
-          <NavLink to="/" end className="hero-brand" aria-label="Ir al inicio">
+          <NavLink to="/" end className="hero-brand">
             SOLTEX
           </NavLink>
 
-          <nav className="hero-nav" aria-label="Navegación principal">
+          {/* Desktop nav */}
+          <nav className="hero-nav">
             {navItems.map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}
-                end
                 className={({ isActive }) =>
                   isActive ? "hero-nav-link active" : "hero-nav-link"
                 }
@@ -42,6 +55,30 @@ export default function Hero() {
               </NavLink>
             ))}
           </nav>
+
+          {/* Mobile burger */}
+          <button
+            className={`hero-burger ${open ? "is-open" : ""}`}
+            onClick={() => setOpen((v) => !v)}
+            aria-label="Menú"
+          >
+            <span />
+            <span />
+          </button>
+        </div>
+
+        {/* Mobile drawer */}
+        <div className={`hero-mobile ${open ? "is-open" : ""}`}>
+          {navItems.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              onClick={closeMenu}
+              className="hero-mobile-link"
+            >
+              {item.label}
+            </NavLink>
+          ))}
         </div>
       </div>
 
