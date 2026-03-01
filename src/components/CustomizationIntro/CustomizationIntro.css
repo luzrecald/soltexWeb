@@ -1,19 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
-
-:root{
-  --soltex-navy: #0b1f45;
-  --text-strong: rgba(12,22,51,0.94);
-  --text: rgba(12,22,51,0.76);
-  --line: rgba(11,31,69,0.18);
-}
-
 /* =========================
-   Personalización Intro — FH / Products-like
+   CustomizationIntro — Header estilo PRODUCTOS
+   - NO importa fuentes
+   - Usa tu tipografía global (IBM Plex u otra)
 ========================= */
 
+/* SECTION */
 .pci-section{
-  background: #ffffff;
-  padding: 10px 0 44px;
+  background: transparent;
+  padding: 0 0 64px;
+  margin: 0;
 }
 
 .pci-inner{
@@ -21,37 +16,35 @@
   margin: 0 auto;
 }
 
-/* Header */
+/* HEADER (igual a PRODUCTS) */
 .pci-header{
   text-align: center;
-  padding: 8px 0 0;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
-/* ✅ título principal igual a PRODUCTS */
 .pci-mainTitle{
-  margin: 0 0 18px;
-  font-family: "Inter", system-ui, sans-serif;
+  margin: 0 0 12px;
+  /* ✅ NO font-family acá, se usa la global */
   font-size: clamp(30px, 3.2vw, 44px);
   letter-spacing: 0.08em;
   font-weight: 500;
+  color: var(--ink);
   text-transform: uppercase;
-  color: var(--text-strong);
 }
 
-/* ✅ subtítulo más chico */
+/* Subtítulo más tipo “lead” como tu ejemplo */
 .pci-subTitle{
   margin: 0 0 14px;
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: clamp(20px, 2.2vw, 28px);
+  font-size: clamp(18px, 2.2vw, 26px);
   font-weight: 500;
   letter-spacing: -0.01em;
-  color: var(--text-strong);
+  color: var(--ink);
 }
 
+/* Texto igual a Products */
 .pci-leads{
   max-width: 88ch;
-  margin: 0 auto 10px;
+  margin: 0 auto 14px;
 }
 
 .pci-lead{
@@ -61,47 +54,52 @@
   color: var(--text);
 }
 
+/* ✅ SOLO UNA raya (igual a Products) */
+.pci-sep{
+  height: 1px;
+  background: var(--line);
+  margin: 12px auto 0;
+  width: min(1040px, 100%);
+}
+
 /* =========================
-   List: separadores finos entre secciones
+   Bloques (editorial limpio, sin grotesco)
 ========================= */
 
-.pci-wrap{
-  margin-top: 16px;
-}
-
 .pci-list{
-  border-top: 1px solid var(--line);
+  margin-top: 18px;
+  border-top: none; /* evita doble raya */
 }
 
-/* Bloque (sin card) */
 .pci-block{
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: clamp(16px, 3vw, 34px);
-  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+  align-items: start;
 
-  padding: 26px 0;
+  padding: 24px 0;
   border-bottom: 1px solid var(--line);
 }
 
-.pci-block--flip{
-  grid-template-columns: 0.85fr 1.15fr;
-}
 .pci-block--flip .pci-media{ order: 2; }
 .pci-block--flip .pci-content{ order: 1; }
 
-/* Media */
+/* Media más suave */
 .pci-media{
+  position: relative;
   overflow: hidden;
   border-radius: 0;
-  background: transparent;
+  background: rgba(35,31,32,0.03);
+  border: 1px solid rgba(35,31,32,0.10);
+
+  /* 🔥 MÁS CUADRADO */
+  aspect-ratio: 4 / 3;   /* probá 1 / 1 si las querés totalmente cuadradas */
 }
 
 .pci-image{
   width: 100%;
-  height: 320px;
+  height: 100%;
   object-fit: cover;
-  object-position: center;
   display: block;
 }
 
@@ -111,14 +109,12 @@
 }
 
 .pci-title{
-  margin: 0 0 12px;
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: clamp(18px, 2.2vw, 34px);
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  font-weight: 600;
+  margin: 0 0 14px;
+  font-size: 14px;            /* 🔥 antes 12px */
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--text-strong);
+  font-weight: 600;
+  color: var(--ink);
 }
 
 .pci-prose{
@@ -127,39 +123,13 @@
 
 .pci-p{
   margin: 0;
-  font-size: 15.5px;
-  line-height: 1.9;
+  font-size: 16.5px;          /* 🔥 antes 15.5px */
+  line-height: 1.85;
   color: var(--text);
 }
 
 .pci-p + .pci-p{
-  margin-top: 12px;
-}
-
-/* Reveal */
-.pci-reveal{
-  opacity: 0;
-  transform: translateY(10px);
-  filter: blur(0.8px);
-  transition:
-    opacity 520ms ease,
-    transform 520ms cubic-bezier(.2,.8,.2,1),
-    filter 520ms ease;
-  will-change: transform, opacity;
-}
-.pci-reveal.pci-reveal-in{
-  opacity: 1;
-  transform: translateY(0);
-  filter: blur(0);
-}
-
-@media (prefers-reduced-motion: reduce){
-  .pci-reveal{
-    opacity: 1 !important;
-    transform: none !important;
-    filter: none !important;
-    transition: none !important;
-  }
+  margin-top: 10px;
 }
 
 /* Responsive */
@@ -168,24 +138,13 @@
     width: min(920px, calc(100% - 32px));
   }
 
-  .pci-block,
-  .pci-block--flip{
+  .pci-block{
     grid-template-columns: 1fr;
-    gap: 16px;
-    padding: 22px 0;
-  }
-
-  .pci-block--flip .pci-media,
-  .pci-block--flip .pci-content{
-    order: initial;
+    gap: 18px;
   }
 
   .pci-image{
-    height: 260px;
-  }
-
-  .pci-prose{
-    max-width: 70ch;
+    height: 220px;
   }
 }
 
@@ -195,6 +154,6 @@
   }
 
   .pci-image{
-    height: 220px;
+    height: 190px;
   }
 }

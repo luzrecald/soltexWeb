@@ -63,7 +63,9 @@ export default function Features() {
     <section className="fh-features" aria-label="Ofrecemos" ref={sectionRef}>
       <div className="fh-featuresInner">
         <header className="fh-featuresHeader">
-          <h2 className="fh-featuresTitle">OFRECEMOS</h2>
+          <h2 className="section-title">
+         Ofrecemos
+        </h2>
         </header>
 
         <div className="fh-featuresList" role="list">

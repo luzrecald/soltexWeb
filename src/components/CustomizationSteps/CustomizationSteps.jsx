@@ -28,15 +28,16 @@ export default function CustomizationSteps() {
     <section className="cs2-section" aria-label="Cómo personalizar tus productos con Soltex">
       <div className="cs2-inner">
         <header className="cs2-header">
-          <h2 className="cs2-h2">CÓMO PERSONALIZAR TUS PRODUCTOS CON SOLTEX</h2>
-          {/* ✅ solo una raya */}
-          <div className="cs2-sep" />
+          <h2 className="cs2-h2">Cómo personalizar tus productos</h2>
+          <p className="cs2-lead">
+            Un proceso claro para llevar tu identidad visual al tejido, con consistencia y precisión.
+          </p>
         </header>
 
         <div className="cs2-grid" role="list">
           {STEPS.map((s) => (
             <article className="cs2-item" key={s.heading} role="listitem">
-              <div className="cs2-illustration">
+              <div className="cs2-media">
                 <img src={s.image} alt={s.heading} loading="lazy" />
               </div>
 

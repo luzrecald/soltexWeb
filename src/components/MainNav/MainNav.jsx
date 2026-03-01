@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import "./MainNav.css";
 
-// ✅ En tu app son páginas separadas (Routes en App.jsx)
 const navItems = [
-  { label: "Empresa", to: "/", scrollId: "empresa" }, // Home + scroll opcional
+  { label: "Empresa", to: "/", scrollId: "empresa" },
   { label: "Productos", to: "/productos" },
   { label: "Personalización", to: "/personalizacion" },
   { label: "Contacto", to: "/contacto" },
@@ -19,7 +18,6 @@ function scrollToIdWithRetry(id, tries = 60, intervalMs = 50) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
       return;
     }
-
     count += 1;
     if (count >= tries) return;
     window.setTimeout(tick, intervalMs);
@@ -35,7 +33,6 @@ export default function MainNav() {
 
   const closeMenu = () => setOpen(false);
 
-  // Cerrar con ESC
   useEffect(() => {
     const onKeyDown = (e) => {
       if (e.key === "Escape") setOpen(false);
@@ -44,7 +41,6 @@ export default function MainNav() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  // Cerrar al pasar a desktop
   useEffect(() => {
     const onResize = () => {
       if (window.innerWidth > 900) setOpen(false);
@@ -53,25 +49,19 @@ export default function MainNav() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  // Click handler único
   const onNav = (item) => {
     closeMenu();
 
-    // ✅ Caso especial: "Empresa" = Home, y si existe #empresa, scrollea
     if (item.scrollId) {
-      // si ya estás en Home, scrollea directo
       if (location.pathname === "/") {
         requestAnimationFrame(() => scrollToIdWithRetry(item.scrollId));
         return;
       }
-
-      // si no estás en Home, navegá a Home y luego scrollea
       navigate("/", { replace: false });
       requestAnimationFrame(() => scrollToIdWithRetry(item.scrollId));
       return;
     }
 
-    // ✅ El resto son páginas: navegar
     if (location.pathname !== item.to) {
       navigate(item.to, { replace: false });
     }
@@ -80,8 +70,15 @@ export default function MainNav() {
   return (
     <nav className="mainnav" aria-label="Navegación principal">
       <div className="mainnav-inner">
-        <NavLink to="/" end className="mainnav-brand" onClick={closeMenu}>
-          SOLTEX
+        {/* ✅ Brand con LOGO (public/footer-logo.png) */}
+        <NavLink to="/" end className="mainnav-brand" onClick={closeMenu} aria-label="Ir a inicio">
+          <img
+            src="/footer-logo.png"
+            alt="Soltex"
+            className="mainnav-logo"
+            loading="eager"
+            decoding="async"
+          />
         </NavLink>
 
         {/* Desktop */}

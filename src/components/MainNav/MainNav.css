@@ -1,22 +1,27 @@
-/* Para que el scroll por hash no quede tapado por tu topbar + nav sticky */
 html{
   scroll-behavior: smooth;
-  scroll-padding-top: 120px; /* ajustá si tu header total es más o menos */
+  scroll-padding-top: 120px;
 }
 
 .mainnav{
   position: sticky;
-  top: 42px; /* tu top-header ocupa ~42px */
+  top: 42px;
   z-index: 70;
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(11,31,69,0.10);
+
+  background: var(--frame);
+  border-bottom: 1px solid var(--line);
+
+  height: 52px;
+  display: flex;
+  align-items: center;
 }
 
 .mainnav-inner{
-  max-width: 1440px;
+  max-width: var(--container-max);
   margin: 0 auto;
-  padding: 14px 28px;
+  padding: 0 var(--container-pad);
+  width: 100%;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -25,21 +30,24 @@ html{
 
 /* Brand */
 .mainnav-brand{
-  color: #0b1f45;
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
+  display: flex;
+  align-items: center;
   text-decoration: none;
-  padding: 8px 10px;
-  border-radius: 999px;
+  line-height: 1;
+}
+
+/* ✅ Logo (reemplaza texto SOLTEX) */
+.mainnav-logo{
+  height: 28px;     /* ajustá 24–32 según te guste */
+  width: auto;
+  display: block;
 }
 
 /* Desktop links */
 .mainnav-links{
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 28px;
   flex-wrap: wrap;
 }
 
@@ -49,179 +57,147 @@ html{
   background: transparent;
   cursor: pointer;
 
-  color: rgba(11,31,69,0.72);
-  font-size: 12px;
-  font-weight: 600;
+  color: var(--nav);
+  font-size: 11px;
+  font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 
-  padding: 8px 12px;
-  border-radius: 999px;
-  border: 1px solid transparent;
-  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+  padding: 0;
+  line-height: 1;
+
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
 }
 
 .mainnav-link:hover{
-  background: #0b1f45;
-  color: #fff;
-  border-color: rgba(11,31,69,0.25);
+  color: var(--ink);
+  border-bottom-color: var(--ink);
 }
 
-/* =========================
-   Mobile hamburger
-========================= */
-
+/* Burger */
 .mainnav-burger{
   display: none;
   border: 0;
   background: transparent;
   padding: 10px;
   cursor: pointer;
-  border-radius: 12px;
+  border-radius: 10px;
 }
 
 .mainnav-burger span{
   display: block;
   width: 22px;
   height: 2px;
-  background: rgba(11,31,69,0.78);
+  background: rgba(35,31,32,0.70);
   transition: transform 200ms ease, opacity 200ms ease;
 }
 
-.mainnav-burger span + span{
-  margin-top: 6px;
-}
+.mainnav-burger span + span{ margin-top: 6px; }
 
 .mainnav-burger.is-open span:first-child{
   transform: translateY(4px) rotate(45deg);
 }
-
 .mainnav-burger.is-open span:last-child{
   transform: translateY(-4px) rotate(-45deg);
 }
 
-/* =========================
-   Mobile drawer
-========================= */
+/* Mobile drawer */
+.mainnav-mobile{ display: none; }
 
-.mainnav-mobile{
-  display: none;
-}
-
-/* ✅ CLAVE: el drawer debe quedar por encima del backdrop */
-@media (max-width: 900px){
-  .mainnav-mobile{
-    position: relative;
-    z-index: 71; /* arriba del backdrop y del contenido */
-  }
-}
-
-.mainnav-mobileInner{
-  width: min(520px, calc(100% - 48px));
-  margin: 0 auto;
-  padding: 14px 0 18px;
-  border-top: 1px solid rgba(11,31,69,0.12);
-  background: transparent;
-}
-
-.mainnav-mobileLink{
-  appearance: none;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 14px 4px;
-
-  color: rgba(11,31,69,0.82);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-
-  border-bottom: 1px solid rgba(11,31,69,0.10);
-
-  /* ✅ iOS: taps más confiables */
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-}
-
-.mainnav-mobileChevron{
-  width: 9px;
-  height: 9px;
-  border-right: 2px solid rgba(11,31,69,0.45);
-  border-bottom: 2px solid rgba(11,31,69,0.45);
-  transform: rotate(-45deg);
-  margin-left: 14px;
-}
-
-/* Backdrop */
 .mainnav-backdrop{
   display: none;
   border: 0;
-  background: rgba(0,0,0,0.18);
+  background: rgba(0,0,0,0.10);
   position: fixed;
   inset: 0;
-
-  /* ✅ CLAVE: debe quedar debajo del drawer, pero arriba del contenido */
   z-index: 69;
 }
 
-/* =========================
-   Responsive
-========================= */
-
+/* Responsive */
 @media (max-width: 900px){
+  .mainnav{
+    height: auto;
+    display: block;
+  }
+
   .mainnav-inner{
     padding: 12px 18px;
   }
 
-  /* hide desktop links */
-  .mainnav-links{
-    display: none;
+  .mainnav-links{ display: none; }
+
+  /* en mobile, logo un toque más chico */
+  .mainnav-logo{
+    height: 26px;
   }
 
-  /* show burger */
   .mainnav-burger{
     display: inline-flex;
     align-items: center;
     justify-content: center;
   }
 
-  /* show drawer area */
   .mainnav-mobile{
     display: block;
     max-height: 0;
     overflow: hidden;
     transition: max-height 240ms ease;
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(10px);
+
+    background: var(--frame);
+    border-top: 1px solid var(--line);
   }
 
-  .mainnav-mobile.is-open{
-    max-height: 340px;
+  .mainnav-mobile.is-open{ max-height: 360px; }
+
+  .mainnav-mobileInner{
+    width: min(520px, calc(100% - 36px));
+    margin: 0 auto;
+    padding: 10px 0 16px;
   }
 
-  .mainnav-backdrop{
-    display: none;
+  .mainnav-mobileLink{
+    appearance: none;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 14px 0;
+
+    color: var(--nav);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+
+    border-bottom: 1px solid rgba(35,31,32,0.10);
+    transition: color 0.2s ease;
+
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
 
-  .mainnav-backdrop.is-open{
-    display: block;
+  .mainnav-mobileLink:hover{ color: var(--ink); }
+
+  .mainnav-mobileChevron{
+    width: 9px;
+    height: 9px;
+    border-right: 2px solid rgba(35,31,32,0.35);
+    border-bottom: 2px solid rgba(35,31,32,0.35);
+    transform: rotate(-45deg);
+    margin-left: 14px;
   }
+
+  .mainnav-backdrop.is-open{ display: block; }
 }
 
 @media (prefers-reduced-motion: reduce){
-  html{
-    scroll-behavior: auto;
-  }
-
+  html{ scroll-behavior: auto; }
   .mainnav-burger span,
-  .mainnav-mobile{
-    transition: none !important;
-  }
+  .mainnav-mobile{ transition: none !important; }
 }

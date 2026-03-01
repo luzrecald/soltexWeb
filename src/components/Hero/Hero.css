@@ -1,14 +1,20 @@
-/* HERO FULL BLEED */
-.hero {
+/* =========================
+   HERO — Editorial / sobrio
+   - Video softer (less contrast)
+   - Overlay calm
+   - Content bottom-left (como antes)
+========================= */
+
+.hero{
   position: relative;
   width: 100%;
-  min-height: calc(100svh - 42px); /* mejor que 100vh en móvil */
+  min-height: 72vh;
   overflow: hidden;
   background: #0b0f1a;
 }
 
-/* VIDEO */
-.hero-video {
+/* VIDEO (suavizado) */
+.hero-video{
   position: absolute;
   inset: 0;
   width: 100%;
@@ -16,285 +22,133 @@
   object-fit: cover;
   object-position: center 55%;
   z-index: 0;
-  filter: saturate(0.95) contrast(1.05);
 
-  /* evita que el video capture clicks */
+  /* ✅ menos duro */
+  filter: saturate(0.75) contrast(0.95) brightness(0.85);
+  opacity: 0.92;
+
   pointer-events: none;
 }
 
 /* OVERLAY */
-.hero-overlay {
+.hero-overlay{
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0.55) 0%,
-    rgba(0, 0, 0, 0.35) 45%,
-    rgba(0, 0, 0, 0.18) 100%
-  );
-
-  /* deja clickear el navbar */
   pointer-events: none;
+
+  /* ✅ capa suave para lectura */
+  background:
+    linear-gradient(180deg, rgba(245,245,243,0.10) 0%, rgba(245,245,243,0.06) 40%, rgba(245,245,243,0.00) 70%),
+    linear-gradient(90deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.38) 45%, rgba(0,0,0,0.22) 100%);
 }
 
-/* =========================
-   HEADER dentro del hero
-========================= */
-
-.hero-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-
-  z-index: 30;
-  padding-top: 22px;
-
-  /* importantísimo para que nada "se mezcle" visualmente */
-  pointer-events: none;
-}
-
-.hero-header-inner {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 0 28px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-
-  pointer-events: auto; /* vuelve clickeable el contenido del header */
-}
-
-/* =========================
-   BRAND
-========================= */
-
-.hero-brand {
-  color: rgba(255, 255, 255, 0.92);
-  font-size: 26px;
-  font-weight: 500;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  text-decoration: none;
-
-  display: inline-flex;
-  align-items: center;
-  padding: 8px 12px;
-  border-radius: 999px;
-  border: 1px solid transparent;
-
-  transition: background 160ms ease, color 160ms ease, border-color 160ms ease,
-    opacity 160ms ease;
-}
-
-.hero-brand:hover {
-  background: #ffffff;
-  color: #0b1f45;
-  border-color: rgba(255, 255, 255, 0.55);
-}
-
-/* =========================
-   NAV (desktop)
-========================= */
-
-.hero-nav {
-  display: flex;
-  align-items: center;
-  gap: 26px;
-  flex-wrap: wrap;
-}
-
-.hero-nav-link {
-  color: rgba(255, 255, 255, 0.86);
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-
-  display: inline-flex;
-  align-items: center;
-  padding: 8px 12px;
-  border-radius: 999px;
-  border: 1px solid transparent;
-
-  transition: background 160ms ease, color 160ms ease, border-color 160ms ease,
-    opacity 160ms ease;
-}
-
-.hero-nav-link:hover {
-  background: #ffffff;
-  color: #0b1f45;
-  border-color: rgba(255, 255, 255, 0.55);
-  opacity: 1;
-}
-
-.hero-nav-link.active {
-  background: #ffffff;
-  color: #0b1f45;
-  border-color: rgba(255, 255, 255, 0.55);
-  opacity: 1;
-}
-
-/* =========================
-   HAMBURGER (solo mobile)
-========================= */
-
-.hero-burger {
-  display: none;
-  border: 0;
-  background: transparent;
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 12px;
-}
-
-.hero-burger span {
-  display: block;
-  width: 22px;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.92);
-  transition: transform 200ms ease, opacity 200ms ease;
-}
-
-.hero-burger span + span {
-  margin-top: 6px;
-}
-
-.hero-burger.is-open span:first-child {
-  transform: translateY(4px) rotate(45deg);
-}
-
-.hero-burger.is-open span:last-child {
-  transform: translateY(-4px) rotate(-45deg);
-}
-
-/* Drawer */
-.hero-mobile {
-  display: none;
-  pointer-events: auto;
-}
-
-/* =========================
-   CONTENIDO
-========================= */
-
-.hero-content {
+/* CONTENT: ocupa toda el área pero el bloque va abajo-izq */
+.hero-content{
   position: absolute;
   inset: 0;
-  z-index: 10;
-  pointer-events: none; /* evita clicks raros sobre el video */
+  z-index: 2;
+  pointer-events: none;
 }
 
-.hero-content-inner {
+/* ✅ vuelve a abajo-izquierda como antes */
+.hero-content-inner{
   position: absolute;
   left: 72px;
-  bottom: 32px;
-  max-width: 620px;
+  bottom: 46px;
+  max-width: 680px;
   pointer-events: auto;
 }
 
-/* Título grande */
-.hero-title {
-  color: #fff;
-  font-size: clamp(3.2rem, 6vw, 5.2rem);
-  line-height: 0.95;
+/* Eyebrow */
+.hero-eyebrow{
+  margin: 0 0 12px;
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.72);
+}
+
+/* Title */
+.hero-title{
   margin: 0 0 14px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  color: rgba(255,255,255,0.95);
+  font-size: clamp(44px, 5vw, 74px);
+  line-height: 0.98;
+  letter-spacing: -0.8px;
+  font-weight: 500;
 }
 
-/* Texto fino */
-.hero-subtitle {
-  color: rgba(255, 255, 255, 0.88);
-  max-width: 560px;
-  line-height: 1.75;
-  margin: 0 0 22px;
-  font-size: 16px;
-  font-weight: 400;
+/* Subtitle */
+.hero-subtitle{
+  margin: 0 0 26px;
+  color: rgba(255,255,255,0.78);
+  font-size: 18px;
+  line-height: 1.85;
+  max-width: 60ch;
 }
 
-/* Botones */
-.hero-buttons {
+/* Buttons */
+.hero-buttons{
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
 }
 
-.hero-btn {
+.hero-btn{
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  padding: 12px 18px;
-  border-radius: 10px;
-
+  padding: 12px 16px;
+  border-radius: 12px;
   text-decoration: none;
-  font-size: 14px;
-  font-weight: 600;
 
-  transition: transform 180ms ease, opacity 180ms ease;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-.hero-btn:hover {
-  transform: translateY(-1px);
-}
+.hero-btn:hover{ transform: translateY(-1px); }
 
-.hero-btn-primary {
-  background: #ffffff;
+.hero-btn-primary{
+  background: rgba(245,245,243,0.95);
   color: #111111;
 }
 
-.hero-btn-secondary {
-  background: rgba(255, 255, 255, 0.14);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  color: #ffffff;
+.hero-btn-secondary{
+  background: transparent;
+  color: rgba(245,245,243,0.92);
+  border: 1px solid rgba(245,245,243,0.35);
 }
 
-/* =========================
-   RESPONSIVE (tablet)
-========================= */
-
-@media (max-width: 900px) {
-  .hero-header-inner {
-    padding: 0 18px;
-  }
-
-  .hero-nav {
-    gap: 14px;
-  }
-
-  .hero-brand {
-    font-size: 20px;
-    letter-spacing: 0.22em;
-  }
-
-  .hero-content-inner {
+/* Tablet */
+@media (max-width: 900px){
+  .hero-content-inner{
     left: 18px;
     right: 18px;
-    bottom: 22px;
-    max-width: 520px;
+    bottom: 28px;
+    max-width: 560px;
+  }
+
+  .hero-subtitle{
+    font-size: 16px;
   }
 }
 
-/* =========================
-   RESPONSIVE (mobile)
-   video arriba + card abajo
-   ✅ con hamburger y drawer
-========================= */
-
-@media (max-width: 640px) {
-  .hero {
+/* Mobile (mantiene tu set: video arriba + card abajo) */
+@media (max-width: 560px){
+  .hero{
     min-height: auto;
     display: grid;
     grid-template-rows: auto 1fr;
     background: #0b0f1a;
   }
 
-  /* VIDEO pasa a ser bloque superior */
-  .hero-video {
+  .hero-video{
     position: relative;
     inset: auto;
     width: 100%;
@@ -304,13 +158,11 @@
     object-position: center 55%;
   }
 
-  /* Overlay solo sobre el área del video */
-  .hero-overlay {
+  .hero-overlay{
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-
     aspect-ratio: 16 / 10;
     z-index: 1;
 
@@ -322,140 +174,50 @@
     );
   }
 
-  /* Header compacto (siempre arriba del video) */
-  .hero-header {
-    padding-top: 12px;
-  }
-
-  .hero-header-inner {
-    padding: 0 14px;
-  }
-
-  .hero-brand {
-    font-size: 18px;
-    letter-spacing: 0.18em;
-    padding: 6px 10px;
-  }
-
-  /* ✅ escondemos links desktop para que NO aparezca el texto duplicado */
-  .hero-nav {
-    display: none;
-  }
-
-  /* ✅ mostramos burger */
-  .hero-burger {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* Drawer */
-  .hero-mobile {
-    display: block;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 240ms ease;
-    background: rgba(0, 0, 0, 0.78);
-    backdrop-filter: blur(10px);
-
-    /* queda debajo del header-inner */
-    margin-top: 10px;
-    pointer-events: auto;
-  }
-
-  .hero-mobile.is-open {
-    max-height: 340px;
-  }
-
-  .hero-mobile-link {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 14px 14px;
-    text-decoration: none;
-
-    color: rgba(255, 255, 255, 0.92);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-
-    border-top: 1px solid rgba(255, 255, 255, 0.10);
-  }
-
-  .hero-mobile-link:first-child {
-    border-top: 1px solid rgba(255, 255, 255, 0.10);
-  }
-
-  /* Contenido pasa a card abajo */
-  .hero-content {
+  .hero-content{
     position: relative;
     inset: auto;
-    z-index: 10;
-    background: #ffffff;
+    z-index: 2;
+    background: var(--bg);
     pointer-events: auto;
   }
 
-  .hero-content-inner {
+  .hero-content-inner{
     position: relative;
     left: auto;
     right: auto;
     bottom: auto;
-
     max-width: 100%;
-    padding: 18px 16px 20px;
+    padding: 18px 18px 24px;
   }
 
-  .hero-title {
-    color: #0b1f45;
-    font-size: 34px;
-    line-height: 1.05;
-    margin: 0 0 10px;
-  }
+  .hero-eyebrow{ color: rgba(17,17,17,0.62); }
+  .hero-title{ color: var(--ink); }
+  .hero-subtitle{ color: rgba(17,17,17,0.72); }
 
-  .hero-subtitle {
-    color: rgba(15, 23, 42, 0.74);
-    font-size: 15px;
-    line-height: 1.65;
-    margin: 0 0 14px;
-    max-width: 100%;
-  }
-
-  .hero-buttons {
+  .hero-buttons{
     display: grid;
     grid-template-columns: 1fr;
     gap: 10px;
   }
 
-  .hero-btn {
+  .hero-btn{
     width: 100%;
-    padding: 12px 14px;
-    border-radius: 12px;
   }
 
-  .hero-btn-primary {
-    background: #0b1f45;
-    color: #ffffff;
+  .hero-btn-primary{
+    background: var(--ink);
+    color: var(--bg);
   }
 
-  .hero-btn-secondary {
-    background: #ffffff;
-    color: #0b1f45;
-    border: 1px solid rgba(11, 31, 69, 0.18);
+  .hero-btn-secondary{
+    border-color: rgba(17,17,17,0.18);
+    color: var(--ink);
   }
 }
 
-/* =========================
-   MOBILE chico
-========================= */
-
-@media (max-width: 420px) {
-  .hero-title {
-    font-size: 30px;
-  }
-
-  .hero-content-inner {
-    padding: 16px 14px 18px;
+@media (max-width: 420px){
+  .hero-content-inner{
+    padding: 16px 14px 20px;
   }
 }

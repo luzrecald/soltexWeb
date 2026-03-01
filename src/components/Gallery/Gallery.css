@@ -5,9 +5,8 @@
 .gallery{
   width: 100%;
   padding: clamp(24px, 3vw, 44px) 0;
-  background: #ffffff;
+  background: var(--bg); /* ✅ mismo fondo que el resto */
 }
-
 .gallery-inner{
   max-width: 1180px;
   margin: 0 auto;

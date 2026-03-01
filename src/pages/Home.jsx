@@ -8,8 +8,8 @@ export default function Home() {
     <>
       <Hero />
       <FamilyStory />
-      <Gallery />
       <Features />
+      <Gallery />
       <section id="contacto" />
     </>
   );

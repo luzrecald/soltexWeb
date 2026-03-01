@@ -1,125 +1,123 @@
-// Footer.jsx
-import { Link } from "react-router-dom";
 import "./Footer.css";
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
-  const navItems = [
-    { to: "/productos", label: "Productos" },
-    { to: "/personalizacion", label: "Personalización" },
-    { to: "/empresa", label: "Empresa" },
-    { to: "/contacto", label: "Contacto" },
-  ];
+  // ✅ Dirección y link a Google Maps
+  const address =
+    "General Genes entre Julia M. Cueto y Mcal Estigarribia, San Lorenzo 0000, Paraguay";
+
+  // Link estable a Google Maps (query)
+  const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    address
+  )}`;
 
   return (
-    <footer className="site-footer">
-      <div className="site-footer-inner">
+    <footer className="ft" aria-label="Footer">
+      <div className="ft-inner">
+        <div className="ft-grid">
+          {/* Brand */}
+          <div className="ft-col ft-brand">
+            <img className="ft-logo" src="/footer-logo.png" alt="Soltex" loading="lazy" />
+            <p className="ft-tagline">
+              Componentes tejidos a medida. Precisión, consistencia y producción confiable desde 2011.
+            </p>
 
-        {/* Marca */}
-        <div className="footer-col footer-brand">
-          <Link to="/" className="footer-logo" aria-label="Ir al inicio">
-            <img src="/footer-logo.png" alt="Soltex" />
-          </Link>
+            <div className="ft-social">
+              <p className="ft-kicker">Seguinos en nuestras redes</p>
 
-          <p className="footer-tagline">
-            Componentes tejidos a medida. Precisión, consistencia y producción confiable desde 2011.
-          </p>
+              <div className="ft-socialRow">
+                {/* ✅ Reemplazá href por tus links reales */}
+                <a
+                  className="ft-pill ft-pillIcon"
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Instagram"
+                  title="Instagram"
+                >
+                  {/* Instagram */}
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 6.2A3.8 3.8 0 1015.8 12 3.8 3.8 0 0012 8.2zm0 6.2A2.4 2.4 0 1114.4 12 2.4 2.4 0 0112 14.4zM17.8 6.2a.9.9 0 11-.9.9.9.9 0 01.9-.9z" />
+                  </svg>
+                </a>
 
-          {/* Redes */}
-          <div className="footer-social">
-            <p className="footer-social-title">Seguinos en nuestras redes</p>
+                <a
+                  className="ft-pill ft-pillIcon"
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Facebook"
+                  title="Facebook"
+                >
+                  {/* Facebook */}
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.5 1.6-1.5H16.7V5c-.3 0-1.4-.1-2.6-.1-2.6 0-4.4 1.6-4.4 4.5V11H7v3h2.7v8h3.8z" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
 
-            <div className="footer-social-icons">
-              <a
-                className="footer-social-icon ig"
-                href="https://www.instagram.com/soltexpy/?hl=en"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <svg viewBox="0 0 24 24">
-                  <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9A3.5 3.5 0 0 0 20 16.5v-9A3.5 3.5 0 0 0 16.5 4h-9ZM12 7a5 5 0 1 1 0 10a5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6a3 3 0 0 0 0-6Zm5.75-.9a1.15 1.15 0 1 1 0 2.3a1.15 1.15 0 0 1 0-2.3Z" />
-                </svg>
-                <span>Instagram</span>
+          {/* Contact details */}
+          <div className="ft-col">
+            <p className="ft-kicker">Contacto</p>
+
+            <div className="ft-block">
+              <p className="ft-label">WhatsApp</p>
+              <a className="ft-link" href="https://wa.me/595981948566" target="_blank" rel="noreferrer">
+                +595 981 948 566
+              </a>
+              <p className="ft-muted">Atención comercial / ventas</p>
+            </div>
+
+            <div className="ft-block">
+              <p className="ft-label">Email</p>
+              <a className="ft-link" href="mailto:soltexventas@gmail.com">
+                soltexventas@gmail.com
+              </a>
+              <p className="ft-muted">Envíanos tu consulta o requerimiento</p>
+            </div>
+
+            <div className="ft-block">
+              <p className="ft-label">Horario</p>
+              <p className="ft-text">
+                Lunes – Viernes <br />
+                08:00 – 17:00
+              </p>
+            </div>
+          </div>
+
+          {/* Location / Nav */}
+          <div className="ft-col">
+            <p className="ft-kicker">Ubicación</p>
+
+            <div className="ft-block">
+              <p className="ft-label">Dirección</p>
+
+              {/* ✅ Click → Google Maps */}
+              <a className="ft-link" href={mapsHref} target="_blank" rel="noreferrer">
+                {address}
               </a>
 
-              <a
-                className="footer-social-icon fb"
-                href="https://www.facebook.com/soltexpy/?locale=es_LA"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <svg viewBox="0 0 24 24">
-                  <path d="M13.5 22v-8h2.7l.4-3H13.5V9.1c0-.9.3-1.6 1.6-1.6h1.7V4.8c-.3 0-1.5-.1-2.9-.1c-2.9 0-4.9 1.8-4.9 5.1V11H6.5v3H9v8h4.5Z" />
-                </svg>
-                <span>Facebook</span>
-              </a>
+              <p className="ft-muted">San Lorenzo, Paraguay</p>
+            </div>
+
+            <div className="ft-block">
+              <p className="ft-kicker">Navegación</p>
+              <div className="ft-links">
+                <a className="ft-link" href="/#empresa">Empresa</a>
+                <a className="ft-link" href="/productos">Productos</a>
+                <a className="ft-link" href="/personalizacion">Personalización</a>
+                <a className="ft-link" href="/contacto">Contacto</a>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Navegación */}
-        <div className="footer-col">
-          <h4 className="footer-title">Secciones</h4>
-
-          <nav className="footer-nav">
-            {navItems.map((item) => (
-              <Link key={item.to} to={item.to}>
-                {item.label}
-              </Link>
-            ))}
-          </nav>
+        <div className="ft-bottom">
+          <p className="ft-copy">© {year} SOLTEX. Todos los derechos reservados.</p>
         </div>
-
-        {/* Contacto */}
-        <div className="footer-col">
-          <h4 className="footer-title">Contacto</h4>
-
-          <div className="footer-contact">
-            <p>
-              <span className="footer-label">Ubicación</span>
-              <a
-                className="footer-value"
-                href="https://www.google.com/maps/search/?api=1&query=General+Genes+entre+Julia+M.+Cueto+y+Mcal+Estigarribia,+San+Lorenzo,+Paraguay"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                General Genes entre Julia M. Cueto y Mcal Estigarribia,
-                San Lorenzo, Paraguay
-              </a>
-            </p>
-
-            <p>
-              <span className="footer-label">Email</span>
-              <a className="footer-value" href="mailto:soltexventas@gmail.com">
-                soltexventas@gmail.com
-              </a>
-            </p>
-
-            <p>
-              <span className="footer-label">Teléfono</span>
-              <a className="footer-value" href="tel:+59581948566">
-                +595 819 48566
-              </a>
-            </p>
-
-        <a
-  className="footer-cta"
-  href="https://wa.me/595981948566?text=Hola%20Soltex,%20quiero%20solicitar%20una%20cotizaci%C3%B3n."
-  target="_blank"
-  rel="noopener noreferrer"
->
-  Solicitar cotización
-</a>
-          </div>
-        </div>
-      </div>
-
-      <div className="footer-bottom">
-        <p>© {year} Soltex. Todos los derechos reservados.</p>
-        <p className="footer-note">
-          Proveedor B2B · Cuellos y pretinas tejidos personalizados
-        </p>
       </div>
     </footer>
   );

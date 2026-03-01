@@ -1,183 +1,116 @@
 /* =========================
-   FAMILY STORY — Same layout on mobile (like desktop)
+   FAMILY STORY — centered + editorial
+   (usa el mismo container del sitio)
 ========================= */
 
-.story-section{
-  background: #ffffff;
-  padding: 14px 0;
+.story{
+  background: var(--bg);
+  padding: 80px 0;
 }
 
-.story-container{
-  max-width: 1120px;
+.story-inner{
+  width: min(var(--container-max), calc(100% - (var(--container-pad) * 2)));
   margin: 0 auto;
-  padding: 0 24px;
 }
 
-/* Superficie integrada */
-.story-surface{
-  position: relative;
-  min-height: 560px;
-  overflow: hidden;
-  border-radius: 26px;
-  background: #ffffff;
+/* Layout 2 columnas sobrio */
+.story-grid{
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(26px, 4vw, 60px);
+  align-items: start;
 }
 
-/* Fondo con fade perimetral */
-.story-bg{
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: left 24%;
-  filter: saturate(0.98) contrast(1.02);
-  transform: scale(1.02);
-  z-index: 0;
-
-  /* ✅ Fade perimetral (todos los bordes) */
-  -webkit-mask-image:
-    linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%),
-    linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
-  -webkit-mask-composite: source-in;
-
-  mask-image:
-    linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%),
-    linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
-  mask-composite: intersect;
-
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-
-  -webkit-mask-position: center;
-  mask-position: center;
+/* Imagen */
+.story-media{
+  width: 100%;
 }
 
-/* Fade lateral hacia la derecha (para lectura) */
-.story-bg::after{
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    90deg,
-    rgba(255,255,255,0.00) 0%,
-    rgba(255,255,255,0.10) 44%,
-    rgba(255,255,255,0.78) 68%,
-    rgba(255,255,255,1.00) 100%
-  );
+.story-media img{
+  width: 100%;
+  height: auto;
+  display: block;
+
+  /* “editorial” */
+  border-radius: 0;
+  background: rgba(35,31,32,0.04);
+
+  /* evita deformaciones si la imagen viene rara */
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
 }
 
-/* Contenido (SIEMPRE a la derecha, como desktop) */
+/* Texto */
 .story-content{
-  position: relative;
-  z-index: 3;
-  margin-left: auto;
-  width: min(560px, 52%);
-  padding: 34px 34px 34px 26px;
+  padding-top: 6px;
 }
 
-/* Kicker */
 .story-kicker{
-  margin: 0 0 12px;
+  margin: 0 0 16px;
   font-size: 12px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  font-weight: 600;
-  color: rgba(11,31,69,0.86);
+  font-weight: 500;
+  color: rgba(35,31,32,0.62);
 }
 
-/* Title */
 .story-title{
-  margin: 0 0 16px;
-  font-family: "Inter Tight","Inter",system-ui,sans-serif;
-  font-size: clamp(2.0rem, 3.0vw, 3.0rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  font-weight: 600;
-  color: rgba(12,22,51,0.94);
+  margin: 0 0 18px;
+  font-weight: 300;             /* más liviano */
+  font-size: clamp(30px, 3.1vw, 48px);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  color: rgba(35,31,32,0.92);
+  max-width: 18ch;
 }
 
-/* Text */
-.story-text{
-  margin: 0 0 14px;
-  font-size: 15.5px;
-  line-height: 1.85;
-  color: rgba(12,22,51,0.70);
+.story-prose p{
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--text);
   max-width: 62ch;
 }
 
-.story-text-last{ margin-bottom: 0; }
+.story-prose p + p{
+  margin-top: 18px;
+}
 
 /* =========================
-   RESPONSIVE (mantiene layout)
+   RESPONSIVE
+   (mantiene estética y evita que se rompa)
 ========================= */
 
-/* Tablets y phones: NO apilar, solo ajustar medidas */
 @media (max-width: 980px){
-  .story-container{
-    padding: 0 18px;
+  .story{
+    padding: 60px 0;
   }
 
-  .story-surface{
-    border-radius: 22px;
-    min-height: 520px; /* más compacto */
-  }
-
-  .story-bg{
-    background-position: left 22%;
-    transform: scale(1.04);
-  }
-
-  /* ✅ mismo fade lateral, un poco más fuerte para lectura en pantallas chicas */
-  .story-bg::after{
-    background: linear-gradient(
-      90deg,
-      rgba(255,255,255,0.00) 0%,
-      rgba(255,255,255,0.14) 40%,
-      rgba(255,255,255,0.88) 70%,
-      rgba(255,255,255,1.00) 100%
-    );
-  }
-
-  .story-content{
-    width: min(520px, 60%); /* más ancho relativo */
-    padding: 26px 22px 26px 18px;
+  .story-grid{
+    grid-template-columns: 1fr;
+    gap: 22px;
   }
 
   .story-title{
-    font-size: clamp(1.7rem, 4.8vw, 2.4rem);
+    max-width: 24ch;
   }
 
-  .story-text{
-    font-size: 15px;
-    line-height: 1.75;
+  .story-media img{
+    aspect-ratio: 16 / 10;
   }
 }
 
-/* Phones chicos: sigue igual (derecha), más ancho todavía */
-@media (max-width: 520px){
-  .story-surface{
-    min-height: 520px;
-    border-radius: 18px;
+@media (max-width: 560px){
+  .story{
+    padding: 48px 0;
   }
 
-  .story-bg{
-    background-position: left 18%;
+  .story-media img{
+    aspect-ratio: 4 / 3;
   }
 
-  .story-content{
-    width: min(520px, 72%); /* para que no quede demasiado angosto */
-    padding: 20px 18px 20px 16px;
-  }
-
-  .story-kicker{
-    font-size: 11px;
-    letter-spacing: 0.20em;
-  }
-
-  .story-title{
-    font-size: 26px;
-    line-height: 1.06;
+  .story-prose p{
+    font-size: 15px;
+    line-height: 1.8;
   }
 }

@@ -1,10 +1,29 @@
 /* =========================
-   GLOBAL RESET + TYPO (Fritz-like)
-   Headings: Work Sans 300
-   Body: Inter 400
+   GLOBAL RESET + TYPO
+   Font: IBM Plex Sans
 ========================= */
 
-@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&family=Inter:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&display=swap");
+
+/* =========================
+   THEME TOKENS
+========================= */
+
+:root{
+  --frame: #f6f6f6;      
+  --bg: #ffffff;         
+  --ink: #231f20;        
+  --text: rgba(35,31,32,0.78);
+  --nav: rgba(35,31,32,0.62);
+  --line: rgba(35,31,32,0.14);
+
+  --container-max: 1440px;
+  --container-pad: 28px;
+}
+
+@media (max-width: 900px){
+  :root{ --container-pad: 18px; }
+}
 
 /* =========================
    RESET
@@ -12,7 +31,7 @@
 
 *,
 *::before,
-*::after {
+*::after{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -20,26 +39,26 @@
 
 html,
 body,
-#root {
+#root{
   width: 100%;
   min-height: 100%;
 }
 
-html {
+html{
   scroll-behavior: smooth;
-  scroll-padding-top: 120px;
+  scroll-padding-top: 110px;
 }
 
-section {
-  scroll-margin-top: 120px;
+section{
+  scroll-margin-top: 110px;
 }
 
 /* =========================
    BASE
 ========================= */
 
-body {
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+body{
+  font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
   font-weight: 400;
   line-height: 1.7;
 
@@ -47,97 +66,71 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background: #ffffff;
-  color: #111111;
+  background: var(--bg);
+  color: var(--ink);
 }
 
-/* Links neutral */
-a {
+a{
   color: inherit;
   text-decoration: none;
 }
 
-/* Media responsive */
 img,
-video {
+video{
   max-width: 100%;
   height: auto;
   display: block;
 }
 
-/* Inputs heredan fuente */
 button,
 input,
 textarea,
-select {
+select{
   font: inherit;
   color: inherit;
 }
 
 /* =========================
-   PAGE WRAPPER (layout only)
+   GLOBAL TYPO SCALE
 ========================= */
 
-.page {
+h1, h2, h3, h4, h5, h6{
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  color: rgba(35,31,32,0.92);
+}
+
+h1{ font-size: clamp(28px, 3vw, 44px); }
+h2{ font-size: clamp(22px, 2.2vw, 30px); }
+h3{ font-size: clamp(18px, 1.6vw, 22px); }
+
+p{
+  color: var(--text);
+}
+
+::selection{
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+/* =========================
+   PAGE WRAPPER
+========================= */
+
+.page{
   min-height: 100vh;
   padding: 120px 40px 60px;
   background: transparent;
 }
 
-@media (max-width: 600px) {
-  .page {
+@media (max-width: 600px){
+  .page{
     padding: 96px 18px 48px;
   }
 }
 
-/* =========================
-   TITLES / NAV (Fritz-like)
-   -> más chicos + más finos + tracking moderado
-========================= */
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Work Sans", system-ui, sans-serif;
-  font-weight: 300;          /* thin */
-  text-transform: uppercase; /* como en el ejemplo */
-  letter-spacing: 0.10em;    /* tracking “premium” */
-  line-height: 1.12;
-  color: #111111;
-}
-
-/* ✅ tamaños más parecidos al screenshot */
-h1 { font-size: clamp(26px, 2.2vw, 34px); }
-h2 { font-size: clamp(20px, 1.8vw, 26px); }
-h3 { font-size: clamp(16px, 1.4vw, 20px); }
-
-/* =========================
-   CLASES UTILES (por si querés exactitud)
-========================= */
-
-/* Título principal tipo “HOME STORIES” */
-.fritz-title {
-  font-family: "Work Sans", system-ui, sans-serif;
-  font-weight: 300;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;     /* un poquito más */
-  font-size: clamp(24px, 2.4vw, 36px);
-  line-height: 1.1;
-}
-
-/* Subtítulo centrado fino */
-.fritz-subtitle {
-  font-family: "Inter", system-ui, sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.7;
-  color: rgba(17, 17, 17, 0.82);
-}
-
-/* Navegación / items (como “PRODUCTS / INSPIRATION / ABOUT US”) */
-.fritz-nav {
-  font-family: "Work Sans", system-ui, sans-serif;
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 12px;
-  color: rgba(17,17,17,0.92);
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
 }

@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import "./CustomizationIntro.css";
 
 const BLOCKS = [
@@ -25,7 +24,7 @@ const BLOCKS = [
 
 function Block({ title, paragraphs, image, alt, flip }) {
   return (
-    <article className={`pci-block ${flip ? "pci-block--flip" : ""}`} data-reveal>
+    <article className={`pci-block ${flip ? "pci-block--flip" : ""}`}>
       <div className="pci-media">
         <img className="pci-image" src={image} alt={alt} loading="lazy" />
       </div>
@@ -46,47 +45,12 @@ function Block({ title, paragraphs, image, alt, flip }) {
 }
 
 export default function CustomizationIntro() {
-  const rootRef = useRef(null);
-
-  useEffect(() => {
-    const root = rootRef.current;
-    if (!root) return;
-
-    const nodes = Array.from(root.querySelectorAll("[data-reveal]"));
-    if (nodes.length === 0) return;
-
-    const prefersReduced =
-      window.matchMedia &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    nodes.forEach((el) => el.classList.add("pci-reveal"));
-
-    if (prefersReduced) {
-      nodes.forEach((el) => el.classList.add("pci-reveal-in"));
-      return;
-    }
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (!e.isIntersecting) return;
-          e.target.classList.add("pci-reveal-in");
-          io.unobserve(e.target);
-        });
-      },
-      { threshold: 0.18, rootMargin: "0px 0px -10% 0px" }
-    );
-
-    nodes.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, []);
-
   return (
-    <section id="personalizacion" className="pci-section" ref={rootRef}>
-      {/* ✅ Header estilo PRODUCTS (sin pill) */}
-      <header className="pci-header" data-reveal>
-        <div className="pci-inner">
+    <section id="personalizacion" className="pci-section">
+      <div className="pci-inner">
+        <header className="pci-header">
           <h1 className="pci-mainTitle">PERSONALIZACIÓN</h1>
+
           <h2 className="pci-subTitle">Del concepto al tejido</h2>
 
           <div className="pci-leads">
@@ -95,16 +59,15 @@ export default function CustomizationIntro() {
               garantizar un resultado consistente, preciso y alineado con tu prenda.
             </p>
           </div>
-        </div>
-      </header>
 
-      <div className="pci-wrap">
-        <div className="pci-inner">
-          <div className="pci-list" role="list">
-            {BLOCKS.map((b, idx) => (
-              <Block key={b.title} {...b} flip={idx % 2 === 1} />
-            ))}
-          </div>
+          {/* ✅ Igual a PRODUCTS */}
+          <div className="pci-sep" />
+        </header>
+
+        <div className="pci-list" role="list">
+          {BLOCKS.map((b, idx) => (
+            <Block key={b.title} {...b} flip={idx % 2 === 1} />
+          ))}
         </div>
       </div>
     </section>
