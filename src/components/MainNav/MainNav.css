@@ -36,9 +36,9 @@ html{
   line-height: 1;
 }
 
-/* ✅ Logo (reemplaza texto SOLTEX) */
+/* ✅ Logo */
 .mainnav-logo{
-  height: 28px;     /* ajustá 24–32 según te guste */
+  height: 28px;
   width: auto;
   display: block;
 }
@@ -102,9 +102,10 @@ html{
   transform: translateY(-4px) rotate(-45deg);
 }
 
-/* Mobile drawer */
+/* Mobile drawer (default) */
 .mainnav-mobile{ display: none; }
 
+/* Backdrop */
 .mainnav-backdrop{
   display: none;
   border: 0;
@@ -112,9 +113,16 @@ html{
   position: fixed;
   inset: 0;
   z-index: 69;
+
+  /* ✅ IMPORTANT: cuando está cerrado no bloquea clicks */
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 200ms ease;
 }
 
-/* Responsive */
+/* =========================
+   Responsive
+========================= */
 @media (max-width: 900px){
   .mainnav{
     height: auto;
@@ -127,7 +135,7 @@ html{
 
   .mainnav-links{ display: none; }
 
-  /* en mobile, logo un toque más chico */
+  /* logo un toque más chico */
   .mainnav-logo{
     height: 26px;
   }
@@ -140,12 +148,17 @@ html{
 
   .mainnav-mobile{
     display: block;
+
     max-height: 0;
     overflow: hidden;
     transition: max-height 240ms ease;
 
     background: var(--frame);
     border-top: 1px solid var(--line);
+
+    /* ✅ FIX: el drawer por encima del backdrop */
+    position: relative;
+    z-index: 71; /* mayor que .mainnav(70) y .mainnav-backdrop(69) */
   }
 
   .mainnav-mobile.is-open{ max-height: 360px; }
@@ -193,11 +206,19 @@ html{
     margin-left: 14px;
   }
 
-  .mainnav-backdrop.is-open{ display: block; }
+  /* Backdrop abierto */
+  .mainnav-backdrop.is-open{
+    display: block;
+    pointer-events: auto;
+    opacity: 1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce){
   html{ scroll-behavior: auto; }
   .mainnav-burger span,
-  .mainnav-mobile{ transition: none !important; }
+  .mainnav-mobile,
+  .mainnav-backdrop{
+    transition: none !important;
+  }
 }
