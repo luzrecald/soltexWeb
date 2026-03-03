@@ -1,7 +1,5 @@
 /* =========================
    CustomizationIntro — Header estilo PRODUCTOS
-   - NO importa fuentes
-   - Usa tu tipografía global (IBM Plex u otra)
 ========================= */
 
 /* SECTION */
@@ -16,7 +14,7 @@
   margin: 0 auto;
 }
 
-/* HEADER (igual a PRODUCTS) */
+/* HEADER */
 .pci-header{
   text-align: center;
   margin-bottom: 16px;
@@ -24,7 +22,6 @@
 
 .pci-mainTitle{
   margin: 0 0 12px;
-  /* ✅ NO font-family acá, se usa la global */
   font-size: clamp(30px, 3.2vw, 44px);
   letter-spacing: 0.08em;
   font-weight: 500;
@@ -32,7 +29,6 @@
   text-transform: uppercase;
 }
 
-/* Subtítulo más tipo “lead” como tu ejemplo */
 .pci-subTitle{
   margin: 0 0 14px;
   font-size: clamp(18px, 2.2vw, 26px);
@@ -41,7 +37,6 @@
   color: var(--ink);
 }
 
-/* Texto igual a Products */
 .pci-leads{
   max-width: 88ch;
   margin: 0 auto 14px;
@@ -54,7 +49,7 @@
   color: var(--text);
 }
 
-/* ✅ SOLO UNA raya (igual a Products) */
+/* Separador */
 .pci-sep{
   height: 1px;
   background: var(--line);
@@ -63,12 +58,12 @@
 }
 
 /* =========================
-   Bloques (editorial limpio, sin grotesco)
+   Bloques
 ========================= */
 
 .pci-list{
   margin-top: 18px;
-  border-top: none; /* evita doble raya */
+  border-top: none;
 }
 
 .pci-block{
@@ -84,7 +79,7 @@
 .pci-block--flip .pci-media{ order: 2; }
 .pci-block--flip .pci-content{ order: 1; }
 
-/* Media más suave */
+/* Media */
 .pci-media{
   position: relative;
   overflow: hidden;
@@ -92,14 +87,15 @@
   background: rgba(35,31,32,0.03);
   border: 1px solid rgba(35,31,32,0.10);
 
-  /* 🔥 MÁS CUADRADO */
-  aspect-ratio: 4 / 3;   /* probá 1 / 1 si las querés totalmente cuadradas */
+  /* Desktop */
+  aspect-ratio: 4 / 3;
 }
 
 .pci-image{
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
 }
 
@@ -110,7 +106,7 @@
 
 .pci-title{
   margin: 0 0 14px;
-  font-size: 14px;            /* 🔥 antes 12px */
+  font-size: 14px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   font-weight: 600;
@@ -123,7 +119,7 @@
 
 .pci-p{
   margin: 0;
-  font-size: 16.5px;          /* 🔥 antes 15.5px */
+  font-size: 16.5px;
   line-height: 1.85;
   color: var(--text);
 }
@@ -132,7 +128,10 @@
   margin-top: 10px;
 }
 
-/* Responsive */
+/* =========================
+   Responsive
+========================= */
+
 @media (max-width: 980px){
   .pci-inner{
     width: min(920px, calc(100% - 32px));
@@ -143,8 +142,9 @@
     gap: 18px;
   }
 
-  .pci-image{
-    height: 220px;
+  /* ✅ en chico, más apaisado */
+  .pci-media{
+    aspect-ratio: 16 / 10;
   }
 }
 
@@ -153,7 +153,7 @@
     width: calc(100% - 24px);
   }
 
-  .pci-image{
-    height: 190px;
+  .pci-media{
+    aspect-ratio: 16 / 10;
   }
 }

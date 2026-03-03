@@ -2,7 +2,9 @@
    SOLTEX — Customization Steps
    Ajustes:
    - SIN raya debajo del título
-   - Espaciado coherente
+   - Desktop: 4 columnas
+   - Tablet: 2 columnas
+   - Mobile: carrusel horizontal (1 fila con scroll)
 ========================= */
 
 .cs2-section{
@@ -23,19 +25,16 @@
   text-align: center;
   padding-bottom: 24px;
   margin-bottom: 36px;
-  border-bottom: none; /* 🔥 eliminada */
+  border-bottom: none;
 }
 
 .cs2-h2{
   margin: 0 0 12px;
-
-  /* 🔥 MISMA LÓGICA QUE PERSONALIZACIÓN PERO MÁS CHICO */
   font-size: clamp(22px, 2.2vw, 30px);
   font-weight: 500;
   letter-spacing: 0.06em;
-  text-transform: none;     /* ← más elegante que todo en mayúsculas */
+  text-transform: none;
   line-height: 1.15;
-
   color: var(--ink);
 }
 
@@ -48,7 +47,6 @@
 }
 
 /* Grid */
-
 .cs2-grid{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -89,20 +87,52 @@
   max-width: 40ch;
 }
 
-/* Responsive */
-
+/* Tablet */
 @media (max-width: 1100px){
   .cs2-grid{
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
+/* Mobile: 1 fila horizontal con scroll */
 @media (max-width: 640px){
-  .cs2-grid{
-    grid-template-columns: 1fr;
-  }
-
   .cs2-section{
     padding: 50px 0 70px;
+  }
+
+  .cs2-inner{
+    width: calc(100% - 24px);
+  }
+
+  .cs2-grid{
+    /* ✅ carrusel horizontal */
+    grid-template-columns: repeat(4, minmax(260px, 1fr));
+    grid-auto-flow: column;
+    gap: 16px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 8px;
+
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .cs2-item{
+    scroll-snap-align: start;
+  }
+
+  /* opcional: un poco más compacto */
+  .cs2-title{
+    font-size: 12.5px;
+  }
+
+  .cs2-desc{
+    font-size: 14px;
+  }
+
+  /* opcional: scrollbar más prolija (no rompe nada si no aplica) */
+  .cs2-grid::-webkit-scrollbar{
+    height: 8px;
   }
 }

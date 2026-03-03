@@ -1,8 +1,9 @@
 /* =========================
    HERO — Editorial / sobrio
-   - Video softer (less contrast)
-   - Overlay calm
-   - Content bottom-left (como antes)
+   - Video suave
+   - Overlay elegante
+   - Contenido abajo-izquierda
+   - MISMO layout en mobile
 ========================= */
 
 .hero{
@@ -13,7 +14,7 @@
   background: #0b0f1a;
 }
 
-/* VIDEO (suavizado) */
+/* VIDEO */
 .hero-video{
   position: absolute;
   inset: 0;
@@ -23,7 +24,6 @@
   object-position: center 55%;
   z-index: 0;
 
-  /* ✅ menos duro */
   filter: saturate(0.75) contrast(0.95) brightness(0.85);
   opacity: 0.92;
 
@@ -37,13 +37,12 @@
   z-index: 1;
   pointer-events: none;
 
-  /* ✅ capa suave para lectura */
   background:
     linear-gradient(180deg, rgba(245,245,243,0.10) 0%, rgba(245,245,243,0.06) 40%, rgba(245,245,243,0.00) 70%),
     linear-gradient(90deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.38) 45%, rgba(0,0,0,0.22) 100%);
 }
 
-/* CONTENT: ocupa toda el área pero el bloque va abajo-izq */
+/* CONTENT */
 .hero-content{
   position: absolute;
   inset: 0;
@@ -51,7 +50,7 @@
   pointer-events: none;
 }
 
-/* ✅ vuelve a abajo-izquierda como antes */
+/* Bloque abajo-izquierda */
 .hero-content-inner{
   position: absolute;
   left: 72px;
@@ -112,7 +111,9 @@
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-.hero-btn:hover{ transform: translateY(-1px); }
+.hero-btn:hover{
+  transform: translateY(-1px);
+}
 
 .hero-btn-primary{
   background: rgba(245,245,243,0.95);
@@ -128,9 +129,9 @@
 /* Tablet */
 @media (max-width: 900px){
   .hero-content-inner{
-    left: 18px;
-    right: 18px;
-    bottom: 28px;
+    left: 24px;
+    right: 24px;
+    bottom: 32px;
     max-width: 560px;
   }
 
@@ -139,85 +140,68 @@
   }
 }
 
-/* Mobile (mantiene tu set: video arriba + card abajo) */
+/* Mobile — mismo layout que desktop */
 @media (max-width: 560px){
+
   .hero{
-    min-height: auto;
-    display: grid;
-    grid-template-rows: auto 1fr;
-    background: #0b0f1a;
+    min-height: 72vh;
   }
 
   .hero-video{
-    position: relative;
-    inset: auto;
+    position: absolute;
+    inset: 0;
     width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 10;
+    height: 100%;
     object-fit: cover;
     object-position: center 55%;
   }
 
   .hero-overlay{
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    aspect-ratio: 16 / 10;
-    z-index: 1;
-
-    background: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.25) 0%,
-      rgba(0, 0, 0, 0.35) 60%,
-      rgba(0, 0, 0, 0.55) 100%
-    );
+    inset: 0;
   }
 
   .hero-content{
-    position: relative;
-    inset: auto;
-    z-index: 2;
-    background: var(--bg);
-    pointer-events: auto;
+    position: absolute;
+    inset: 0;
+    background: transparent;
   }
 
   .hero-content-inner{
-    position: relative;
-    left: auto;
-    right: auto;
-    bottom: auto;
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 22px;
     max-width: 100%;
-    padding: 18px 18px 24px;
   }
 
-  .hero-eyebrow{ color: rgba(17,17,17,0.62); }
-  .hero-title{ color: var(--ink); }
-  .hero-subtitle{ color: rgba(17,17,17,0.72); }
+  .hero-eyebrow{
+    font-size: 12px;
+  }
+
+  .hero-title{
+    font-size: clamp(40px, 10vw, 64px);
+  }
+
+  .hero-buttons{
+    gap: 10px;
+  }
+}
+
+/* Extra chico */
+@media (max-width: 420px){
+  .hero-content-inner{
+    left: 14px;
+    right: 14px;
+    bottom: 18px;
+  }
 
   .hero-buttons{
     display: grid;
     grid-template-columns: 1fr;
-    gap: 10px;
   }
 
   .hero-btn{
     width: 100%;
-  }
-
-  .hero-btn-primary{
-    background: var(--ink);
-    color: var(--bg);
-  }
-
-  .hero-btn-secondary{
-    border-color: rgba(17,17,17,0.18);
-    color: var(--ink);
-  }
-}
-
-@media (max-width: 420px){
-  .hero-content-inner{
-    padding: 16px 14px 20px;
   }
 }

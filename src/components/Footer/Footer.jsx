@@ -83,14 +83,15 @@ export default function Footer() {
               <p className="ft-label">Horario</p>
               <p className="ft-text">
                 Lunes – Viernes <br />
-                08:00 – 17:00
-              </p>
-            </div>
+                08:00 – 18:00<br />
+                Sabados<br />
+                08:00 – 12:00
+              </p>           </div>
           </div>
 
           {/* Location / Nav */}
           <div className="ft-col">
-            <p className="ft-kicker">Ubicación</p>
+            
 
             <div className="ft-block">
               <p className="ft-label">Dirección</p>
