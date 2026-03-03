@@ -1,9 +1,7 @@
 /* =========================
    HERO — Editorial / sobrio
-   - Video suave
-   - Overlay elegante
-   - Contenido abajo-izquierda
-   - MISMO layout en mobile
+   - Video autoplay mobile OK
+   - Layout igual en desktop y mobile
 ========================= */
 
 .hero{
@@ -78,15 +76,6 @@
   font-weight: 500;
 }
 
-/* Subtitle */
-.hero-subtitle{
-  margin: 0 0 26px;
-  color: rgba(255,255,255,0.78);
-  font-size: 18px;
-  line-height: 1.85;
-  max-width: 60ch;
-}
-
 /* Buttons */
 .hero-buttons{
   display: flex;
@@ -134,41 +123,15 @@
     bottom: 32px;
     max-width: 560px;
   }
-
-  .hero-subtitle{
-    font-size: 16px;
-  }
 }
 
-/* Mobile — mismo layout que desktop */
+/* Mobile — MISMO layout que desktop */
 @media (max-width: 560px){
-
   .hero{
     min-height: 72vh;
   }
 
-  .hero-video{
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 55%;
-  }
-
-  .hero-overlay{
-    position: absolute;
-    inset: 0;
-  }
-
-  .hero-content{
-    position: absolute;
-    inset: 0;
-    background: transparent;
-  }
-
   .hero-content-inner{
-    position: absolute;
     left: 18px;
     right: 18px;
     bottom: 22px;
@@ -180,7 +143,7 @@
   }
 
   .hero-title{
-    font-size: clamp(40px, 10vw, 64px);
+    font-size: clamp(38px, 10vw, 64px);
   }
 
   .hero-buttons{
