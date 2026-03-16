@@ -64,10 +64,15 @@ html {
 
 .site-nav__toggle {
   display: none;
+  width: 40px;
+  height: 40px;
   border: 0;
   background: transparent;
-  padding: 10px;
+  padding: 0;
   cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .site-nav__toggle span {
@@ -75,19 +80,24 @@ html {
   width: 22px;
   height: 2px;
   background: rgba(35, 31, 32, 0.72);
+  border-radius: 999px;
   transition: transform 180ms ease, opacity 180ms ease;
 }
 
 .site-nav__toggle span + span {
-  margin-top: 6px;
+  margin-top: 5px;
 }
 
-.site-nav__toggle.is-open span:first-child {
-  transform: translateY(4px) rotate(45deg);
+.site-nav__toggle.is-open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
 }
 
-.site-nav__toggle.is-open span:last-child {
-  transform: translateY(-4px) rotate(-45deg);
+.site-nav__toggle.is-open span:nth-child(2) {
+  opacity: 0;
+}
+
+.site-nav__toggle.is-open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 .site-nav__mobile {
@@ -122,8 +132,6 @@ html {
 
   .site-nav__toggle {
     display: inline-flex;
-    align-items: center;
-    justify-content: center;
   }
 
   .site-nav__mobile {

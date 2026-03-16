@@ -33,11 +33,11 @@
 }
 
 .process-section__title{
-  margin: 0 0 18px;
-  font-size: 40px;
-  font-weight: 300;
-  line-height: 1.08;
+  margin: 0 0 28px;
+  font-size: 48px;
+  line-height: 1.06;
   letter-spacing: -0.03em;
+  font-weight: 300;
   color: #201a1b;
 }
 

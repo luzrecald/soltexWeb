@@ -10,6 +10,8 @@ export default function HomeProductsPreview() {
     >
       <div className="products-preview__inner">
         <header className="products-preview__header">
+          <p className="products-preview__kicker">Nuestros productos</p>
+
           <h2
             id="products-preview-title"
             className="products-preview__title"
@@ -51,8 +53,6 @@ export default function HomeProductsPreview() {
             </article>
           ))}
         </div>
-
-     
       </div>
     </section>
   );
