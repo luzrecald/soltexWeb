@@ -34,11 +34,6 @@ export default function CustomizationSteps() {
           <h2 id="process-title" className="process-section__title">
             Cómo personalizar tus cuellos y pretinas
           </h2>
-
-          <p className="process-section__lead">
-            Un proceso claro para llevar cada diseño al tejido, cuidando medida,
-            material y definición visual en cada etapa.
-          </p>
         </header>
 
         <div className="process-section__grid" role="list">

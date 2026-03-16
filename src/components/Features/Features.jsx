@@ -73,11 +73,6 @@ export default function Features() {
             Desarrollo textil a medida
           </h2>
 
-          <p className="fh-featuresLead">
-            Cada proyecto se desarrolla en función del diseño de la prenda,
-            combinando material, medida y estética para lograr componentes
-            tejidos que se integren de manera precisa al producto final.
-          </p>
         </header>
 
         <div className="fh-featuresList" role="list">
