@@ -93,8 +93,6 @@ export default function Footer() {
 
             <a className="ft-link" href="/productos">Productos</a>
 
-            <a className="ft-link" href="/#personalizacion">Personalización</a>
-
             <a className="ft-link" href="/contacto">Contacto</a>
 
           </div>
