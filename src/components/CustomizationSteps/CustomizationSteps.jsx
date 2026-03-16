@@ -3,7 +3,7 @@ import "./CustomizationSteps.css";
 const STEPS = [
   {
     heading: "Envíanos tu diseño",
-    desc: "Enviános tu diseño o referencia por WhatsApp para comenzar el desarrollo.",
+    desc: "Envíanos tu diseño o referencia por WhatsApp para comenzar el desarrollo.",
     image: "/step1.png",
   },
   {
@@ -25,27 +25,39 @@ const STEPS = [
 
 export default function CustomizationSteps() {
   return (
-    <section className="cs2-section" aria-label="Cómo personalizar tus productos con Soltex">
-      <div className="cs2-inner">
-        <header className="cs2-header">
-          <h2 className="cs2-h2">Cómo personalizar tus productos</h2>
-          <p className="cs2-lead">
-            Un proceso claro para llevar tu identidad visual al tejido, con consistencia y precisión.
+    <section className="process-section" aria-labelledby="process-title">
+      <div className="process-section__inner">
+
+        <header className="process-section__header">
+          <p className="process-section__kicker">Proceso</p>
+
+          <h2 id="process-title" className="process-section__title">
+            Cómo personalizar tus cuellos y pretinas
+          </h2>
+
+          <p className="process-section__lead">
+            Un proceso claro para llevar cada diseño al tejido, cuidando medida,
+            material y definición visual en cada etapa.
           </p>
         </header>
 
-        <div className="cs2-grid" role="list">
-          {STEPS.map((s) => (
-            <article className="cs2-item" key={s.heading} role="listitem">
-              <div className="cs2-media">
-                <img src={s.image} alt={s.heading} loading="lazy" />
+        <div className="process-section__grid" role="list">
+          {STEPS.map((step) => (
+            <article className="process-card" key={step.heading} role="listitem">
+
+              <div className="process-card__media">
+                <img src={step.image} alt={step.heading} loading="lazy" />
               </div>
 
-              <h3 className="cs2-title">{s.heading}</h3>
-              <p className="cs2-desc">{s.desc}</p>
+              <div className="process-card__content">
+                <h3 className="process-card__title">{step.heading}</h3>
+                <p className="process-card__desc">{step.desc}</p>
+              </div>
+
             </article>
           ))}
         </div>
+
       </div>
     </section>
   );

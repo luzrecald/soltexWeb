@@ -1,81 +1,78 @@
 /* =========================
-   CONTACTO — estilo editorial (Kvadrat-like)
-   - Mantiene tu JSX / estructura
-   - NO importa fuentes (usa la global del sitio)
-   - Fondo claro, líneas finas, sin sombras
+   CONTACTO — editorial limpio
 ========================= */
 
-/* SECTION */
 .ct-section{
-  background: var(--bg);
-  padding: 64px 0 80px;
+  background: #f6f3f2;
+  padding: 100px 0 110px;
 }
 
-/* container */
 .ct-inner{
-  width: min(
-    var(--container-max, 1440px),
-    calc(100% - (var(--container-pad, 28px) * 2))
-  );
+  width: min(1380px, calc(100% - 72px));
   margin: 0 auto;
 }
 
-/* Header centrado */
+/* =========================
+   Header
+========================= */
+
 .ct-header{
   text-align: center;
-  margin-bottom: 28px;
+  max-width: 860px;
+  margin: 0 auto 48px;
 }
 
 .ct-title{
-  margin: 0 0 10px;
-  font-size: clamp(28px, 3vw, 40px);
-  line-height: 1.12;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  color: var(--ink);
+  margin: 0 0 16px;
+  font-size: 40px;
+  line-height: 1.08;
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  color: #201a1b;
 }
 
 .ct-lead{
   margin: 0 auto;
-  max-width: 70ch;
-  font-size: 15.5px;
-  line-height: 1.85;
-  color: var(--text);
-}
-
-/* Card → pasa a panel editorial (sin card look) */
-.ct-card{
-  border: 0;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  border-radius: 0;
-  box-shadow: none;
-  background: transparent;
-  overflow: visible;
-}
-
-/* No overlay */
-.ct-cardOverlay{ display: none; }
-
-.ct-cardGrid{
-  display: grid;
-  grid-template-columns: 1.25fr 0.75fr;
-  gap: clamp(18px, 2.2vw, 28px);
-  padding: 28px 0;
+  max-width: 720px;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #4d4546;
+  font-weight: 300;
+  letter-spacing: -0.01em;
 }
 
 /* =========================
-   FORM — minimal, líneas finas
+   Main wrapper
+========================= */
+
+.ct-card{
+  border-top: 1px solid rgba(35,31,32,0.14);
+  border-bottom: 1px solid rgba(35,31,32,0.14);
+  background: transparent;
+}
+
+.ct-cardOverlay{
+  display: none;
+}
+
+.ct-cardGrid{
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  gap: 40px;
+  padding: 32px 0;
+}
+
+/* =========================
+   Form
 ========================= */
 
 .ct-form{
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 18px 22px;
+  gap: 20px 24px;
   align-content: start;
 }
 
-/* field */
 .ct-field{
   display: grid;
   gap: 8px;
@@ -86,38 +83,23 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   font-weight: 500;
-  color: rgba(35,31,32,0.62); /* como nav */
+  color: rgba(35,31,32,0.62);
 }
 
-/* Inputs: sin underline dark, sino línea sutil */
 .ct-field input,
 .ct-field textarea{
   appearance: none;
   width: 100%;
   border: 0;
   outline: none;
-
-  color: var(--ink);
   background: transparent;
-
-  padding: 10px 0 12px;
-  border-bottom: 1px solid var(--line);
-
+  color: #201a1b;
   font: inherit;
-  font-size: 15.5px;
-  line-height: 1.6;
-
+  font-size: 15px;
+  line-height: 1.7;
+  padding: 10px 0 12px;
+  border-bottom: 1px solid rgba(35,31,32,0.14);
   transition: border-color 180ms ease;
-}
-
-.ct-field textarea{
-  resize: vertical;
-  min-height: 120px;
-}
-
-.ct-field input::placeholder,
-.ct-field textarea::placeholder{
-  color: rgba(35,31,32,0.40);
 }
 
 .ct-field input:focus,
@@ -125,52 +107,66 @@
   border-bottom-color: rgba(35,31,32,0.34);
 }
 
+.ct-field textarea{
+  resize: vertical;
+  min-height: 150px;
+}
+
 .ct-field--message{
   grid-column: 1 / -1;
 }
 
-/* Actions */
+/* =========================
+   Actions
+========================= */
+
 .ct-actions{
   grid-column: 1 / -1;
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-top: 6px;
+  margin-top: 10px;
+  flex-wrap: wrap;
 }
 
-/* Botón pill editorial (como tu sistema) */
 .ct-btn{
-  border: 1px solid rgba(35,31,32,0.22);
+  border: 1px solid rgba(35,31,32,0.18);
   background: transparent;
   cursor: pointer;
-
-  padding: 12px 18px;
+  padding: 12px 20px;
   border-radius: 999px;
-
-  color: var(--ink);
+  color: #201a1b;
   font: inherit;
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   font-size: 12px;
-
-  transition: border-color 180ms ease, transform 180ms ease;
+  transition: border-color 180ms ease, transform 180ms ease, opacity 180ms ease;
 }
 
 .ct-btn:hover{
-  border-color: rgba(35,31,32,0.40);
+  border-color: rgba(35,31,32,0.36);
   transform: translateY(-1px);
 }
 
 .ct-btn:active{
-  transform: translateY(0px);
+  transform: translateY(0);
 }
 
-/* Status */
+.ct-btn:disabled{
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* =========================
+   Status
+========================= */
+
 .ct-status{
   margin: 0;
   font-size: 14px;
-  color: rgba(35,31,32,0.72);
+  line-height: 1.6;
 }
 
 .ct-status.is-error{
@@ -182,14 +178,14 @@
 }
 
 /* =========================
-   ASIDE — Contact details (Kvadrat vibe)
+   Aside
 ========================= */
 
 .ct-aside{
-  border-left: 1px solid var(--line);
-  padding-left: clamp(14px, 1.8vw, 20px);
+  border-left: 1px solid rgba(35,31,32,0.14);
+  padding-left: 24px;
   display: grid;
-  gap: 18px;
+  gap: 24px;
   align-content: start;
 }
 
@@ -204,13 +200,9 @@
 
 .ct-link{
   display: inline-block;
-  color: var(--ink);
+  color: #201a1b;
   text-decoration: none;
   font-weight: 500;
-}
-
-/* underline fino al hover (como nav) */
-.ct-link{
   position: relative;
   padding-bottom: 2px;
 }
@@ -222,7 +214,7 @@
   right: 0;
   bottom: 0;
   height: 1px;
-  background: var(--ink);
+  background: #201a1b;
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 180ms ease;
@@ -235,51 +227,83 @@
 
 .ct-muted{
   margin: 8px 0 0;
-  color: var(--text);
-  line-height: 1.65;
+  color: #514b4c;
+  line-height: 1.7;
   font-size: 14.5px;
+  font-weight: 300;
 }
 
-/* hint line */
 .ct-asideHint{
-  margin-top: 6px;
+  margin-top: 4px;
   height: 1px;
-  background: var(--line);
+  background: rgba(35,31,32,0.14);
 }
 
-.ct-asideHint span{ display:none; }
+.ct-asideHint span{
+  display: none;
+}
 
 /* =========================
    Responsive
 ========================= */
 
-@media (max-width: 900px){
+@media (max-width: 980px){
+  .ct-section{
+    padding: 88px 0 96px;
+  }
+
   .ct-inner{
-    width: min(
-      var(--container-max, 1440px),
-      calc(100% - (var(--container-pad-mobile, 18px) * 2))
-    );
+    width: min(100%, calc(100% - 48px));
   }
 
   .ct-cardGrid{
     grid-template-columns: 1fr;
-    padding: 22px 0;
+    gap: 28px;
   }
 
   .ct-aside{
     border-left: 0;
     padding-left: 0;
-    border-top: 1px solid var(--line);
-    padding-top: 18px;
+    border-top: 1px solid rgba(35,31,32,0.14);
+    padding-top: 20px;
   }
 
-  .ct-form{
-    grid-template-columns: 1fr;
+  .ct-lead{
+    font-size: 17px;
   }
 }
 
 @media (max-width: 640px){
   .ct-section{
-    padding: 52px 0 70px;
+    padding: 72px 0 80px;
+  }
+
+  .ct-inner{
+    width: calc(100% - 32px);
+  }
+
+  .ct-form{
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .ct-header{
+    margin-bottom: 36px;
+  }
+
+  .ct-title{
+    font-size: 40px;
+    line-height: 1.08;
+  }
+
+  .ct-lead{
+    font-size: 16px;
+    line-height: 1.75;
+    max-width: 100%;
+  }
+
+  .ct-field input,
+  .ct-field textarea{
+    font-size: 14.5px;
   }
 }

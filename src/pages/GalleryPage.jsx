@@ -1,7 +1,5 @@
+import { Navigate } from "react-router-dom";
+
 export default function GalleryPage() {
-  return (
-    <main className="page">
-      <h1>Galería</h1>
-    </main>
-  );
+  return <Navigate to="/" replace />;
 }

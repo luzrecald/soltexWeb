@@ -1,11 +1,5 @@
-import CustomizationIntro from "../components/CustomizationIntro/CustomizationIntro";
-import CustomizationSteps from "../components/CustomizationSteps/CustomizationSteps";
+import { Navigate } from "react-router-dom";
 
 export default function Customization() {
-  return (
-    <main className="page">
-      <CustomizationIntro />
-      <CustomizationSteps />
-    </main>
-  );
+  return <Navigate to="/#personalizacion" replace />;
 }

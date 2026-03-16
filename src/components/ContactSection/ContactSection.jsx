@@ -1,8 +1,9 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
+import { useForm, ValidationError } from "@formspree/react";
 import "./ContactSection.css";
 
 export default function ContactSection() {
-  const [status, setStatus] = useState({ type: "idle", msg: "" });
+  const [state, handleSubmit] = useForm("TU_FORM_ID_AQUI");
 
   const contact = useMemo(
     () => ({
@@ -13,31 +14,6 @@ export default function ContactSection() {
     []
   );
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-
-    const fd = new FormData(e.currentTarget);
-    const name = (fd.get("name") || "").toString().trim();
-    const email = (fd.get("email") || "").toString().trim();
-    const phone = (fd.get("phone") || "").toString().trim();
-    const subject = (fd.get("subject") || "").toString().trim();
-    const message = (fd.get("message") || "").toString().trim();
-
-    // Demo minimal: abre el cliente de correo con mailto (sin backend)
-    const mailSubject = encodeURIComponent(subject || "Consulta desde la web");
-    const mailBody = encodeURIComponent(
-      `Nombre: ${name}\nEmail: ${email}\nTeléfono: ${phone}\n\nMensaje:\n${message}`
-    );
-
-    if (!message) {
-      setStatus({ type: "error", msg: "Escribe un mensaje para poder enviar." });
-      return;
-    }
-
-    setStatus({ type: "ok", msg: "Abriendo tu correo para enviar el mensaje…" });
-    window.location.href = `mailto:${contact.email}?subject=${mailSubject}&body=${mailBody}`;
-  };
-
   return (
     <section className="ct-section" id="contacto" aria-labelledby="ct-title">
       <div className="ct-inner">
@@ -45,8 +21,10 @@ export default function ContactSection() {
           <h2 className="ct-title" id="ct-title">
             Contacto
           </h2>
+
           <p className="ct-lead">
-            Escribinos y respondemos lo antes posible. También podés contactarnos directo por WhatsApp o email.
+            Escribinos y respondemos lo antes posible. También podés contactarnos
+            directo por WhatsApp o email.
           </p>
         </header>
 
@@ -54,43 +32,88 @@ export default function ContactSection() {
           <div className="ct-cardOverlay" aria-hidden="true" />
 
           <div className="ct-cardGrid">
-            <form className="ct-form" onSubmit={onSubmit}>
+            <form className="ct-form" onSubmit={handleSubmit}>
               <div className="ct-field">
                 <label htmlFor="ct-name">Nombre</label>
-                <input id="ct-name" name="name" type="text" autoComplete="name" />
+                <input
+                  id="ct-name"
+                  name="name"
+                  type="text"
+                  autoComplete="name"
+                  required
+                />
               </div>
 
               <div className="ct-field">
                 <label htmlFor="ct-email">Email</label>
-                <input id="ct-email" name="email" type="email" autoComplete="email" />
+                <input
+                  id="ct-email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                />
+                <ValidationError
+                  prefix="Email"
+                  field="email"
+                  errors={state.errors}
+                  className="ct-status is-error"
+                />
               </div>
 
               <div className="ct-field">
                 <label htmlFor="ct-phone">Teléfono</label>
-                <input id="ct-phone" name="phone" type="tel" autoComplete="tel" />
+                <input
+                  id="ct-phone"
+                  name="phone"
+                  type="tel"
+                  autoComplete="tel"
+                />
               </div>
 
               <div className="ct-field">
                 <label htmlFor="ct-subject">Asunto</label>
-                <input id="ct-subject" name="subject" type="text" />
+                <input
+                  id="ct-subject"
+                  name="subject"
+                  type="text"
+                />
               </div>
 
               <div className="ct-field ct-field--message">
                 <label htmlFor="ct-message">Mensaje</label>
-                <textarea id="ct-message" name="message" rows={4} required />
+                <textarea
+                  id="ct-message"
+                  name="message"
+                  rows={4}
+                  required
+                />
+                <ValidationError
+                  prefix="Message"
+                  field="message"
+                  errors={state.errors}
+                  className="ct-status is-error"
+                />
               </div>
 
               <div className="ct-actions">
-                <button className="ct-btn" type="submit">
-                  Enviar
+                <button
+                  className="ct-btn"
+                  type="submit"
+                  disabled={state.submitting}
+                >
+                  {state.submitting ? "Enviando..." : "Enviar"}
                 </button>
 
-                {status.type !== "idle" && (
-                  <p
-                    className={`ct-status ${status.type === "error" ? "is-error" : "is-ok"}`}
-                    role={status.type === "error" ? "alert" : "status"}
-                  >
-                    {status.msg}
+                {state.succeeded && (
+                  <p className="ct-status is-ok" role="status">
+                    Mensaje enviado correctamente. Te responderemos lo antes posible.
+                  </p>
+                )}
+
+                {!state.succeeded && state.errors && state.errors.length > 0 && (
+                  <p className="ct-status is-error" role="alert">
+                    No pudimos enviar tu mensaje. Intenta nuevamente o contáctanos por WhatsApp o email.
                   </p>
                 )}
               </div>

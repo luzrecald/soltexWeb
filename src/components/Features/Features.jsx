@@ -3,25 +3,22 @@ import "./Features.css";
 
 const ITEMS = [
   {
-    title: "Armonía/Contraste de color",
-    text:
-      "Antes de la producción del pedido, definimos con el cliente los colores a utilizar en la fabricación de los cuellos y pretinas, logrando coincidencias exactas o contrastes según el resultado deseado.",
-    img: "/features/color.jpg",
-    alt: "Selección de hilo y ajuste de color para cuellos y pretinas tejidos",
+    title: "Armonía / Contraste de color",
+    text: "Antes de la producción del pedido, definimos con el cliente los colores a utilizar en la fabricación de los cuellos y pretinas, logrando coincidencias exactas o contrastes según el resultado deseado.",
+    img: "/features/color.png",
+    alt: "Selección de color para componentes tejidos",
   },
   {
     title: "Medidas ajustadas",
-    text:
-      "Trabajamos con medidas estándares y personalizadas, adaptándonos a distintos tamaños y requerimientos, incluyendo talles especiales como minis o XXXL.",
-    img: "/features/medidas.jpg",
-    alt: "Control de medidas y terminaciones en componentes tejidos",
+    text: "Trabajamos con medidas estándares y personalizadas, adaptándonos a distintos tamaños y requerimientos, incluyendo talles especiales como minis o XXXL.",
+    img: "/features/medidas.png",
+    alt: "Medición y ajuste de componentes tejidos",
   },
   {
     title: "Diseños únicos",
-    text:
-      "Fabricamos productos con diseños personalizados, utilizando rayas, patrones y textos para crear cuellos y pretinas únicos.",
-    img: "/features/diseno.jpeg",
-    alt: "Muestras de diseños tejidos personalizados con patrones y textos",
+    text: "Fabricamos productos con diseños personalizados, utilizando rayas, patrones y textos para crear cuellos y pretinas únicos.",
+    img: "/features/diseno.png",
+    alt: "Diseños textiles personalizados para cuellos y pretinas",
   },
 ];
 
@@ -36,43 +33,58 @@ export default function Features() {
       window.matchMedia &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const rows = Array.from(root.querySelectorAll(".fh-featureRow"));
-    if (rows.length === 0) return;
+    const elements = Array.from(root.querySelectorAll(".fh-reveal"));
+    if (elements.length === 0) return;
 
     if (prefersReduced) {
-      rows.forEach((el) => el.classList.add("is-visible"));
+      elements.forEach((el) => el.classList.add("is-visible"));
       return;
     }
 
-    const obs = new IntersectionObserver(
+    const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           entry.target.classList.add("is-visible");
-          obs.unobserve(entry.target);
+          observer.unobserve(entry.target);
         });
       },
-      { threshold: 0.18, rootMargin: "0px 0px -8% 0px" }
+      {
+        threshold: 0.12,
+        rootMargin: "0px 0px -8% 0px",
+      }
     );
 
-    rows.forEach((el) => obs.observe(el));
-    return () => obs.disconnect();
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <section className="fh-features" aria-label="Ofrecemos" ref={sectionRef}>
+    <section
+      className="fh-features"
+      aria-labelledby="features-title"
+      ref={sectionRef}
+    >
       <div className="fh-featuresInner">
-        <header className="fh-featuresHeader">
-          <h2 className="section-title">
-         Ofrecemos
-        </h2>
+        <header className="fh-featuresHeader fh-reveal" style={{ "--d": "0ms" }}>
+          <p className="fh-featuresKicker">OFRECEMOS</p>
+
+          <h2 id="features-title" className="fh-featuresTitle">
+            Desarrollo textil a medida
+          </h2>
+
+          <p className="fh-featuresLead">
+            Cada proyecto se desarrolla en función del diseño de la prenda,
+            combinando material, medida y estética para lograr componentes
+            tejidos que se integren de manera precisa al producto final.
+          </p>
         </header>
 
         <div className="fh-featuresList" role="list">
           {ITEMS.map((item, idx) => (
             <article
               key={item.title}
-              className={`fh-featureRow ${idx % 2 === 1 ? "is-reversed" : ""}`}
+              className="fh-featureCard fh-reveal"
               style={{ "--d": `${idx * 120}ms` }}
               role="listitem"
             >

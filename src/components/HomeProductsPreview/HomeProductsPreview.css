@@ -1,0 +1,226 @@
+/* =========================
+   HOME PRODUCTS PREVIEW
+========================= */
+
+.products-preview{
+  background: #f6f3f2;
+  padding: 100px 0 110px;
+}
+
+.products-preview__inner{
+  width: min(1380px, calc(100% - 72px));
+  margin: 0 auto;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.products-preview__header{
+  max-width: 980px;
+  margin: 0 auto 56px;
+  text-align: center;
+}
+
+.products-preview__title{
+  margin: 0 auto 18px;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: clamp(30px, 3.2vw, 42px);
+  font-weight: 300;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: #201a1b;
+  max-width: 20ch;
+  text-wrap: balance;
+}
+
+.products-preview__lead{
+  margin: 0 auto;
+  max-width: 760px;
+  font-size: 17px;
+  line-height: 1.8;
+  letter-spacing: -0.01em;
+  color: #4d4546;
+  font-weight: 300;
+  text-wrap: pretty;
+}
+
+/* =========================
+   GRID
+========================= */
+
+.products-preview__grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 42px 40px;
+  align-items: start;
+}
+
+.products-preview__item{
+  min-width: 0;
+}
+
+.products-preview__link{
+  display: block;
+  text-decoration: none;
+}
+
+/* =========================
+   MEDIA
+========================= */
+
+.products-preview__media{
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: rgba(35,31,32,0.04);
+}
+
+.products-preview__media img{
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: var(--pos, center center);
+  transition: transform 700ms cubic-bezier(.2,.8,.2,1);
+}
+
+.products-preview__link:hover .products-preview__media img{
+  transform: scale(1.03);
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.products-preview__content{
+  padding-top: 16px;
+  text-align: center;
+}
+
+.products-preview__name{
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #201a1b;
+}
+
+.products-preview__desc{
+  margin: 0 auto 14px;
+  max-width: 34ch;
+  font-size: 15px;
+  line-height: 1.72;
+  color: #4d4546;
+  font-weight: 300;
+}
+
+.products-preview__cta{
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8f6f56;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.products-preview__footer{
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.products-preview__all-link{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 20px;
+  border: 1px solid rgba(35,31,32,0.18);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #201a1b;
+  text-decoration: none;
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.products-preview__all-link:hover{
+  transform: translateY(-1px);
+  border-color: rgba(35,31,32,0.36);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1100px){
+  .products-preview{
+    padding: 88px 0 96px;
+  }
+
+  .products-preview__inner{
+    width: min(100%, calc(100% - 48px));
+  }
+
+  .products-preview__title{
+    font-size: clamp(28px, 3.8vw, 38px);
+    max-width: 22ch;
+  }
+
+  .products-preview__lead{
+    font-size: 16px;
+    max-width: 700px;
+  }
+
+  .products-preview__grid{
+    gap: 32px;
+  }
+}
+
+@media (max-width: 700px){
+  .products-preview{
+    padding: 72px 0 80px;
+  }
+
+  .products-preview__inner{
+    width: calc(100% - 32px);
+  }
+
+  .products-preview__header{
+    margin-bottom: 40px;
+  }
+
+  .products-preview__title{
+    font-size: clamp(28px, 8vw, 34px);
+    max-width: 100%;
+    margin-bottom: 16px;
+  }
+
+  .products-preview__lead{
+    font-size: 15px;
+    line-height: 1.75;
+    max-width: 100%;
+  }
+
+  .products-preview__grid{
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .products-preview__name{
+    font-size: 18px;
+  }
+
+  .products-preview__desc{
+    max-width: 100%;
+    font-size: 14.5px;
+  }
+}

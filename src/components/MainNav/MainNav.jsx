@@ -5,137 +5,155 @@ import "./MainNav.css";
 const navItems = [
   { label: "Empresa", to: "/", scrollId: "empresa" },
   { label: "Productos", to: "/productos" },
-  { label: "Personalización", to: "/personalizacion" },
   { label: "Contacto", to: "/contacto" },
 ];
 
-function scrollToIdWithRetry(id, tries = 60, intervalMs = 50) {
+function scrollToSection(id, tries = 80, intervalMs = 60) {
   let count = 0;
 
   const tick = () => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    const element = document.getElementById(id);
+
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
       return;
     }
+
     count += 1;
-    if (count >= tries) return;
-    window.setTimeout(tick, intervalMs);
+    if (count < tries) {
+      window.setTimeout(tick, intervalMs);
+    }
   };
 
   tick();
 }
 
 export default function MainNav() {
-  const [open, setOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
-  const closeMenu = () => setOpen(false);
+  const closeMenu = () => setIsMenuOpen(false);
 
   useEffect(() => {
-    const onKeyDown = (e) => {
-      if (e.key === "Escape") setOpen(false);
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setIsMenuOpen(false);
+      }
     };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   useEffect(() => {
-    const onResize = () => {
-      if (window.innerWidth > 900) setOpen(false);
+    const handleResize = () => {
+      if (window.innerWidth > 900) {
+        setIsMenuOpen(false);
+      }
     };
-    window.addEventListener("resize", onResize, { passive: true });
-    return () => window.removeEventListener("resize", onResize);
+
+    window.addEventListener("resize", handleResize, { passive: true });
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const onNav = (item) => {
+  useEffect(() => {
+    if (!location.hash) return;
+
+    const id = location.hash.replace("#", "");
+    if (!id) return;
+
+    scrollToSection(id);
+  }, [location.pathname, location.hash]);
+
+  const handleNavigation = (item) => {
     closeMenu();
 
     if (item.scrollId) {
       if (location.pathname === "/") {
-        requestAnimationFrame(() => scrollToIdWithRetry(item.scrollId));
+        scrollToSection(item.scrollId);
+        window.history.replaceState(null, "", `/#${item.scrollId}`);
         return;
       }
-      navigate("/", { replace: false });
-      requestAnimationFrame(() => scrollToIdWithRetry(item.scrollId));
+
+      navigate(`/#${item.scrollId}`);
       return;
     }
 
     if (location.pathname !== item.to) {
-      navigate(item.to, { replace: false });
+      navigate(item.to);
     }
   };
 
   return (
-    <nav className="mainnav" aria-label="Navegación principal">
-      <div className="mainnav-inner">
-        {/* ✅ Brand con LOGO (public/footer-logo.png) */}
-        <NavLink to="/" end className="mainnav-brand" onClick={closeMenu} aria-label="Ir a inicio">
+    <nav className="site-nav" aria-label="Navegación principal">
+      <div className="site-nav__inner">
+        <NavLink
+          to="/"
+          end
+          className="site-nav__brand"
+          onClick={closeMenu}
+          aria-label="Ir a inicio"
+        >
           <img
             src="/footer-logo.png"
             alt="Soltex"
-            className="mainnav-logo"
+            className="site-nav__logo"
             loading="eager"
             decoding="async"
           />
         </NavLink>
 
-        {/* Desktop */}
-        <div className="mainnav-links">
+        <div className="site-nav__links">
           {navItems.map((item) => (
             <button
               key={item.label}
               type="button"
-              className="mainnav-link"
-              onClick={() => onNav(item)}
+              className="site-nav__link"
+              onClick={() => handleNavigation(item)}
             >
               {item.label}
             </button>
           ))}
         </div>
 
-        {/* Mobile hamburger */}
         <button
-          className={`mainnav-burger ${open ? "is-open" : ""}`}
+          className={`site-nav__toggle ${isMenuOpen ? "is-open" : ""}`}
           type="button"
-          aria-label={open ? "Cerrar menú" : "Abrir menú"}
-          aria-expanded={open}
-          aria-controls="mainnav-mobile"
-          onClick={() => setOpen((v) => !v)}
+          aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
+          aria-expanded={isMenuOpen}
+          aria-controls="site-nav-mobile"
+          onClick={() => setIsMenuOpen((prev) => !prev)}
         >
           <span />
           <span />
         </button>
       </div>
 
-      {/* Mobile drawer */}
       <div
-        id="mainnav-mobile"
-        className={`mainnav-mobile ${open ? "is-open" : ""}`}
+        id="site-nav-mobile"
+        className={`site-nav__mobile ${isMenuOpen ? "is-open" : ""}`}
         role="dialog"
         aria-modal="true"
         aria-label="Menú"
       >
-        <div className="mainnav-mobileInner">
+        <div className="site-nav__mobile-inner">
           {navItems.map((item) => (
             <button
               key={item.label}
               type="button"
-              className="mainnav-mobileLink"
-              onClick={() => onNav(item)}
+              className="site-nav__mobile-link"
+              onClick={() => handleNavigation(item)}
             >
               {item.label}
-              <span className="mainnav-mobileChevron" aria-hidden="true" />
             </button>
           ))}
         </div>
       </div>
 
-      {/* Backdrop */}
       <button
         type="button"
-        className={`mainnav-backdrop ${open ? "is-open" : ""}`}
+        className={`site-nav__backdrop ${isMenuOpen ? "is-open" : ""}`}
         aria-label="Cerrar menú"
         onClick={closeMenu}
       />

@@ -1,44 +1,61 @@
 /* =========================
-   GALLERY — Motion Premium (tamaño original)
+   GALLERY — editorial premium
 ========================= */
 
 .gallery{
   width: 100%;
-  padding: clamp(24px, 3vw, 44px) 0;
-  background: var(--bg); /* ✅ mismo fondo que el resto */
-}
-.gallery-inner{
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 0 24px;
+  padding: 96px 0 110px;
+  background: #f6f3f2;
 }
 
-/* Grid */
+.gallery-inner{
+  width: min(1380px, calc(100% - 72px));
+  margin: 0 auto;
+}
+
+/* =========================
+   Grid
+========================= */
+
 .gallery-grid{
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
+  gap: 28px;
+  align-items: start;
 }
 
-/* Item */
+/* =========================
+   Item
+========================= */
+
 .gallery-item{
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
+
+  opacity: 0;
+  transform: translateY(34px);
+  transition:
+    opacity 800ms ease,
+    transform 900ms cubic-bezier(.22,1,.36,1);
+  transition-delay: var(--d, 0ms);
+  will-change: opacity, transform;
 }
 
-/* Media */
+.gallery-item.is-visible{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================
+   Media
+========================= */
+
 .gallery-media{
   position: relative;
-  border-radius: 18px;
   overflow: hidden;
-
-  background: rgba(12,22,51,0.04);
+  background: rgba(35,31,32,0.04);
   aspect-ratio: 1 / 1;
-
-  transition:
-    transform 500ms cubic-bezier(.2,.8,.2,1),
-    box-shadow 500ms ease;
 }
 
 .gallery-media img{
@@ -46,85 +63,74 @@
   height: 100%;
   object-fit: cover;
   display: block;
-
-  transition: transform 1.4s cubic-bezier(.2,.8,.2,1);
+  transition: transform 700ms cubic-bezier(.2,.8,.2,1);
 }
 
-/* Hover premium */
-.gallery-item:hover .gallery-media{
-  transform: translateY(-6px);
-  box-shadow:
-    0 28px 70px rgba(12,22,51,0.14),
-    0 8px 22px rgba(12,22,51,0.08);
+.gallery-item:hover .gallery-media img{
+  transform: scale(1.03);
 }
 
-.gallery-item:hover img{
-  transform: scale(1.06);
-}
+/* =========================
+   Label
+========================= */
 
-/* Label */
 .gallery-label{
   margin: 0;
-  font-size: 12px;
-  letter-spacing: 0.18em;
+  font-size: 13px;
+  line-height: 1.5;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  font-weight: 600;
-  color: rgba(12,22,51,0.82);
+  font-weight: 500;
+  color: #4d4546;
 }
 
 /* =========================
-   RESPONSIVE (tablet)
+   Responsive
 ========================= */
 
-@media (max-width: 1000px){
-  .gallery-grid{
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-  }
-}
-
-/* =========================
-   RESPONSIVE (mobile: horizontal scroll + snap)
-========================= */
-
-@media (max-width: 600px){
+@media (max-width: 1100px){
   .gallery{
-    padding: 40px 0;
+    padding: 84px 0 96px;
   }
 
   .gallery-inner{
-    padding: 0 18px;
+    width: min(100%, calc(100% - 48px));
   }
 
   .gallery-grid{
-    /* ✅ deja de ser grid de columnas y pasa a fila scrolleable */
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 78%;  /* tamaño de cada card en mobile (probá 82% si querés más grande) */
-    grid-template-columns: unset;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+}
 
-    gap: 14px;
-
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-
-    padding-bottom: 10px;
-
-    /* ✅ “gutter” lateral para que la primera/última no queden pegadas */
-    padding-left: 6px;
-    padding-right: 6px;
+@media (max-width: 640px){
+  .gallery{
+    padding: 72px 0 80px;
   }
 
+  .gallery-inner{
+    width: calc(100% - 32px);
+  }
+
+  .gallery-grid{
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .gallery-label{
+    font-size: 12px;
+    letter-spacing: 0.12em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
   .gallery-item{
-    scroll-snap-align: start;
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 
-  /* ✅ en móvil no tiene sentido hover */
-  .gallery-item:hover .gallery-media,
-  .gallery-item:hover img{
-    transform: none;
-    box-shadow: none;
+  .gallery-media img{
+    transition: none;
   }
 }

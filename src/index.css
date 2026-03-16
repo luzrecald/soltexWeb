@@ -10,9 +10,9 @@
 ========================= */
 
 :root{
-  --frame: #f6f6f6;      
-  --bg: #ffffff;         
-  --ink: #231f20;        
+  --frame: #f6f6f6;
+  --bg: #ffffff;
+  --ink: #231f20;
   --text: rgba(35,31,32,0.78);
   --nav: rgba(35,31,32,0.62);
   --line: rgba(35,31,32,0.14);
@@ -22,7 +22,9 @@
 }
 
 @media (max-width: 900px){
-  :root{ --container-pad: 18px; }
+  :root{
+    --container-pad: 18px;
+  }
 }
 
 /* =========================
@@ -61,11 +63,9 @@ body{
   font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
   font-weight: 400;
   line-height: 1.7;
-
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
   background: var(--bg);
   color: var(--ink);
 }
@@ -88,13 +88,22 @@ textarea,
 select{
   font: inherit;
   color: inherit;
+  background: transparent;
+  border: none;
+  outline: none;
 }
 
 /* =========================
-   GLOBAL TYPO SCALE
+   GLOBAL TYPO BASE
+   Sin tamaños globales
 ========================= */
 
-h1, h2, h3, h4, h5, h6{
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
   font-family: "IBM Plex Sans", sans-serif;
   font-weight: 400;
   letter-spacing: -0.01em;
@@ -102,9 +111,9 @@ h1, h2, h3, h4, h5, h6{
   color: rgba(35,31,32,0.92);
 }
 
-h1{ font-size: clamp(28px, 3vw, 44px); }
-h2{ font-size: clamp(22px, 2.2vw, 30px); }
-h3{ font-size: clamp(18px, 1.6vw, 22px); }
+/* Importante:
+   NO definir font-size global para h1/h2/h3
+   Cada sección maneja su propio tamaño con clases */
 
 p{
   color: var(--text);
@@ -121,7 +130,7 @@ p{
 
 .page{
   min-height: 100vh;
-  padding: 120px 40px 60px;
+  padding: 50px 40px 60px;
   background: transparent;
 }
 
@@ -132,5 +141,7 @@ p{
 }
 
 @media (prefers-reduced-motion: reduce){
-  html{ scroll-behavior: auto; }
+  html{
+    scroll-behavior: auto;
+  }
 }
