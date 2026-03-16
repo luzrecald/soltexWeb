@@ -36,7 +36,6 @@ export const PRODUCTS = [
   {
     id: "pretinas-polo",
     title: "Pretinas para remeras tipo  Polo",
-    subtitle: "Pretinas tejidas para polos",
     image: "/product2.png",
     cardPosition: "75% center",
    gallery: [
@@ -69,8 +68,7 @@ export const PRODUCTS = [
 
   {
     id: "pretinas-dobles-deportivas",
-    title: "Pretinas Dobles Deportivas",
-    subtitle: "Aplicación deportiva tejida",
+    title: "Pretinas Dobles",
     image: "/product3.png",
     cardPosition: "75% center",
    gallery: [
@@ -103,7 +101,6 @@ export const PRODUCTS = [
   {
     id: "pretinas-buzo",
     title: "Pretinas de Buzo",
-    subtitle: "Pretinas tejidas para buzos",
     image: "/product4.png",
     cardPosition: "center center",
     gallery: [

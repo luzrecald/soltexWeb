@@ -6,6 +6,7 @@
   width: 100%;
   padding: 96px 0 110px;
   background: #f6f3f2;
+  overflow: hidden;
 }
 
 .gallery-inner{
@@ -33,7 +34,6 @@
   flex-direction: column;
   gap: 16px;
   min-width: 0;
-  flex-shrink: 0;
 
   opacity: 0;
   transform: translateY(34px);
@@ -115,14 +115,11 @@
   }
 
   .gallery-grid{
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 82%;
+    display: flex;
     gap: 16px;
-    align-items: start;
     overflow-x: auto;
     overflow-y: hidden;
-    padding: 0 16px 8px;
+    padding: 0 16px 10px;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
   }
@@ -137,8 +134,8 @@
   }
 
   .gallery-item{
+    flex: 0 0 calc(100% - 32px);
     scroll-snap-align: start;
-    min-width: 0;
     gap: 14px;
   }
 

@@ -12,8 +12,6 @@ export default function ProductsGrid() {
           {/* TEXTO */}
           <div className="pg-heroContent">
 
-            <span className="pg-kicker">Catálogo</span>
-
             <h1 className="pg-h1">PRODUCTOS</h1>
 
             <p className="pg-intro">

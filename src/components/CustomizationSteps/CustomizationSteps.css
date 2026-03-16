@@ -52,7 +52,7 @@
 }
 
 /* =========================
-   Grid
+   Grid desktop
 ========================= */
 
 .process-section__grid{
@@ -70,7 +70,6 @@
   display: flex;
   flex-direction: column;
   min-width: 0;
-  flex-shrink: 0;
 }
 
 .process-card__media{
@@ -114,7 +113,7 @@
 }
 
 /* =========================
-   Responsive
+   Tablet
 ========================= */
 
 @media (max-width: 1100px){
@@ -131,7 +130,7 @@
   }
 
   .process-section__title{
-    font-size: 40px;
+    font-size: 34px;
   }
 
   .process-section__lead{
@@ -145,9 +144,14 @@
   }
 }
 
+/* =========================
+   Mobile horizontal scroll
+========================= */
+
 @media (max-width: 640px){
   .process-section{
     padding: 72px 0 80px;
+    overflow: hidden;
   }
 
   .process-section__inner{
@@ -155,37 +159,34 @@
   }
 
   .process-section__header{
-    margin-bottom: 40px;
+    margin-bottom: 32px;
     padding: 0 16px;
   }
 
   .process-section__kicker{
-    margin-bottom: 16px;
+    margin-bottom: 14px;
     font-size: 12px;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.18em;
   }
 
   .process-section__title{
-    font-size: 40px;
-    margin-bottom: 16px;
-    line-height: 1.08;
+    font-size: 24px;
+    line-height: 1.15;
+    margin-bottom: 14px;
   }
 
   .process-section__lead{
     max-width: 100%;
-    font-size: 16px;
-    line-height: 1.75;
+    font-size: 15px;
+    line-height: 1.65;
   }
 
   .process-section__grid{
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 82%;
+    display: flex;
     gap: 16px;
-    align-items: start;
     overflow-x: auto;
     overflow-y: hidden;
-    padding: 0 16px 8px;
+    padding: 0 16px 10px;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
   }
@@ -200,16 +201,22 @@
   }
 
   .process-card{
+    flex: 0 0 calc(100% - 32px);
     scroll-snap-align: start;
-    min-width: 0;
+  }
+
+  .process-card__content{
+    padding-top: 14px;
   }
 
   .process-card__title{
-    font-size: 20px;
+    font-size: 18px;
+    margin-bottom: 8px;
   }
 
   .process-card__desc{
     max-width: 100%;
-    font-size: 15px;
+    font-size: 14px;
+    line-height: 1.6;
   }
 }
